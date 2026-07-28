@@ -1,3 +1,4 @@
+import Link from "next/link";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
@@ -45,12 +46,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           ) : null}
 
           {project.caseStudyUrl ? (
-            <a
+            <Link
               href={project.caseStudyUrl}
               className="inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 px-3.5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
             >
               Case Study
-            </a>
+            </Link>
           ) : (
             <span className="inline-flex h-9 cursor-not-allowed items-center justify-center rounded-md border border-zinc-200 px-3.5 text-sm font-medium text-zinc-400 dark:border-zinc-800 dark:text-zinc-600">
               Case Study

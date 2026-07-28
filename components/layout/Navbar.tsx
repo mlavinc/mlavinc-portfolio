@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 import { navLinks } from "@/data/navigation";
 
@@ -12,23 +13,23 @@ export function Navbar() {
         aria-label="Main navigation"
         className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4"
       >
-        <a
+        <Link
           href="/"
           className="text-sm font-semibold tracking-tight text-zinc-950 transition-colors duration-200 dark:text-zinc-50"
           onClick={() => setIsOpen(false)}
         >
           Martin Lavin Carvajal
-        </a>
+        </Link>
 
         <ul className="hidden items-center gap-6 md:flex">
           {navLinks.map((link) => (
             <li key={link.href}>
-              <a
-                href={link.href}
+              <Link
+                href={`/${link.href}`}
                 className="text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
               >
                 {link.label}
-              </a>
+              </Link>
             </li>
           ))}
         </ul>
@@ -83,13 +84,13 @@ export function Navbar() {
           <ul className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
-                <a
-                  href={link.href}
+                <Link
+                  href={`/${link.href}`}
                   className="block text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
