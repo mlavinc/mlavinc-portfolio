@@ -16,7 +16,7 @@ export function Projects() {
   return (
     <section
       aria-labelledby="projects"
-      className="py-16 sm:py-20"
+      className="pt-20 pb-0 sm:pt-24"
     >
       <div className="mx-auto w-full max-w-5xl px-6">
         <motion.h2

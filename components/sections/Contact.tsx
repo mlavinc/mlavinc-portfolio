@@ -7,7 +7,7 @@ export function Contact() {
   return (
     <section
       aria-labelledby="contact"
-      className="pt-8 pb-16 sm:pb-20"
+      className="pt-8 pb-20 sm:pb-24"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2

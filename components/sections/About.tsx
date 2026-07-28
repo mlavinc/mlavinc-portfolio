@@ -7,7 +7,7 @@ export function About() {
   return (
     <section
       aria-labelledby="about"
-      className="pt-16 pb-0 sm:pt-20"
+      className="pt-20 pb-0 sm:pt-24"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
