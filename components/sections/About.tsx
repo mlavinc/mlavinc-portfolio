@@ -7,12 +7,12 @@ export function About() {
   return (
     <section
       aria-labelledby="about"
-      className="py-16 sm:py-20"
+      className="pt-16 pb-0 sm:pt-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
           id="about"
-          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
         >
           About
         </h2>

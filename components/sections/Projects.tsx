@@ -21,7 +21,7 @@ export function Projects() {
       <div className="mx-auto w-full max-w-5xl px-6">
         <motion.h2
           id="projects"
-          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
           variants={fadeUpVariants}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="visible"
