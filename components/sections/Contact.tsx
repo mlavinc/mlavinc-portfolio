@@ -6,14 +6,13 @@ import { contactLinks, contactMessage } from "@/data/contact";
 export function Contact() {
   return (
     <section
-      id="contact"
-      aria-labelledby="contact-heading"
-      className="scroll-mt-20 py-16 sm:py-20"
+      aria-labelledby="contact"
+      className="py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
-          id="contact-heading"
-          className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          id="contact"
+          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
         >
           Contact
         </h2>

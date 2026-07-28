@@ -6,14 +6,13 @@ import { skillCategories } from "@/data/skills";
 export function Skills() {
   return (
     <section
-      id="skills"
-      aria-labelledby="skills-heading"
-      className="scroll-mt-20 py-16 sm:py-20"
+      aria-labelledby="skills"
+      className="py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
-          id="skills-heading"
-          className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          id="skills"
+          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
         >
           Skills
         </h2>

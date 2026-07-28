@@ -15,14 +15,13 @@ export function Projects() {
 
   return (
     <section
-      id="projects"
-      aria-labelledby="projects-heading"
-      className="scroll-mt-20 py-16 sm:py-20"
+      aria-labelledby="projects"
+      className="py-16 sm:py-20"
     >
       <div className="mx-auto w-full max-w-5xl px-6">
         <motion.h2
-          id="projects-heading"
-          className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          id="projects"
+          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
           variants={fadeUpVariants}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="visible"

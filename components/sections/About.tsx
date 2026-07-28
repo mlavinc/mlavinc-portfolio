@@ -6,14 +6,13 @@ import { aboutIntro, experience } from "@/data/about";
 export function About() {
   return (
     <section
-      id="about"
-      aria-labelledby="about-heading"
-      className="scroll-mt-20 py-16 sm:py-20"
+      aria-labelledby="about"
+      className="py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
-          id="about-heading"
-          className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          id="about"
+          className="scroll-mt-20 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
         >
           About
         </h2>
@@ -23,7 +22,7 @@ export function About() {
         </p>
 
         <div className="mt-8">
-          <h3 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
+          <h3 className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50">
             Experience
           </h3>
 
