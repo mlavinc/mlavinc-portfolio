@@ -8,7 +8,7 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="scroll-mt-20 px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl">
         <h2
@@ -18,11 +18,11 @@ export function Contact() {
           Contact
         </h2>
 
-        <p className="mt-8 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
           {contactMessage}
         </p>
 
-        <ul className="mt-10 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-8">
+        <ul className="mt-8 flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:gap-8">
           {contactLinks.map((link) => {
             const isExternal = link.href.startsWith("http");
 

@@ -8,7 +8,7 @@ export function Skills() {
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="scroll-mt-20 px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl">
         <h2
@@ -18,7 +18,7 @@ export function Skills() {
           Skills
         </h2>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category) => (
             <div key={category.id}>
               <h3 className="text-sm font-medium tracking-wide text-zinc-950 uppercase dark:text-zinc-50">

@@ -13,7 +13,7 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="flex min-h-svh items-center justify-center px-6"
+      className="flex min-h-[calc(100svh-4.25rem)] items-center justify-center px-6"
     >
       <motion.div
         className="mx-auto flex w-full max-w-2xl flex-col items-center text-center"

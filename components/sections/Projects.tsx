@@ -17,7 +17,7 @@ export function Projects() {
     <section
       id="projects"
       aria-labelledby="projects-heading"
-      className="scroll-mt-20 px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-16 sm:py-20"
     >
       <div className="mx-auto w-full max-w-5xl">
         <motion.h2
@@ -33,7 +33,7 @@ export function Projects() {
         </motion.h2>
 
         <motion.div
-          className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
+          className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8"
           variants={staggerContainerVariants}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="visible"

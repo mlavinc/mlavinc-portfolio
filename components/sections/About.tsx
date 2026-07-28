@@ -8,7 +8,7 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="scroll-mt-20 px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-16 sm:py-20"
     >
       <Reveal className="mx-auto w-full max-w-5xl">
         <h2
@@ -18,16 +18,16 @@ export function About() {
           About
         </h2>
 
-        <p className="mt-8 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
           {aboutIntro}
         </p>
 
-        <div className="mt-16">
+        <div className="mt-12">
           <h3 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
             Experience
           </h3>
 
-          <ul className="mt-8 space-y-10">
+          <ul className="mt-6 space-y-8">
             {experience.map((item) => (
               <li key={item.id} className="max-w-2xl">
                 <p className="text-base font-medium text-zinc-950 dark:text-zinc-50">
