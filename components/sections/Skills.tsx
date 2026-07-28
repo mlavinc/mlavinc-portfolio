@@ -18,7 +18,7 @@ export function Skills() {
           Skills
         </h2>
 
-        <div className="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category) => (
             <div key={category.id}>
               <h3 className="text-sm font-medium tracking-wide text-zinc-950 uppercase dark:text-zinc-50">
@@ -26,7 +26,7 @@ export function Skills() {
               </h3>
 
               <ul
-                className="mt-4 flex flex-wrap gap-2"
+                className="mt-3 flex flex-wrap gap-2"
                 aria-label={category.title}
               >
                 {category.skills.map((skill) => (
