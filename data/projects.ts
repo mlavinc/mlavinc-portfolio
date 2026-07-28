@@ -2,6 +2,7 @@ import type { Project } from "@/types/project";
 import { cloudOperationsLabCaseStudy } from "@/data/case-studies/cloud-operations-lab";
 import { documentKnowledgeAgentCaseStudy } from "@/data/case-studies/document-knowledge-agent";
 import { ecgAiServerlessCaseStudy } from "@/data/case-studies/ecg-ai-serverless";
+import { skillTrackerCaseStudy } from "@/data/case-studies/skill-tracker";
 
 export const projects: Project[] = [
   {
@@ -59,10 +60,13 @@ export const projects: Project[] = [
   {
     id: "skill-tracker",
     title: "Skill Tracker",
+    subtitle: "Personal Skill Management Platform",
     description:
-      "Full-stack application for tracking learning progress, skills, and professional growth over time.",
+      "A full-stack platform to organize, track, and manage technical skills with scalable engineering practices.",
     technologies: ["Go", "React", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/mlavinc/skill-tracker",
+    caseStudyUrl: "/projects/skill-tracker",
+    caseStudy: skillTrackerCaseStudy,
     status: "completed",
   },
 ];

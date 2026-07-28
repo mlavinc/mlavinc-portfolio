@@ -252,6 +252,95 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </section>
           ) : null}
 
+          {caseStudy.backendEngineering ? (
+            <section aria-labelledby="backend-heading">
+              <h2
+                id="backend-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Backend Engineering
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                The backend follows a layered architecture:
+              </p>
+              <ol className="mt-4 max-w-3xl space-y-1">
+                {caseStudy.backendEngineering.layers.map((layer, index) => (
+                  <li
+                    key={layer}
+                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {layer}
+                    {index < caseStudy.backendEngineering!.layers.length - 1
+                      ? " ↓"
+                      : null}
+                  </li>
+                ))}
+              </ol>
+              <ul className="mt-4 max-w-3xl space-y-2">
+                {caseStudy.backendEngineering.responsibilities.map((item) => (
+                  <li
+                    key={item}
+                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              {caseStudy.backendEngineering.note ? (
+                <p className="mt-4 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  {caseStudy.backendEngineering.note}
+                </p>
+              ) : null}
+            </section>
+          ) : null}
+
+          {caseStudy.databaseDesign ? (
+            <section aria-labelledby="database-heading">
+              <h2
+                id="database-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Database Design
+              </h2>
+              <ul className="mt-4 max-w-3xl space-y-2">
+                {caseStudy.databaseDesign.map((item) => (
+                  <li
+                    key={item}
+                    className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
+          {caseStudy.frontendDevelopment ? (
+            <section aria-labelledby="frontend-heading">
+              <h2
+                id="frontend-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Frontend Development
+              </h2>
+              {caseStudy.frontendDevelopment.intro ? (
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  {caseStudy.frontendDevelopment.intro}
+                </p>
+              ) : null}
+              <ul className="mt-4 max-w-3xl space-y-2">
+                {caseStudy.frontendDevelopment.items.map((item) => (
+                  <li
+                    key={item}
+                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
+
           <section aria-labelledby="engineering-heading">
             <h2
               id="engineering-heading"
@@ -271,39 +360,41 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </ul>
           </section>
 
-          <section aria-labelledby="cloud-heading">
-            <h2
-              id="cloud-heading"
-              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
-            >
-              {caseStudy.cloudArchitectureTitle ?? "Cloud Architecture"}
-            </h2>
-            <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-              {caseStudy.cloudArchitecture.description}
-            </p>
-            {caseStudy.cloudArchitecture.workflow ? (
-              <ul className="mt-4 max-w-3xl space-y-2">
-                {caseStudy.cloudArchitecture.workflow.map((step) => (
+          {caseStudy.cloudArchitecture ? (
+            <section aria-labelledby="cloud-heading">
+              <h2
+                id="cloud-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                {caseStudy.cloudArchitectureTitle ?? "Cloud Architecture"}
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                {caseStudy.cloudArchitecture.description}
+              </p>
+              {caseStudy.cloudArchitecture.workflow ? (
+                <ul className="mt-4 max-w-3xl space-y-2">
+                  {caseStudy.cloudArchitecture.workflow.map((step) => (
+                    <li
+                      key={step}
+                      className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                    >
+                      {step}
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+              <ul className="mt-4 flex flex-wrap gap-2">
+                {caseStudy.cloudArchitecture.services.map((service) => (
                   <li
-                    key={step}
-                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                    key={service}
+                    className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
                   >
-                    {step}
+                    {service}
                   </li>
                 ))}
               </ul>
-            ) : null}
-            <ul className="mt-4 flex flex-wrap gap-2">
-              {caseStudy.cloudArchitecture.services.map((service) => (
-                <li
-                  key={service}
-                  className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-                >
-                  {service}
-                </li>
-              ))}
-            </ul>
-          </section>
+            </section>
+          ) : null}
 
           <section aria-labelledby="stack-heading">
             <h2
@@ -333,7 +424,35 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </div>
           </section>
 
-          {caseStudy.challenges ? (
+          {caseStudy.challengeGroups ? (
+            <section aria-labelledby="challenges-heading">
+              <h2
+                id="challenges-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Challenges
+              </h2>
+              <div className="mt-6 max-w-3xl space-y-6">
+                {caseStudy.challengeGroups.map((group) => (
+                  <div key={group.title}>
+                    <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                      {group.title}
+                    </h3>
+                    <ul className="mt-2 space-y-2">
+                      {group.items.map((item) => (
+                        <li
+                          key={item}
+                          className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : caseStudy.challenges ? (
             <section aria-labelledby="challenges-heading">
               <h2
                 id="challenges-heading"
@@ -372,6 +491,20 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               ))}
             </ul>
           </section>
+
+          {caseStudy.projectImpact ? (
+            <section aria-labelledby="impact-heading">
+              <h2
+                id="impact-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Project Impact
+              </h2>
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                {caseStudy.projectImpact}
+              </p>
+            </section>
+          ) : null}
         </div>
       ) : null}
     </article>

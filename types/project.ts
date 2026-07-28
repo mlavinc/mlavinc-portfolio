@@ -20,6 +20,17 @@ export interface ProjectMlPipeline {
   note?: string;
 }
 
+export interface ProjectBackendEngineering {
+  layers: string[];
+  responsibilities: string[];
+  note?: string;
+}
+
+export interface ProjectFrontendDevelopment {
+  intro?: string;
+  items: string[];
+}
+
 export interface ProjectCaseStudy {
   introduction: string[];
   overview: string[];
@@ -29,16 +40,21 @@ export interface ProjectCaseStudy {
   architectureFlow?: string[];
   architecture: ProjectArchitectureLayer[];
   mlPipeline?: ProjectMlPipeline;
+  backendEngineering?: ProjectBackendEngineering;
+  databaseDesign?: string[];
+  frontendDevelopment?: ProjectFrontendDevelopment;
   engineeringHighlights: string[];
   cloudArchitectureTitle?: string;
-  cloudArchitecture: {
+  cloudArchitecture?: {
     services: string[];
     description: string;
     workflow?: string[];
   };
   techStack: ProjectTechGroup[];
   challenges?: string[];
+  challengeGroups?: ProjectFeatureGroup[];
   futureImprovements: string[];
+  projectImpact?: string;
 }
 
 export interface Project {
