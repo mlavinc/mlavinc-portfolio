@@ -78,9 +78,9 @@ export function Navbar() {
       {isOpen ? (
         <div
           id="mobile-nav"
-          className="border-t border-zinc-200 px-6 py-4 md:hidden dark:border-zinc-800"
+          className="border-t border-zinc-200 md:hidden dark:border-zinc-800"
         >
-          <ul className="flex flex-col gap-4">
+          <ul className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a

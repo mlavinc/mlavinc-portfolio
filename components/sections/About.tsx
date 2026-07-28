@@ -8,9 +8,9 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="scroll-mt-20 px-6 py-16 sm:py-20"
+      className="scroll-mt-20 py-16 sm:py-20"
     >
-      <Reveal className="mx-auto w-full max-w-5xl">
+      <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
           id="about-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
