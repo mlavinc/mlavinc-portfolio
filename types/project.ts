@@ -6,9 +6,11 @@ export interface Project {
   description: string;
   technologies: string[];
   image?: string;
+  githubUrl?: string;
   liveUrl?: string;
-  repoUrl?: string;
   caseStudyUrl?: string;
+  architectureUrl?: string;
+  videoUrl?: string;
   status?: ProjectStatus;
   featured?: boolean;
 }

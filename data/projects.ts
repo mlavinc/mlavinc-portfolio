@@ -7,7 +7,6 @@ export const projects: Project[] = [
     description:
       "Scalable REST API with authentication, rate limiting, and observability for cloud-native workloads.",
     technologies: ["Node.js", "TypeScript", "AWS", "PostgreSQL"],
-    repoUrl: "https://github.com/mlavinc",
     featured: true,
     status: "completed",
   },
@@ -17,7 +16,6 @@ export const projects: Project[] = [
     description:
       "LLM-powered tool that summarizes documents and answers questions with retrieval-augmented generation.",
     technologies: ["Python", "FastAPI", "OpenAI", "Docker"],
-    repoUrl: "https://github.com/mlavinc",
     featured: true,
     status: "in-progress",
   },
@@ -27,7 +25,6 @@ export const projects: Project[] = [
     description:
       "Internal dashboard for monitoring deployments, CI status, and infrastructure health in one place.",
     technologies: ["Next.js", "React", "Tailwind CSS", "Vercel"],
-    repoUrl: "https://github.com/mlavinc",
     status: "completed",
   },
   {
@@ -36,7 +33,6 @@ export const projects: Project[] = [
     description:
       "WebSocket-based messaging service with presence, rooms, and horizontal scaling support.",
     technologies: ["Go", "Redis", "WebSockets", "Kubernetes"],
-    repoUrl: "https://github.com/mlavinc",
     status: "completed",
   },
 ];

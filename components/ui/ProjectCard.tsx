@@ -33,9 +33,9 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </ul>
 
         <div className="mt-6 flex flex-wrap gap-2">
-          {project.repoUrl ? (
+          {project.githubUrl ? (
             <a
-              href={project.repoUrl}
+              href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex h-9 items-center justify-center rounded-md bg-zinc-950 px-3.5 text-sm font-medium text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
