@@ -2,37 +2,41 @@ import type { Project } from "@/types/project";
 
 export const projects: Project[] = [
   {
-    id: "cloud-api-platform",
-    title: "Cloud API Platform",
+    id: "document-knowledge-agent",
+    title: "Document Knowledge Agent",
     description:
-      "Scalable REST API with authentication, rate limiting, and observability for cloud-native workloads.",
-    technologies: ["Node.js", "TypeScript", "AWS", "PostgreSQL"],
+      "AI agent for document understanding, retrieval, and question answering over structured knowledge bases.",
+    technologies: ["Python", "RAG", "LangChain", "Vector Databases"],
+    githubUrl: "https://github.com/mlavinc/document-knowledge-agent",
     featured: true,
     status: "completed",
   },
   {
-    id: "ai-document-assistant",
-    title: "AI Document Assistant",
+    id: "cloud-operations-lab",
+    title: "Cloud Operations Lab",
     description:
-      "LLM-powered tool that summarizes documents and answers questions with retrieval-augmented generation.",
-    technologies: ["Python", "FastAPI", "OpenAI", "Docker"],
+      "Hands-on cloud operations environment for automation, monitoring, and infrastructure workflows.",
+    technologies: ["AWS", "Terraform", "Docker", "GitHub Actions"],
+    githubUrl: "https://github.com/mlavinc/cloud-operations-lab",
     featured: true,
-    status: "in-progress",
-  },
-  {
-    id: "devops-dashboard",
-    title: "DevOps Dashboard",
-    description:
-      "Internal dashboard for monitoring deployments, CI status, and infrastructure health in one place.",
-    technologies: ["Next.js", "React", "Tailwind CSS", "Vercel"],
     status: "completed",
   },
   {
-    id: "realtime-chat-service",
-    title: "Realtime Chat Service",
+    id: "ecg-ai-serverless",
+    title: "ECG-AI Serverless",
     description:
-      "WebSocket-based messaging service with presence, rooms, and horizontal scaling support.",
-    technologies: ["Go", "Redis", "WebSockets", "Kubernetes"],
+      "Serverless pipeline for ECG signal analysis using cloud services and machine learning models.",
+    technologies: ["Python", "AWS", "Machine Learning", "Serverless"],
+    githubUrl: "https://github.com/mlavinc/ecg-ai-serverless",
+    status: "completed",
+  },
+  {
+    id: "skill-tracker",
+    title: "Skill Tracker",
+    description:
+      "Full-stack application for tracking learning progress, skills, and professional growth over time.",
+    technologies: ["TypeScript", "Next.js", "Node.js", "PostgreSQL"],
+    githubUrl: "https://github.com/mlavinc/skill-tracker",
     status: "completed",
   },
 ];
