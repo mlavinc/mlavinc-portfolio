@@ -23,7 +23,7 @@ export async function generateMetadata({
 
   return {
     title: project.title,
-    description: project.description,
+    description: project.subtitle ?? project.description,
   };
 }
 

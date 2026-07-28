@@ -1,13 +1,25 @@
 import type { Project } from "@/types/project";
+import { documentKnowledgeAgentCaseStudy } from "@/data/case-studies/document-knowledge-agent";
 
 export const projects: Project[] = [
   {
     id: "document-knowledge-agent",
     title: "Document Knowledge Agent",
+    subtitle:
+      "Intelligent Document Processing & AI Knowledge Retrieval Platform",
     description:
-      "AI agent for document understanding, retrieval, and question answering over structured knowledge bases.",
-    technologies: ["Python", "Node.js", "FastAPI", "LangChain", "ChromaDB", "React"],
+      "A cloud-native RAG platform that transforms documents into interactive knowledge sources.",
+    technologies: [
+      "Python",
+      "Node.js",
+      "FastAPI",
+      "LangChain",
+      "ChromaDB",
+      "React",
+    ],
     githubUrl: "https://github.com/mlavinc/document-knowledge-agent",
+    caseStudyUrl: "/projects/document-knowledge-agent",
+    caseStudy: documentKnowledgeAgentCaseStudy,
     featured: true,
     status: "completed",
   },
@@ -26,7 +38,13 @@ export const projects: Project[] = [
     title: "ECG-AI Serverless",
     description:
       "Serverless pipeline for ECG signal analysis using cloud services and machine learning models.",
-    technologies: ["Python", "Machine Learning", "FastAPI", "AWS Lambda", "React"],
+    technologies: [
+      "Python",
+      "Machine Learning",
+      "FastAPI",
+      "AWS Lambda",
+      "React",
+    ],
     githubUrl: "https://github.com/mlavinc/ecg-ai-serverless",
     status: "completed",
   },

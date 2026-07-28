@@ -6,15 +6,14 @@ interface ProjectDetailProps {
 }
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
+  const { caseStudy } = project;
+
   const externalLinks = [
     project.githubUrl
       ? { href: project.githubUrl, label: "GitHub", external: true }
       : null,
     project.liveUrl
       ? { href: project.liveUrl, label: "Live Demo", external: true }
-      : null,
-    project.caseStudyUrl
-      ? { href: project.caseStudyUrl, label: "Case Study", external: false }
       : null,
     project.architectureUrl
       ? {
@@ -49,9 +48,28 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {project.title}
         </h1>
 
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
-          {project.description}
-        </p>
+        {project.subtitle ? (
+          <p className="mt-3 text-base font-medium text-zinc-600 sm:text-lg dark:text-zinc-400">
+            {project.subtitle}
+          </p>
+        ) : null}
+
+        {caseStudy ? (
+          <div className="mt-6 max-w-3xl space-y-4">
+            {caseStudy.introduction.map((paragraph) => (
+              <p
+                key={paragraph}
+                className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+              >
+                {paragraph}
+              </p>
+            ))}
+          </div>
+        ) : (
+          <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
+            {project.description}
+          </p>
+        )}
       </header>
 
       <ul className="mt-6 flex flex-wrap gap-2" aria-label="Technologies">
@@ -83,6 +101,173 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               {link.label}
             </a>
           ))}
+        </div>
+      ) : null}
+
+      {caseStudy ? (
+        <div className="mt-16 space-y-14">
+          <section aria-labelledby="overview-heading">
+            <h2
+              id="overview-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Overview
+            </h2>
+            <div className="mt-4 max-w-3xl space-y-4">
+              {caseStudy.overview.map((paragraph) => (
+                <p
+                  key={paragraph}
+                  className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                >
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="features-heading">
+            <h2
+              id="features-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Key Features
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+              {caseStudy.features.map((group) => (
+                <div key={group.title}>
+                  <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                    {group.title}
+                  </h3>
+                  <ul className="mt-3 space-y-2">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="architecture-heading">
+            <h2
+              id="architecture-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Architecture
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+              {caseStudy.architecture.map((layer) => (
+                <div key={layer.title}>
+                  <h3 className="text-sm font-medium tracking-wide text-zinc-950 uppercase dark:text-zinc-50">
+                    {layer.title}
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {layer.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="engineering-heading">
+            <h2
+              id="engineering-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Engineering Highlights
+            </h2>
+            <ul className="mt-4 max-w-3xl space-y-2">
+              {caseStudy.engineeringHighlights.map((item) => (
+                <li
+                  key={item}
+                  className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="cloud-heading">
+            <h2
+              id="cloud-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Cloud Architecture
+            </h2>
+            <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+              {caseStudy.cloudArchitecture.description}
+            </p>
+            <ul className="mt-4 flex flex-wrap gap-2">
+              {caseStudy.cloudArchitecture.services.map((service) => (
+                <li
+                  key={service}
+                  className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+                >
+                  {service}
+                </li>
+              ))}
+            </ul>
+          </section>
+
+          <section aria-labelledby="stack-heading">
+            <h2
+              id="stack-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Technology Stack
+            </h2>
+            <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+              {caseStudy.techStack.map((group) => (
+                <div key={group.title}>
+                  <h3 className="text-sm font-medium tracking-wide text-zinc-950 uppercase dark:text-zinc-50">
+                    {group.title}
+                  </h3>
+                  <ul className="mt-3 flex flex-wrap gap-2">
+                    {group.items.map((item) => (
+                      <li
+                        key={item}
+                        className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
+                      >
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section aria-labelledby="future-heading">
+            <h2
+              id="future-heading"
+              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+            >
+              Future Improvements
+            </h2>
+            <ul className="mt-4 max-w-3xl space-y-2">
+              {caseStudy.futureImprovements.map((item) => (
+                <li
+                  key={item}
+                  className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                >
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </section>
         </div>
       ) : null}
     </article>
