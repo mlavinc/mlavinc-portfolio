@@ -6,7 +6,7 @@ export const projects: Project[] = [
     title: "Document Knowledge Agent",
     description:
       "AI agent for document understanding, retrieval, and question answering over structured knowledge bases.",
-    technologies: ["Python", "RAG", "LangChain", "Vector Databases"],
+    technologies: ["Python", "Node.js", "FastAPI", "LangChain", "ChromaDB", "React"],
     githubUrl: "https://github.com/mlavinc/document-knowledge-agent",
     featured: true,
     status: "completed",
@@ -16,7 +16,7 @@ export const projects: Project[] = [
     title: "Cloud Operations Lab",
     description:
       "Hands-on cloud operations environment for automation, monitoring, and infrastructure workflows.",
-    technologies: ["AWS", "Terraform", "Docker", "GitHub Actions"],
+    technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Linux"],
     githubUrl: "https://github.com/mlavinc/cloud-operations-lab",
     featured: true,
     status: "completed",
@@ -26,7 +26,7 @@ export const projects: Project[] = [
     title: "ECG-AI Serverless",
     description:
       "Serverless pipeline for ECG signal analysis using cloud services and machine learning models.",
-    technologies: ["Python", "AWS", "Machine Learning", "Serverless"],
+    technologies: ["Python", "Machine Learning", "FastAPI", "AWS Lambda", "React"],
     githubUrl: "https://github.com/mlavinc/ecg-ai-serverless",
     status: "completed",
   },
@@ -35,7 +35,7 @@ export const projects: Project[] = [
     title: "Skill Tracker",
     description:
       "Full-stack application for tracking learning progress, skills, and professional growth over time.",
-    technologies: ["TypeScript", "Next.js", "Node.js", "PostgreSQL"],
+    technologies: ["Go", "React", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/mlavinc/skill-tracker",
     status: "completed",
   },
