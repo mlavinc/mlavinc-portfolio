@@ -18,12 +18,16 @@ export interface ProjectTechGroup {
 export interface ProjectCaseStudy {
   introduction: string[];
   overview: string[];
+  featuresTitle?: string;
+  featuresIntro?: string;
   features: ProjectFeatureGroup[];
   architecture: ProjectArchitectureLayer[];
   engineeringHighlights: string[];
+  cloudArchitectureTitle?: string;
   cloudArchitecture: {
     services: string[];
     description: string;
+    workflow?: string[];
   };
   techStack: ProjectTechGroup[];
   futureImprovements: string[];

@@ -130,15 +130,34 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               id="features-heading"
               className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
             >
-              Key Features
+              {caseStudy.featuresTitle ?? "Key Features"}
             </h2>
-            <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+            {caseStudy.featuresIntro ? (
+              <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                {caseStudy.featuresIntro}
+              </p>
+            ) : null}
+            <div
+              className={
+                caseStudy.features.length === 1
+                  ? "mt-4 max-w-3xl"
+                  : "mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
+              }
+            >
               {caseStudy.features.map((group) => (
                 <div key={group.title}>
-                  <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
-                    {group.title}
-                  </h3>
-                  <ul className="mt-3 space-y-2">
+                  {caseStudy.features.length > 1 ? (
+                    <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                      {group.title}
+                    </h3>
+                  ) : null}
+                  <ul
+                    className={
+                      caseStudy.features.length > 1
+                        ? "mt-3 space-y-2"
+                        : "space-y-2"
+                    }
+                  >
                     {group.items.map((item) => (
                       <li
                         key={item}
@@ -205,11 +224,23 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               id="cloud-heading"
               className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
             >
-              Cloud Architecture
+              {caseStudy.cloudArchitectureTitle ?? "Cloud Architecture"}
             </h2>
             <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
               {caseStudy.cloudArchitecture.description}
             </p>
+            {caseStudy.cloudArchitecture.workflow ? (
+              <ul className="mt-4 max-w-3xl space-y-2">
+                {caseStudy.cloudArchitecture.workflow.map((step) => (
+                  <li
+                    key={step}
+                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {step}
+                  </li>
+                ))}
+              </ul>
+            ) : null}
             <ul className="mt-4 flex flex-wrap gap-2">
               {caseStudy.cloudArchitecture.services.map((service) => (
                 <li

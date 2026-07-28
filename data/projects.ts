@@ -1,4 +1,5 @@
 import type { Project } from "@/types/project";
+import { cloudOperationsLabCaseStudy } from "@/data/case-studies/cloud-operations-lab";
 import { documentKnowledgeAgentCaseStudy } from "@/data/case-studies/document-knowledge-agent";
 
 export const projects: Project[] = [
@@ -26,10 +27,13 @@ export const projects: Project[] = [
   {
     id: "cloud-operations-lab",
     title: "Cloud Operations Lab",
+    subtitle: "Cloud Infrastructure & DevOps Automation Platform",
     description:
-      "Hands-on cloud operations environment for automation, monitoring, and infrastructure workflows.",
+      "A production-oriented AWS environment using Infrastructure as Code, DevOps automation, and modern cloud practices.",
     technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Linux"],
     githubUrl: "https://github.com/mlavinc/cloud-operations-lab",
+    caseStudyUrl: "/projects/cloud-operations-lab",
+    caseStudy: cloudOperationsLabCaseStudy,
     featured: true,
     status: "completed",
   },
