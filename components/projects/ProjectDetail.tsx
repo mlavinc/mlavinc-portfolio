@@ -125,52 +125,54 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </div>
           </section>
 
-          <section aria-labelledby="features-heading">
-            <h2
-              id="features-heading"
-              className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
-            >
-              {caseStudy.featuresTitle ?? "Key Features"}
-            </h2>
-            {caseStudy.featuresIntro ? (
-              <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
-                {caseStudy.featuresIntro}
-              </p>
-            ) : null}
-            <div
-              className={
-                caseStudy.features.length === 1
-                  ? "mt-4 max-w-3xl"
-                  : "mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
-              }
-            >
-              {caseStudy.features.map((group) => (
-                <div key={group.title}>
-                  {caseStudy.features.length > 1 ? (
-                    <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
-                      {group.title}
-                    </h3>
-                  ) : null}
-                  <ul
-                    className={
-                      caseStudy.features.length > 1
-                        ? "mt-3 space-y-2"
-                        : "space-y-2"
-                    }
-                  >
-                    {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
-                      >
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-          </section>
+          {caseStudy.features && caseStudy.features.length > 0 ? (
+            <section aria-labelledby="features-heading">
+              <h2
+                id="features-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                {caseStudy.featuresTitle ?? "Key Features"}
+              </h2>
+              {caseStudy.featuresIntro ? (
+                <p className="mt-4 max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  {caseStudy.featuresIntro}
+                </p>
+              ) : null}
+              <div
+                className={
+                  caseStudy.features.length === 1
+                    ? "mt-4 max-w-3xl"
+                    : "mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2"
+                }
+              >
+                {caseStudy.features.map((group) => (
+                  <div key={group.title}>
+                    {caseStudy.features && caseStudy.features.length > 1 ? (
+                      <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                        {group.title}
+                      </h3>
+                    ) : null}
+                    <ul
+                      className={
+                        caseStudy.features && caseStudy.features.length > 1
+                          ? "mt-3 space-y-2"
+                          : "space-y-2"
+                      }
+                    >
+                      {group.items.map((item) => (
+                        <li
+                          key={item}
+                          className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </section>
+          ) : null}
 
           <section aria-labelledby="architecture-heading">
             <h2
@@ -179,6 +181,21 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             >
               Architecture
             </h2>
+            {caseStudy.architectureFlow ? (
+              <ol className="mt-4 max-w-3xl space-y-1">
+                {caseStudy.architectureFlow.map((step, index) => (
+                  <li
+                    key={step}
+                    className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {step}
+                    {index < caseStudy.architectureFlow!.length - 1
+                      ? " ↓"
+                      : null}
+                  </li>
+                ))}
+              </ol>
+            ) : null}
             <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {caseStudy.architecture.map((layer) => (
                 <div key={layer.title}>
@@ -199,6 +216,41 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               ))}
             </div>
           </section>
+
+          {caseStudy.mlPipeline ? (
+            <section aria-labelledby="ml-pipeline-heading">
+              <h2
+                id="ml-pipeline-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Machine Learning Pipeline
+              </h2>
+              <div className="mt-6 grid grid-cols-1 gap-8 sm:grid-cols-2">
+                {caseStudy.mlPipeline.groups.map((group) => (
+                  <div key={group.title}>
+                    <h3 className="text-sm font-medium text-zinc-950 dark:text-zinc-50">
+                      {group.title}
+                    </h3>
+                    <ul className="mt-3 space-y-2">
+                      {group.items.map((item) => (
+                        <li
+                          key={item}
+                          className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400"
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+              {caseStudy.mlPipeline.note ? (
+                <p className="mt-6 max-w-3xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  {caseStudy.mlPipeline.note}
+                </p>
+              ) : null}
+            </section>
+          ) : null}
 
           <section aria-labelledby="engineering-heading">
             <h2
@@ -280,6 +332,27 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               ))}
             </div>
           </section>
+
+          {caseStudy.challenges ? (
+            <section aria-labelledby="challenges-heading">
+              <h2
+                id="challenges-heading"
+                className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50"
+              >
+                Challenges
+              </h2>
+              <ul className="mt-4 max-w-3xl space-y-2">
+                {caseStudy.challenges.map((item) => (
+                  <li
+                    key={item}
+                    className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
 
           <section aria-labelledby="future-heading">
             <h2

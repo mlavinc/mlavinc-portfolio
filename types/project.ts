@@ -15,13 +15,20 @@ export interface ProjectTechGroup {
   items: string[];
 }
 
+export interface ProjectMlPipeline {
+  groups: ProjectFeatureGroup[];
+  note?: string;
+}
+
 export interface ProjectCaseStudy {
   introduction: string[];
   overview: string[];
   featuresTitle?: string;
   featuresIntro?: string;
-  features: ProjectFeatureGroup[];
+  features?: ProjectFeatureGroup[];
+  architectureFlow?: string[];
   architecture: ProjectArchitectureLayer[];
+  mlPipeline?: ProjectMlPipeline;
   engineeringHighlights: string[];
   cloudArchitectureTitle?: string;
   cloudArchitecture: {
@@ -30,6 +37,7 @@ export interface ProjectCaseStudy {
     workflow?: string[];
   };
   techStack: ProjectTechGroup[];
+  challenges?: string[];
   futureImprovements: string[];
 }
 

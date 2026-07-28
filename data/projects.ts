@@ -1,6 +1,7 @@
 import type { Project } from "@/types/project";
 import { cloudOperationsLabCaseStudy } from "@/data/case-studies/cloud-operations-lab";
 import { documentKnowledgeAgentCaseStudy } from "@/data/case-studies/document-knowledge-agent";
+import { ecgAiServerlessCaseStudy } from "@/data/case-studies/ecg-ai-serverless";
 
 export const projects: Project[] = [
   {
@@ -40,8 +41,9 @@ export const projects: Project[] = [
   {
     id: "ecg-ai-serverless",
     title: "ECG-AI Serverless",
+    subtitle: "Serverless ECG Analysis Platform with Machine Learning",
     description:
-      "Serverless pipeline for ECG signal analysis using cloud services and machine learning models.",
+      "A machine learning-powered platform for analyzing ECG signals and classifying cardiac patterns with serverless cloud architecture.",
     technologies: [
       "Python",
       "Machine Learning",
@@ -50,6 +52,8 @@ export const projects: Project[] = [
       "React",
     ],
     githubUrl: "https://github.com/mlavinc/ecg-ai-serverless",
+    caseStudyUrl: "/projects/ecg-ai-serverless",
+    caseStudy: ecgAiServerlessCaseStudy,
     status: "completed",
   },
   {
