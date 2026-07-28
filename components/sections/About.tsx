@@ -1,3 +1,6 @@
+"use client";
+
+import { Reveal } from "@/components/motion/Reveal";
 import { aboutIntro, experience } from "@/data/about";
 
 export function About() {
@@ -5,9 +8,9 @@ export function About() {
     <section
       id="about"
       aria-labelledby="about-heading"
-      className="px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-24 sm:py-32"
     >
-      <div className="mx-auto w-full max-w-5xl">
+      <Reveal className="mx-auto w-full max-w-5xl">
         <h2
           id="about-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
@@ -40,7 +43,7 @@ export function About() {
             ))}
           </ul>
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

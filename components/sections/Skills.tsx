@@ -1,3 +1,6 @@
+"use client";
+
+import { Reveal } from "@/components/motion/Reveal";
 import { skillCategories } from "@/data/skills";
 
 export function Skills() {
@@ -5,9 +8,9 @@ export function Skills() {
     <section
       id="skills"
       aria-labelledby="skills-heading"
-      className="px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-24 sm:py-32"
     >
-      <div className="mx-auto w-full max-w-5xl">
+      <Reveal className="mx-auto w-full max-w-5xl">
         <h2
           id="skills-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
@@ -22,7 +25,10 @@ export function Skills() {
                 {category.title}
               </h3>
 
-              <ul className="mt-4 flex flex-wrap gap-2" aria-label={category.title}>
+              <ul
+                className="mt-4 flex flex-wrap gap-2"
+                aria-label={category.title}
+              >
                 {category.skills.map((skill) => (
                   <li
                     key={skill}
@@ -35,7 +41,7 @@ export function Skills() {
             </div>
           ))}
         </div>
-      </div>
+      </Reveal>
     </section>
   );
 }

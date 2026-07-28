@@ -1,3 +1,6 @@
+"use client";
+
+import { Reveal } from "@/components/motion/Reveal";
 import { contactLinks, contactMessage } from "@/data/contact";
 
 export function Contact() {
@@ -5,9 +8,9 @@ export function Contact() {
     <section
       id="contact"
       aria-labelledby="contact-heading"
-      className="px-6 py-24 sm:py-32"
+      className="scroll-mt-20 px-6 py-24 sm:py-32"
     >
-      <div className="mx-auto w-full max-w-5xl">
+      <Reveal className="mx-auto w-full max-w-5xl">
         <h2
           id="contact-heading"
           className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
@@ -39,7 +42,7 @@ export function Contact() {
             );
           })}
         </ul>
-      </div>
+      </Reveal>
     </section>
   );
 }
