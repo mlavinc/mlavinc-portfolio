@@ -31,7 +31,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
     <article className="mx-auto w-full max-w-5xl px-6 py-16 sm:py-20">
       <Link
         href="/#projects"
-        className="text-sm font-medium text-zinc-600 underline-offset-4 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:text-zinc-50"
+        className="text-sm font-medium text-zinc-600 underline-offset-4 transition-colors duration-200 hover:text-zinc-950 hover:underline dark:text-zinc-400 dark:hover:text-zinc-50"
       >
         ← Back to Projects
       </Link>
@@ -94,8 +94,8 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                 : {})}
               className={
                 index === 0
-                  ? "inline-flex h-9 items-center justify-center rounded-md bg-zinc-950 px-3.5 text-sm font-medium text-zinc-50 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
-                  : "inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 px-3.5 text-sm font-medium text-zinc-950 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
+                  ? "inline-flex h-9 items-center justify-center rounded-md bg-zinc-950 px-3.5 text-sm font-medium text-zinc-50 transition-colors duration-200 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
+                  : "inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 px-3.5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
               }
             >
               {link.label}

@@ -22,7 +22,7 @@ export function About() {
         </p>
 
         <div className="mt-8">
-          <h3 className="text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50">
+          <h3 className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50">
             Experience
           </h3>
 

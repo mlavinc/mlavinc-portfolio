@@ -32,7 +32,7 @@ export function Contact() {
                   {...(isExternal
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="text-base font-medium text-zinc-950 underline-offset-4 hover:underline dark:text-zinc-50"
+                  className="text-base font-medium text-zinc-950 underline-offset-4 transition-colors duration-200 hover:underline dark:text-zinc-50"
                 >
                   <span className="sr-only">{link.label}: </span>
                   {link.display}

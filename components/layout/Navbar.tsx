@@ -14,7 +14,7 @@ export function Navbar() {
       >
         <a
           href="/"
-          className="text-sm font-semibold tracking-tight text-zinc-950 dark:text-zinc-50"
+          className="text-sm font-semibold tracking-tight text-zinc-950 transition-colors duration-200 dark:text-zinc-50"
           onClick={() => setIsOpen(false)}
         >
           Martin Lavin Carvajal
@@ -25,7 +25,7 @@ export function Navbar() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="text-sm text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                className="text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
               >
                 {link.label}
               </a>
@@ -35,7 +35,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 text-zinc-950 md:hidden dark:border-zinc-800 dark:text-zinc-50"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 md:hidden dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -85,7 +85,7 @@ export function Navbar() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="block text-sm text-zinc-600 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                  className="block text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}
