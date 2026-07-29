@@ -36,85 +36,218 @@ body {
   }
 }
 
-/* Hero starfield — subtle, low-opacity, Hero-only */
+/* Hero starfield — subtle cosmic atmosphere, Hero-only */
+.hero-starfield__nebula {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+}
+
+.hero-starfield__nebula--a {
+  background: radial-gradient(
+    ellipse 55% 40% at 22% 35%,
+    rgb(113 113 122 / 0.11),
+    transparent 70%
+  );
+  animation: hero-nebula-drift-a 48s ease-in-out infinite alternate;
+}
+
+.hero-starfield__nebula--b {
+  background: radial-gradient(
+    ellipse 50% 45% at 78% 28%,
+    rgb(82 82 91 / 0.09),
+    transparent 72%
+  );
+  animation: hero-nebula-drift-b 56s ease-in-out infinite alternate;
+}
+
+.hero-starfield__nebula--c {
+  background: radial-gradient(
+    ellipse 60% 35% at 55% 78%,
+    rgb(113 113 122 / 0.07),
+    transparent 75%
+  );
+  animation: hero-nebula-drift-c 64s ease-in-out infinite alternate;
+}
+
+.hero-starfield__nebula--static {
+  animation: none;
+}
+
+.hero-starfield__dust {
+  position: absolute;
+  inset: 0;
+  opacity: 0.45;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgb(82 82 91 / 0.18) 0 0.6px, transparent 1.2px),
+    radial-gradient(circle at 28% 64%, rgb(82 82 91 / 0.12) 0 0.5px, transparent 1px),
+    radial-gradient(circle at 44% 22%, rgb(82 82 91 / 0.14) 0 0.55px, transparent 1.1px),
+    radial-gradient(circle at 61% 48%, rgb(82 82 91 / 0.1) 0 0.45px, transparent 0.95px),
+    radial-gradient(circle at 76% 14%, rgb(82 82 91 / 0.16) 0 0.55px, transparent 1.1px),
+    radial-gradient(circle at 88% 58%, rgb(82 82 91 / 0.12) 0 0.5px, transparent 1px),
+    radial-gradient(circle at 18% 82%, rgb(82 82 91 / 0.1) 0 0.45px, transparent 0.95px),
+    radial-gradient(circle at 52% 88%, rgb(82 82 91 / 0.14) 0 0.55px, transparent 1.1px),
+    radial-gradient(circle at 70% 72%, rgb(82 82 91 / 0.11) 0 0.5px, transparent 1px),
+    radial-gradient(circle at 36% 42%, rgb(82 82 91 / 0.09) 0 0.4px, transparent 0.9px);
+}
+
 .hero-starfield__star,
 .hero-starfield__star-static {
   position: absolute;
   border-radius: 9999px;
-  background-color: rgb(82 82 91 / 0.48);
+  background-color: rgb(82 82 91 / 0.7);
+  box-shadow: 0 0 4px rgb(82 82 91 / 0.25);
 }
 
 .hero-starfield__star {
+  opacity: var(--star-base, 0.5);
   animation-name: hero-star-drift;
-  animation-timing-function: linear;
+  animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+  animation-direction: alternate;
   will-change: transform, opacity;
 }
 
 .hero-starfield__meteor {
   position: absolute;
-  width: 88px;
+  width: 110px;
   height: 1.5px;
   border-radius: 9999px;
   background: linear-gradient(
     90deg,
-    transparent,
-    rgb(82 82 91 / 0.42),
-    rgb(82 82 91 / 0.28),
-    transparent
+    transparent 0%,
+    rgb(82 82 91 / 0.12) 25%,
+    rgb(82 82 91 / 0.48) 55%,
+    rgb(82 82 91 / 0.2) 80%,
+    transparent 100%
   );
-  transform: rotate(125deg);
+  transform: rotate(128deg);
   transform-origin: left center;
+  filter: blur(0.2px);
   animation-name: hero-meteor-fall;
-  animation-timing-function: linear;
+  animation-timing-function: cubic-bezier(0.22, 0.61, 0.36, 1);
   animation-iteration-count: infinite;
   will-change: transform, opacity;
+}
+
+@keyframes hero-nebula-drift-a {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(2.5%, 1.5%, 0) scale(1.04);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-nebula-drift-b {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1.02);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate3d(-2%, 2%, 0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes hero-nebula-drift-c {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate3d(1.5%, -2%, 0) scale(1.05);
+    opacity: 0.95;
+  }
 }
 
 @keyframes hero-star-drift {
   0% {
     transform: translate3d(0, 0, 0);
-    opacity: 0.35;
+    opacity: var(--star-base, 0.5);
   }
-  40% {
-    opacity: 0.72;
+  50% {
+    opacity: var(--star-peak, 0.8);
   }
   100% {
-    transform: translate3d(0, 18px, 0);
-    opacity: 0.35;
+    transform: translate3d(3px, var(--star-drift, 18px), 0);
+    opacity: var(--star-base, 0.5);
   }
 }
 
 @keyframes hero-meteor-fall {
   0% {
-    transform: rotate(125deg) translate3d(0, 0, 0);
+    transform: rotate(128deg) translate3d(0, 0, 0);
     opacity: 0;
   }
-  6% {
+  8% {
     opacity: 0.55;
   }
-  40% {
-    opacity: 0;
+  42% {
+    opacity: 0.12;
   }
+  55%,
   100% {
-    transform: rotate(125deg) translate3d(140px, 180px, 0);
+    transform: rotate(128deg) translate3d(160px, 210px, 0);
     opacity: 0;
   }
 }
 
 @media (prefers-color-scheme: dark) {
+  .hero-starfield__nebula--a {
+    background: radial-gradient(
+      ellipse 55% 40% at 22% 35%,
+      rgb(161 161 170 / 0.14),
+      transparent 70%
+    );
+  }
+
+  .hero-starfield__nebula--b {
+    background: radial-gradient(
+      ellipse 50% 45% at 78% 28%,
+      rgb(212 212 216 / 0.1),
+      transparent 72%
+    );
+  }
+
+  .hero-starfield__nebula--c {
+    background: radial-gradient(
+      ellipse 60% 35% at 55% 78%,
+      rgb(161 161 170 / 0.09),
+      transparent 75%
+    );
+  }
+
+  .hero-starfield__dust {
+    background-image:
+      radial-gradient(circle at 12% 18%, rgb(228 228 231 / 0.2) 0 0.6px, transparent 1.2px),
+      radial-gradient(circle at 28% 64%, rgb(228 228 231 / 0.14) 0 0.5px, transparent 1px),
+      radial-gradient(circle at 44% 22%, rgb(228 228 231 / 0.16) 0 0.55px, transparent 1.1px),
+      radial-gradient(circle at 61% 48%, rgb(228 228 231 / 0.12) 0 0.45px, transparent 0.95px),
+      radial-gradient(circle at 76% 14%, rgb(228 228 231 / 0.18) 0 0.55px, transparent 1.1px),
+      radial-gradient(circle at 88% 58%, rgb(228 228 231 / 0.14) 0 0.5px, transparent 1px),
+      radial-gradient(circle at 18% 82%, rgb(228 228 231 / 0.12) 0 0.45px, transparent 0.95px),
+      radial-gradient(circle at 52% 88%, rgb(228 228 231 / 0.16) 0 0.55px, transparent 1.1px),
+      radial-gradient(circle at 70% 72%, rgb(228 228 231 / 0.13) 0 0.5px, transparent 1px),
+      radial-gradient(circle at 36% 42%, rgb(228 228 231 / 0.1) 0 0.4px, transparent 0.9px);
+  }
+
   .hero-starfield__star,
   .hero-starfield__star-static {
-    background-color: rgb(228 228 231 / 0.4);
+    background-color: rgb(228 228 231 / 0.75);
+    box-shadow: 0 0 5px rgb(228 228 231 / 0.28);
   }
 
   .hero-starfield__meteor {
     background: linear-gradient(
       90deg,
-      transparent,
-      rgb(228 228 231 / 0.38),
-      rgb(228 228 231 / 0.22),
-      transparent
+      transparent 0%,
+      rgb(228 228 231 / 0.1) 25%,
+      rgb(228 228 231 / 0.45) 55%,
+      rgb(228 228 231 / 0.18) 80%,
+      transparent 100%
     );
   }
 }
