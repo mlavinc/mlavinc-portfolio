@@ -21,6 +21,7 @@ export const projects: Project[] = [
       "React",
     ],
     githubUrl: "https://github.com/mlavinc/document-knowledge-agent",
+    liveUrl: "https://document-knowledge-agent-tau.vercel.app/",
     caseStudyUrl: "/projects/document-knowledge-agent",
     caseStudy: documentKnowledgeAgentCaseStudy,
     featured: true,

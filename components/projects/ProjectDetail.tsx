@@ -5,6 +5,7 @@ import { FlowDiagram } from "@/components/projects/FlowDiagram";
 import { InfoCard } from "@/components/projects/InfoCard";
 import { MediaPlaceholder } from "@/components/projects/MediaPlaceholder";
 import { PillList } from "@/components/projects/PillList";
+import { LiveDemoEmbed } from "@/components/ui/LiveDemoEmbed";
 import type { Project } from "@/types/project";
 
 interface ProjectDetailProps {
@@ -68,7 +69,15 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
       </Link>
 
       <div className="mt-8">
-        <MediaPlaceholder label="Project preview" />
+        {project.liveUrl ? (
+          <LiveDemoEmbed
+            url={project.liveUrl}
+            title={project.title}
+            variant="detail"
+          />
+        ) : (
+          <MediaPlaceholder label="Project preview" />
+        )}
       </div>
 
       <header className="mt-10 max-w-3xl">

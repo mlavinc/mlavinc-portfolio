@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { LiveDemoEmbed } from "@/components/ui/LiveDemoEmbed";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
@@ -8,10 +9,18 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <article className="flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white transition-colors duration-200 hover:border-zinc-300 dark:border-zinc-800 dark:bg-zinc-950 dark:hover:border-zinc-700">
-      <div
-        className="aspect-video w-full bg-zinc-100 dark:bg-zinc-900"
-        aria-hidden="true"
-      />
+      {project.liveUrl ? (
+        <LiveDemoEmbed
+          url={project.liveUrl}
+          title={project.title}
+          variant="card"
+        />
+      ) : (
+        <div
+          className="aspect-video w-full bg-zinc-100 dark:bg-zinc-900"
+          aria-hidden="true"
+        />
+      )}
 
       <div className="flex flex-1 flex-col p-6">
         <h3 className="text-lg font-semibold tracking-tight text-zinc-950 dark:text-zinc-50">
