@@ -64,6 +64,7 @@ export interface Project {
   technologies: string[];
   subtitle?: string;
   image?: string;
+  architectureImage?: string;
   githubUrl?: string;
   liveUrl?: string;
   caseStudyUrl?: string;

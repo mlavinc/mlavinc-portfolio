@@ -3,10 +3,30 @@ import { MediaPlaceholder } from "@/components/projects/MediaPlaceholder";
 
 interface FlowDiagramProps {
   steps?: string[];
+  image?: string;
+  imageAlt?: string;
   placeholderLabel?: string;
 }
 
-export function FlowDiagram({ steps, placeholderLabel }: FlowDiagramProps) {
+export function FlowDiagram({
+  steps,
+  image,
+  imageAlt = "Architecture diagram",
+  placeholderLabel,
+}: FlowDiagramProps) {
+  if (image) {
+    return (
+      <div className="w-full overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={image}
+          alt={imageAlt}
+          className="h-auto w-full object-contain"
+        />
+      </div>
+    );
+  }
+
   if (!steps || steps.length === 0) {
     return (
       <MediaPlaceholder
