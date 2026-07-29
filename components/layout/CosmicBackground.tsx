@@ -1,3 +1,7 @@
+"use client";
+
+import { useReducedMotion } from "framer-motion";
+
 /**
  * Minimal star field — deterministic positions, no random, GPU-friendly transforms.
  */
@@ -37,17 +41,16 @@ const METEORS = [
   { x: 78, y: 8, delay: 14, duration: 19 },
 ] as const;
 
-interface HeroStarfieldProps {
-  animate: boolean;
-}
+export function CosmicBackground() {
+  const prefersReducedMotion = useReducedMotion();
+  const animate = !prefersReducedMotion;
 
-export function HeroStarfield({ animate }: HeroStarfieldProps) {
   return (
-    <div className="hero-starfield" aria-hidden="true">
+    <div className="site-starfield" aria-hidden="true">
       {STARS.map((star, index) => (
         <span
           key={`star-${index}`}
-          className={animate ? "hero-star hero-star--live" : "hero-star"}
+          className={animate ? "site-star site-star--live" : "site-star"}
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
@@ -69,7 +72,7 @@ export function HeroStarfield({ animate }: HeroStarfieldProps) {
         ? METEORS.map((meteor, index) => (
             <span
               key={`meteor-${index}`}
-              className="hero-meteor"
+              className="site-meteor"
               style={{
                 left: `${meteor.x}%`,
                 top: `${meteor.y}%`,

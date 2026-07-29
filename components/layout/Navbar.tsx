@@ -8,14 +8,14 @@ export function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
+    <header className="sticky top-0 z-50 border-b border-zinc-800 bg-zinc-950/90 backdrop-blur-sm">
       <nav
         aria-label="Main navigation"
         className="mx-auto flex w-full max-w-5xl items-center justify-between px-6 py-4"
       >
         <Link
           href="/"
-          className="text-sm font-semibold tracking-tight text-zinc-950 transition-colors duration-200 dark:text-zinc-50"
+          className="text-sm font-semibold tracking-tight text-zinc-50 transition-colors duration-200"
           onClick={() => setIsOpen(false)}
         >
           Martin Lavin Carvajal
@@ -26,7 +26,7 @@ export function Navbar() {
             <li key={link.href}>
               <Link
                 href={`/${link.href}`}
-                className="text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                className="text-sm text-zinc-400 transition-colors duration-200 hover:text-zinc-50"
               >
                 {link.label}
               </Link>
@@ -36,7 +36,7 @@ export function Navbar() {
 
         <button
           type="button"
-          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-200 text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 md:hidden dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
+          className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 text-zinc-50 transition-colors duration-200 hover:bg-zinc-900 md:hidden"
           aria-expanded={isOpen}
           aria-controls="mobile-nav"
           aria-label={isOpen ? "Close menu" : "Open menu"}
@@ -79,14 +79,14 @@ export function Navbar() {
       {isOpen ? (
         <div
           id="mobile-nav"
-          className="border-t border-zinc-200 md:hidden dark:border-zinc-800"
+          className="border-t border-zinc-800 md:hidden"
         >
           <ul className="mx-auto flex w-full max-w-5xl flex-col gap-4 px-6 py-4">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <Link
                   href={`/${link.href}`}
-                  className="block text-sm text-zinc-600 transition-colors duration-200 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50"
+                  className="block text-sm text-zinc-400 transition-colors duration-200 hover:text-zinc-50"
                   onClick={() => setIsOpen(false)}
                 >
                   {link.label}

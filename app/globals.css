@@ -1,8 +1,12 @@
 @import "tailwindcss";
 
+/* Force class-based dark mode — ignore system light/dark preference */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  color-scheme: dark;
 }
 
 @theme inline {
@@ -10,13 +14,6 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
@@ -36,29 +33,29 @@ body {
   }
 }
 
-/* Hero starfield — minimal deep-space layer */
-.hero-starfield {
-  position: absolute;
+/* Site-wide starfield — fixed, transparent over shared dark background */
+.site-starfield {
+  position: fixed;
   inset: 0;
+  z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background-color: #0a0a0a;
 }
 
-.hero-star {
+.site-star {
   position: absolute;
   border-radius: 9999px;
   background-color: rgb(255 255 255);
 }
 
-.hero-star--live {
-  animation-name: hero-star-twinkle;
+.site-star--live {
+  animation-name: site-star-twinkle;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
   animation-direction: alternate;
 }
 
-.hero-meteor {
+.site-meteor {
   position: absolute;
   width: 96px;
   height: 1.5px;
@@ -72,12 +69,12 @@ body {
   transform: rotate(125deg);
   transform-origin: left center;
   opacity: 0;
-  animation-name: hero-meteor-streak;
+  animation-name: site-meteor-streak;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-@keyframes hero-star-twinkle {
+@keyframes site-star-twinkle {
   from {
     transform: translate3d(0, 0, 0);
     opacity: calc(var(--star-o, 0.7) * 0.7);
@@ -88,7 +85,7 @@ body {
   }
 }
 
-@keyframes hero-meteor-streak {
+@keyframes site-meteor-streak {
   0% {
     transform: rotate(125deg) translate3d(0, 0, 0);
     opacity: 0;
@@ -102,24 +99,5 @@ body {
   100% {
     transform: rotate(125deg) translate3d(140px, 180px, 0);
     opacity: 0;
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  .hero-starfield {
-    background-color: #ffffff;
-  }
-
-  .hero-star {
-    background-color: rgb(24 24 27);
-  }
-
-  .hero-meteor {
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgb(24 24 27 / 0.55),
-      transparent
-    );
   }
 }

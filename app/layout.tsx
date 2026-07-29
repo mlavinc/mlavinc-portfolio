@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { CosmicBackground } from "@/components/layout/CosmicBackground";
 import { PageTransition } from "@/components/motion/PageTransition";
 import "./globals.css";
 
@@ -33,10 +34,13 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
+      className={`dark ${geistSans.variable} ${geistMono.variable} h-full scroll-smooth antialiased`}
     >
-      <body className="flex min-h-full flex-col">
-        <PageTransition>{children}</PageTransition>
+      <body className="relative flex min-h-full flex-col bg-[#0a0a0a] text-zinc-50">
+        <CosmicBackground />
+        <div className="relative z-10 flex min-h-full flex-1 flex-col">
+          <PageTransition>{children}</PageTransition>
+        </div>
       </body>
     </html>
   );
