@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { HeroStarfield } from "@/components/sections/HeroStarfield";
 import {
   fadeUpTransition,
   fadeUpVariants,
@@ -19,9 +20,11 @@ export function Hero() {
   return (
     <section
       aria-labelledby="hero-heading"
-      className="flex min-h-[calc(100svh-4.25rem)] items-center"
+      className="relative flex min-h-[calc(100svh-4.25rem)] items-center"
     >
-      <div className="mx-auto w-full max-w-5xl px-6">
+      <HeroStarfield animate={!prefersReducedMotion} />
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-6">
         <motion.div
           className="mx-auto flex w-full max-w-2xl flex-col items-center text-center"
           variants={heroContainerVariants}

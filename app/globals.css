@@ -35,3 +35,84 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
+/* Hero starfield — subtle, low-opacity, Hero-only */
+.hero-starfield__star,
+.hero-starfield__star-static {
+  position: absolute;
+  border-radius: 9999px;
+  background-color: rgb(113 113 122 / 0.28);
+}
+
+.hero-starfield__star {
+  animation-name: hero-star-drift;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+.hero-starfield__meteor {
+  position: absolute;
+  width: 48px;
+  height: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgb(113 113 122 / 0.22),
+    transparent
+  );
+  transform: rotate(125deg);
+  transform-origin: left center;
+  animation-name: hero-meteor-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  will-change: transform, opacity;
+}
+
+@keyframes hero-star-drift {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0.15;
+  }
+  40% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translate3d(0, 18px, 0);
+    opacity: 0.15;
+  }
+}
+
+@keyframes hero-meteor-fall {
+  0% {
+    transform: rotate(125deg) translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.35;
+  }
+  35% {
+    opacity: 0;
+  }
+  100% {
+    transform: rotate(125deg) translate3d(120px, 160px, 0);
+    opacity: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .hero-starfield__star,
+  .hero-starfield__star-static {
+    background-color: rgb(212 212 216 / 0.22);
+  }
+
+  .hero-starfield__meteor {
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgb(212 212 216 / 0.2),
+      transparent
+    );
+  }
+}
