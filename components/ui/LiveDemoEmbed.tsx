@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 interface LiveDemoEmbedProps {
   url: string;
   title: string;
-  variant?: "card" | "detail";
 }
 
 function isFramingBlocked(headers: Headers): boolean {
@@ -47,11 +46,7 @@ function isFramingBlocked(headers: Headers): boolean {
   return true;
 }
 
-export function LiveDemoEmbed({
-  url,
-  title,
-  variant = "card",
-}: LiveDemoEmbedProps) {
+export function LiveDemoEmbed({ url, title }: LiveDemoEmbedProps) {
   const [blocked, setBlocked] = useState(false);
 
   useEffect(() => {
@@ -80,9 +75,7 @@ export function LiveDemoEmbed({
   }, [url]);
 
   const containerClassName =
-    variant === "detail"
-      ? "relative aspect-video w-full overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50"
-      : "relative aspect-video w-full overflow-hidden bg-zinc-100 dark:bg-zinc-900";
+    "relative h-[min(80vh,52rem)] min-h-[40rem] w-full overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50";
 
   if (blocked) {
     return (
@@ -110,7 +103,7 @@ export function LiveDemoEmbed({
       <iframe
         src={url}
         title={`${title} live demo`}
-        className="absolute inset-0 h-full w-full border-0"
+        className="absolute inset-0 h-full w-full min-w-full border-0"
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         allow="clipboard-read; clipboard-write"

@@ -20,6 +20,7 @@ export const projects: Project[] = [
       "ChromaDB",
       "React",
     ],
+    image: "/projects/document-knowledge-agent.png",
     githubUrl: "https://github.com/mlavinc/document-knowledge-agent",
     liveUrl: "https://document-knowledge-agent-tau.vercel.app/",
     caseStudyUrl: "/projects/document-knowledge-agent",

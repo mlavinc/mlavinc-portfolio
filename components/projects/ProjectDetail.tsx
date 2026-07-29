@@ -70,11 +70,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
       <div className="mt-8">
         {project.liveUrl ? (
-          <LiveDemoEmbed
-            url={project.liveUrl}
-            title={project.title}
-            variant="detail"
-          />
+          <LiveDemoEmbed url={project.liveUrl} title={project.title} />
         ) : (
           <MediaPlaceholder label="Project preview" />
         )}
