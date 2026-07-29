@@ -1,51 +1,40 @@
 /**
- * Deterministic positions — varied sizes, opacity and drift for a natural field.
- * driftY / glow give organic depth without looking uniform.
+ * Minimal star field — deterministic positions, no random, GPU-friendly transforms.
  */
 const STARS = [
-  { x: 7, y: 11, s: 1.1, d: 32, delay: 0, opacity: 0.45, drift: 14 },
-  { x: 16, y: 26, s: 1.6, d: 41, delay: 2.4, opacity: 0.7, drift: 22 },
-  { x: 24, y: 7, s: 1, d: 28, delay: 5.1, opacity: 0.35, drift: 12 },
-  { x: 33, y: 39, s: 1.4, d: 38, delay: 1.2, opacity: 0.55, drift: 18 },
-  { x: 41, y: 16, s: 2, d: 46, delay: 7.3, opacity: 0.75, drift: 26 },
-  { x: 49, y: 52, s: 1.1, d: 30, delay: 3.6, opacity: 0.4, drift: 15 },
-  { x: 57, y: 13, s: 1.3, d: 44, delay: 9.1, opacity: 0.6, drift: 20 },
-  { x: 65, y: 31, s: 1.7, d: 35, delay: 4.8, opacity: 0.68, drift: 24 },
-  { x: 73, y: 20, s: 1, d: 29, delay: 6.5, opacity: 0.38, drift: 11 },
-  { x: 81, y: 46, s: 1.5, d: 40, delay: 2.1, opacity: 0.58, drift: 19 },
-  { x: 90, y: 14, s: 1.8, d: 48, delay: 10.4, opacity: 0.72, drift: 28 },
-  { x: 11, y: 58, s: 1.2, d: 33, delay: 1.7, opacity: 0.48, drift: 16 },
-  { x: 22, y: 69, s: 1, d: 42, delay: 5.9, opacity: 0.36, drift: 13 },
-  { x: 38, y: 66, s: 1.9, d: 50, delay: 0.6, opacity: 0.78, drift: 30 },
-  { x: 46, y: 76, s: 1.2, d: 31, delay: 7.8, opacity: 0.5, drift: 17 },
-  { x: 60, y: 62, s: 1.4, d: 39, delay: 3.3, opacity: 0.62, drift: 21 },
-  { x: 68, y: 80, s: 1.6, d: 36, delay: 8.9, opacity: 0.66, drift: 23 },
-  { x: 77, y: 56, s: 1.1, d: 45, delay: 5.4, opacity: 0.42, drift: 14 },
-  { x: 87, y: 72, s: 1.3, d: 34, delay: 7.1, opacity: 0.54, drift: 18 },
-  { x: 5, y: 42, s: 1.5, d: 37, delay: 11.2, opacity: 0.64, drift: 20 },
-  { x: 93, y: 36, s: 1.7, d: 43, delay: 12, opacity: 0.7, drift: 25 },
-  { x: 14, y: 84, s: 1.1, d: 30, delay: 2.8, opacity: 0.4, drift: 12 },
-  { x: 32, y: 88, s: 1.4, d: 47, delay: 4.4, opacity: 0.58, drift: 22 },
-  { x: 54, y: 5, s: 1.2, d: 52, delay: 6.8, opacity: 0.46, drift: 15 },
-  { x: 71, y: 90, s: 2, d: 40, delay: 9.6, opacity: 0.76, drift: 27 },
-  { x: 3, y: 74, s: 1.2, d: 35, delay: 1.9, opacity: 0.44, drift: 16 },
-  { x: 85, y: 86, s: 1.3, d: 38, delay: 3.7, opacity: 0.52, drift: 19 },
-  { x: 47, y: 34, s: 1.6, d: 44, delay: 8.2, opacity: 0.68, drift: 24 },
-  { x: 29, y: 50, s: 1.8, d: 36, delay: 5.6, opacity: 0.72, drift: 26 },
-  { x: 63, y: 44, s: 1.1, d: 41, delay: 9.3, opacity: 0.4, drift: 13 },
-  { x: 9, y: 32, s: 1.5, d: 49, delay: 0.9, opacity: 0.6, drift: 21 },
-  { x: 83, y: 9, s: 1.2, d: 33, delay: 4.1, opacity: 0.48, drift: 15 },
-  { x: 19, y: 48, s: 0.9, d: 27, delay: 6.2, opacity: 0.32, drift: 10 },
-  { x: 52, y: 24, s: 1, d: 55, delay: 11.5, opacity: 0.38, drift: 14 },
-  { x: 75, y: 38, s: 0.9, d: 26, delay: 2.6, opacity: 0.34, drift: 9 },
-  { x: 36, y: 22, s: 1.3, d: 48, delay: 7.5, opacity: 0.56, drift: 17 },
+  { x: 6, y: 10, s: 1, o: 0.35, d: 7, delay: 0 },
+  { x: 14, y: 28, s: 1.25, o: 0.5, d: 9, delay: 1.2 },
+  { x: 22, y: 8, s: 1, o: 0.28, d: 8, delay: 2.4 },
+  { x: 31, y: 40, s: 1.5, o: 0.55, d: 11, delay: 0.6 },
+  { x: 39, y: 18, s: 1, o: 0.32, d: 10, delay: 3.1 },
+  { x: 48, y: 54, s: 1.25, o: 0.45, d: 8.5, delay: 1.8 },
+  { x: 56, y: 12, s: 1, o: 0.3, d: 12, delay: 4.2 },
+  { x: 64, y: 34, s: 1.5, o: 0.52, d: 9.5, delay: 2.7 },
+  { x: 73, y: 22, s: 1, o: 0.38, d: 7.5, delay: 0.9 },
+  { x: 81, y: 48, s: 1.25, o: 0.48, d: 10.5, delay: 3.6 },
+  { x: 90, y: 14, s: 1, o: 0.34, d: 8, delay: 5 },
+  { x: 10, y: 62, s: 1.25, o: 0.42, d: 11, delay: 1.5 },
+  { x: 20, y: 74, s: 1, o: 0.28, d: 9, delay: 4.5 },
+  { x: 37, y: 68, s: 1.5, o: 0.58, d: 10, delay: 2.1 },
+  { x: 45, y: 82, s: 1, o: 0.36, d: 8, delay: 5.5 },
+  { x: 58, y: 66, s: 1.25, o: 0.44, d: 12, delay: 3.3 },
+  { x: 70, y: 80, s: 1, o: 0.3, d: 9.5, delay: 0.4 },
+  { x: 78, y: 58, s: 1.25, o: 0.46, d: 7.5, delay: 4.8 },
+  { x: 88, y: 72, s: 1, o: 0.33, d: 11, delay: 2.9 },
+  { x: 4, y: 44, s: 1.25, o: 0.4, d: 10, delay: 6 },
+  { x: 94, y: 38, s: 1.5, o: 0.5, d: 8.5, delay: 1.1 },
+  { x: 28, y: 52, s: 1, o: 0.26, d: 13, delay: 3.9 },
+  { x: 52, y: 30, s: 1.25, o: 0.48, d: 9, delay: 5.2 },
+  { x: 66, y: 46, s: 1, o: 0.31, d: 10.5, delay: 2.3 },
+  { x: 84, y: 88, s: 1.25, o: 0.42, d: 8, delay: 4.1 },
+  { x: 16, y: 88, s: 1, o: 0.29, d: 11.5, delay: 0.7 },
 ] as const;
 
+/** Rare, slow meteors — long cycle = infrequent appearance */
 const METEORS = [
-  { x: 18, y: 2, delay: 0, duration: 14 },
-  { x: 48, y: 0, delay: 4.5, duration: 16 },
-  { x: 72, y: 5, delay: 9, duration: 15 },
-  { x: 36, y: 8, delay: 12.5, duration: 17 },
+  { x: 22, y: 4, delay: 2, duration: 22 },
+  { x: 58, y: 0, delay: 12, duration: 26 },
+  { x: 78, y: 8, delay: 20, duration: 24 },
 ] as const;
 
 interface HeroStarfieldProps {
@@ -54,55 +43,24 @@ interface HeroStarfieldProps {
 
 export function HeroStarfield({ animate }: HeroStarfieldProps) {
   return (
-    <div
-      className="hero-starfield pointer-events-none absolute inset-0 overflow-hidden"
-      aria-hidden="true"
-    >
-      <div
-        className={
-          animate
-            ? "hero-starfield__nebula hero-starfield__nebula--a"
-            : "hero-starfield__nebula hero-starfield__nebula--a hero-starfield__nebula--static"
-        }
-      />
-      <div
-        className={
-          animate
-            ? "hero-starfield__nebula hero-starfield__nebula--b"
-            : "hero-starfield__nebula hero-starfield__nebula--b hero-starfield__nebula--static"
-        }
-      />
-      <div
-        className={
-          animate
-            ? "hero-starfield__nebula hero-starfield__nebula--c"
-            : "hero-starfield__nebula hero-starfield__nebula--c hero-starfield__nebula--static"
-        }
-      />
-      <div className="hero-starfield__dust" />
-
+    <div className="hero-starfield" aria-hidden="true">
       {STARS.map((star, index) => (
         <span
           key={`star-${index}`}
-          className={
-            animate ? "hero-starfield__star" : "hero-starfield__star-static"
-          }
+          className={animate ? "hero-star hero-star--live" : "hero-star"}
           style={{
             left: `${star.x}%`,
             top: `${star.y}%`,
             width: star.s,
             height: star.s,
-            ["--star-base" as string]: String(star.opacity),
-            ["--star-drift" as string]: `${star.drift}px`,
-            ["--star-peak" as string]: String(
-              Math.min(star.opacity + 0.22, 0.92),
-            ),
+            ["--star-o" as string]: String(star.o),
+            opacity: star.o,
             ...(animate
               ? {
                   animationDuration: `${star.d}s`,
                   animationDelay: `${star.delay}s`,
                 }
-              : { opacity: star.opacity }),
+              : null),
           }}
         />
       ))}
@@ -111,7 +69,7 @@ export function HeroStarfield({ animate }: HeroStarfieldProps) {
         ? METEORS.map((meteor, index) => (
             <span
               key={`meteor-${index}`}
-              className="hero-starfield__meteor"
+              className="hero-meteor"
               style={{
                 left: `${meteor.x}%`,
                 top: `${meteor.y}%`,
