@@ -2,13 +2,12 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const skillTrackerCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "Skill Tracker is a full-stack web application designed to help users organize, track, and manage their technical skills through a structured and intuitive platform.",
-    "The project demonstrates modern software engineering practices including backend architecture, REST API design, relational database modeling, frontend integration, and containerized development.",
-    "The objective was to build a maintainable application from scratch following scalable engineering principles.",
+    "Skill Tracker is a full-stack application for organizing and tracking technical skills, built to practice maintainable backend architecture rather than a thin CRUD demo.",
+    "The stack — Go REST API, PostgreSQL, React, and Docker Compose — was chosen to enforce clear API contracts, relational modeling, and a reproducible multi-service local environment.",
   ],
   overview: [
-    "Developers and professionals often track their knowledge across scattered notes and documents.",
-    "Skill Tracker provides a centralized platform to organize skills, categorize knowledge, and monitor professional growth through a structured application.",
+    "Skill knowledge often lives in scattered notes. Skill Tracker centralizes that data behind a structured API and UI.",
+    "The key design decision was a layered Go backend (HTTP → controllers → services → repositories → database) so business logic stays testable and decoupled from transport and persistence details.",
   ],
   architectureFlow: [
     "Frontend",
@@ -48,7 +47,7 @@ export const skillTrackerCaseStudy: ProjectCaseStudy = {
       "Repositories abstract database operations",
       "Models represent application entities",
     ],
-    note: "This improves maintainability, testing, and future extensibility.",
+    note: "Layering improves maintainability, testing, and future extensibility without coupling the UI to SQL details.",
   },
   databaseDesign: [
     "PostgreSQL relational database",
@@ -66,12 +65,11 @@ export const skillTrackerCaseStudy: ProjectCaseStudy = {
     ],
   },
   engineeringHighlights: [
-    "Clean architecture principles",
-    "Separation of concerns",
-    "REST API design",
-    "Frontend/backend decoupling",
-    "Containerized development environment",
-    "Reproducible local setup with Docker Compose",
+    "Layered Go architecture with separation of concerns",
+    "REST API contracts decoupling frontend from persistence",
+    "PostgreSQL for structured, durable skill data",
+    "Docker Compose orchestration of frontend, backend, and database",
+    "API-first development with a reproducible local setup",
   ],
   techStack: [
     {
@@ -120,5 +118,5 @@ export const skillTrackerCaseStudy: ProjectCaseStudy = {
     "CI/CD pipeline integration",
   ],
   projectImpact:
-    "Skill Tracker demonstrates practical full-stack engineering skills by combining backend development, database design, frontend integration, and software architecture principles.",
+    "Skill Tracker demonstrates full-stack engineering discipline: layered backend design, relational modeling, frontend integration, and containerized multi-service development.",
 };

@@ -30,7 +30,7 @@ export function FlowDiagram({
   if (!steps || steps.length === 0) {
     return (
       <MediaPlaceholder
-        label={placeholderLabel ?? "Architecture diagram coming soon"}
+        label={placeholderLabel ?? "Architecture overview"}
         className="flex min-h-40 w-full items-center justify-center rounded-lg border border-dashed border-zinc-300 bg-zinc-50 py-10 dark:border-zinc-700 dark:bg-zinc-900/50"
       />
     );

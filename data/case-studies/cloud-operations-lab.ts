@@ -2,12 +2,12 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const cloudOperationsLabCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "Cloud Operations Lab is a cloud engineering project that demonstrates the implementation of a production-oriented AWS environment using Infrastructure as Code, DevOps automation, and modern cloud management practices.",
-    "The project focuses on building a secure, automated, and reproducible cloud infrastructure using Terraform, CI/CD workflows, centralized state management, and cost-aware architecture decisions.",
+    "Cloud Operations Lab is a hands-on AWS environment built to practice production-oriented Cloud Engineering: Infrastructure as Code, secure CI/CD, and cost-aware operations.",
+    "The core trade-off was clear — favor reproducibility and security (Terraform modules, remote state, OIDC-based auth) while keeping spend low by deploying and destroying resources on demand.",
   ],
   overview: [
-    "Cloud environments can become difficult to maintain when infrastructure is managed manually.",
-    "This project explores how Cloud Engineering practices solve these challenges by treating infrastructure as software: version controlled, automated, reproducible, and securely managed.",
+    "Manually managed cloud resources drift, hide configuration, and create security risk through long-lived credentials.",
+    "This project treats infrastructure as software: Terraform defines the environment, GitHub Actions deploys it, S3/DynamoDB manage remote state and locking, and GitHub OIDC assumes IAM roles with temporary credentials instead of static keys.",
   ],
   featuresTitle: "Solution",
   featuresIntro:
@@ -60,19 +60,18 @@ export const cloudOperationsLabCaseStudy: ProjectCaseStudy = {
     },
   ],
   engineeringHighlights: [
-    "Infrastructure as Code practices",
-    "Automated deployment workflows",
-    "Cloud security fundamentals",
-    "Least privilege authentication",
-    "Remote Terraform state management",
-    "Cost-aware cloud architecture",
-    "Production-like workflows with controlled expenses",
+    "Modular Terraform for reusable, reproducible AWS environments",
+    "Remote state in S3 with DynamoDB locking to prevent concurrent apply conflicts",
+    "GitHub Actions CI/CD authenticated via OIDC — no long-lived access keys",
+    "Least-privilege IAM roles for pipeline and runtime access",
+    "Session Manager for secure administration without exposing SSH",
+    "Deploy → validate → destroy workflow to control cloud cost",
   ],
   cloudArchitectureTitle: "Cost Optimization",
   cloudArchitecture: {
     services: ["Terraform", "GitHub Actions", "AWS"],
     description:
-      "The architecture was designed for learning and demonstrations while avoiding unnecessary always-running resources. This demonstrates practical FinOps and cloud cost management awareness.",
+      "The environment is intentionally ephemeral: infrastructure is provisioned for validation, then destroyed. That FinOps-minded choice keeps the architecture production-like without paying for idle compute.",
     workflow: [
       "Deploy when needed",
       "Validate functionality",

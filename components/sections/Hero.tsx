@@ -7,6 +7,12 @@ import {
   heroContainerVariants,
 } from "@/lib/motion";
 
+const linkedInUrl =
+  "https://www.linkedin.com/in/martin-lavin-carvajal-010b08339/";
+
+const secondaryButtonClassName =
+  "inline-flex h-10 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900";
+
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
 
@@ -40,16 +46,26 @@ export function Hero() {
           </motion.p>
 
           <motion.p
-            className="mt-4 max-w-md text-base leading-relaxed text-zinc-500 dark:text-zinc-500"
+            className="mt-4 max-w-xl text-base leading-relaxed text-zinc-500 dark:text-zinc-500"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
-            Building modern applications focused on backend, cloud, and
-            artificial intelligence.
+            Engineering cloud-native systems, AI applications and scalable
+            software solutions.
+          </motion.p>
+
+          <motion.p
+            className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-500"
+            variants={fadeUpVariants}
+            transition={fadeUpTransition}
+          >
+            Focused on cloud engineering, AWS architecture, AI-powered
+            applications, backend development, and Infrastructure as Code —
+            with full-stack delivery when the product requires it.
           </motion.p>
 
           <motion.div
-            className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:items-center"
+            className="mt-8 flex w-full flex-col items-stretch gap-3 sm:w-auto sm:flex-row sm:flex-wrap sm:items-center sm:justify-center"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
@@ -60,12 +76,26 @@ export function Hero() {
               View Projects
             </a>
             <a
-              href="https://github.com/mlavinc"
+              href="/cv/martin-lavin-cv-en.pdf"
+              download
+              className={secondaryButtonClassName}
+            >
+              Download CV (English)
+            </a>
+            <a
+              href="/cv/martin-lavin-cv-es.pdf"
+              download
+              className={secondaryButtonClassName}
+            >
+              Descargar CV (Español)
+            </a>
+            <a
+              href={linkedInUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-10 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900"
+              className={secondaryButtonClassName}
             >
-              GitHub
+              LinkedIn
             </a>
           </motion.div>
         </motion.div>

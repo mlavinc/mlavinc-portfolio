@@ -2,13 +2,12 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "ECG-AI is a machine learning-powered platform designed to analyze electrocardiogram signals and classify cardiac patterns using artificial intelligence.",
-    "The project combines biomedical signal processing, predictive modeling, and serverless cloud architecture to create an end-to-end AI application, from data processing and model training to cloud deployment and user interaction.",
-    "The goal was to demonstrate how machine learning solutions can move beyond experimentation and become scalable software systems.",
+    "ECG-AI is an end-to-end machine learning system for classifying cardiac patterns from electrocardiogram signals — from preprocessing and model training through serverless inference and a React client.",
+    "The main engineering challenge was packaging a biomedical ML workflow as deployable software: feature extraction and Random Forest inference behind an API, running on AWS Lambda with Terraform-managed infrastructure.",
   ],
   overview: [
-    "Machine learning projects often stop at model development, but real-world AI systems require complete engineering solutions including APIs, deployment, infrastructure, and user-facing applications.",
-    "ECG-AI explores how biomedical ML workloads can be integrated into a production-oriented cloud architecture.",
+    "Many ML projects stop at notebooks. Production AI needs APIs, deployment, cost controls, and a clear separation between training-time experimentation and runtime inference.",
+    "ECG-AI bridges that gap: PhysioNet ECG data feeds a supervised pipeline (balanced accuracy ~75.5%, accuracy ~76.4%), and inference is served through API Gateway and Lambda so compute runs only on demand.",
   ],
   architectureFlow: [
     "Frontend Application",
@@ -71,19 +70,19 @@ export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
         items: ["Balanced Accuracy: ~75.5%", "Accuracy: ~76.4%"],
       },
     ],
-    note: "Balanced metrics were considered due to the importance of handling different cardiac classes fairly.",
+    note: "Balanced metrics were prioritized to evaluate performance fairly across cardiac classes.",
   },
   engineeringHighlights: [
-    "End-to-end AI engineering workflow",
-    "Deployment of ML inference in a serverless environment",
-    "Separation between frontend, API, and ML components",
-    "Infrastructure automation with Terraform",
-    "Cost-aware cloud architecture using pay-per-use services",
+    "End-to-end path from signal processing to cloud-hosted inference",
+    "Random Forest model packaged for serverless execution on AWS Lambda",
+    "Clear separation of frontend, API, and ML inference concerns",
+    "Terraform for reproducible AWS deployment (Lambda, API Gateway, S3)",
+    "Pay-per-use inference to avoid always-on GPU/CPU servers",
   ],
   cloudArchitecture: {
     services: ["AWS Lambda", "Amazon API Gateway", "Amazon S3", "Terraform"],
     description:
-      "Serverless execution allows the model to run only when needed, reducing operational overhead and unnecessary costs.",
+      "Inference runs only when requested. API Gateway fronts Lambda, keeping operational overhead and cost aligned with actual usage rather than idle capacity.",
   },
   techStack: [
     {
@@ -104,8 +103,8 @@ export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
     },
   ],
   challenges: [
-    "Adapting a machine learning model for cloud inference",
-    "Handling biomedical signal processing complexity",
+    "Adapting a machine learning model for cloud inference constraints",
+    "Handling biomedical signal processing complexity in a software pipeline",
     "Designing scalable architecture without always-running servers",
     "Bridging data science experimentation with software engineering practices",
   ],

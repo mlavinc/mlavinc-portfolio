@@ -9,6 +9,6 @@ export const experience: Experience[] = [
     company: "Nestlé Digital & New Tech",
     role: "Power Platform Developer Intern",
     description:
-      "Developed internal solutions and automation workflows using Microsoft technologies, SQL, Python, and cloud services.",
+      "Contributed to Nestlé's Digital & New Tech team by designing and delivering enterprise automation solutions used in real business processes. Built applications and workflows with Microsoft Power Platform and Azure services, integrating SQL and Python for data handling and process logic, while collaborating with business stakeholders to translate operational needs into reliable digital solutions.",
   },
 ];

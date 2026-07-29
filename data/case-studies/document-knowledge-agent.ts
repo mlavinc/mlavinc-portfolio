@@ -2,13 +2,13 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "A cloud-native Retrieval-Augmented Generation (RAG) platform that transforms documents into interactive knowledge sources.",
-    "The system allows users to upload documents, process their content, generate semantic representations, and ask natural language questions to retrieve relevant information with AI-generated answers.",
-    "The project demonstrates how modern AI applications can be built beyond simple chatbots by combining document processing pipelines, vector search, foundation models, and scalable cloud architecture.",
+    "A cloud-native Retrieval-Augmented Generation (RAG) platform that turns documents into queryable knowledge sources through semantic search and grounded AI answers.",
+    "Users upload documents, the system extracts and chunks content, generates embeddings, indexes them for vector retrieval, and answers natural-language questions using retrieved context.",
+    "The engineering focus was building a modular AI pipeline — not a thin chatbot wrapper — combining document processing, vector search, foundation models, and a serverless AWS deployment model.",
   ],
   overview: [
-    "Organizations store large amounts of unstructured information in PDFs, reports, and technical documentation. Traditional keyword search often fails when users need answers based on meaning rather than exact terms.",
-    "Document Knowledge Agent solves this by enabling semantic search and conversational interaction with documents through a RAG pipeline.",
+    "Unstructured PDFs and technical documents are hard to query with keyword search when users need meaning-based answers.",
+    "Document Knowledge Agent addresses this with a RAG pipeline: ingest → chunk → embed → retrieve → generate, separated into synchronous search paths and asynchronous ingestion so long-running processing does not block API requests.",
   ],
   features: [
     {
@@ -76,12 +76,12 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
     },
   ],
   engineeringHighlights: [
-    "Modular AI architecture with provider abstraction",
-    "Production-oriented API design",
-    "Versioned APIs, validation, error handling and service separation",
-    "Async workflows for long-running tasks",
-    "Infrastructure as Code using Terraform",
-    "Serverless cloud architecture focused on scalability and cost optimization",
+    "Provider abstraction for AI models (Ollama locally, AWS Bedrock in cloud)",
+    "Versioned APIs with validation, error handling, and service separation",
+    "Async ingestion vs sync search to isolate long-running workloads",
+    "Serverless deployment with AWS Lambda, API Gateway, S3, CloudFront, and ECR",
+    "Infrastructure as Code with Terraform for reproducible cloud environments",
+    "Cost-conscious design: pay-per-use compute instead of always-on servers",
   ],
   cloudArchitecture: {
     services: [
@@ -93,7 +93,7 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       "Terraform",
     ],
     description:
-      "The architecture avoids unnecessary always-running infrastructure through serverless execution and supports reproducible deployments.",
+      "Traffic is fronted by CloudFront, with the SPA served from S3 and /api/* routed through API Gateway to Lambda. FastAPI handles search synchronously and ingestion asynchronously, integrating Bedrock for generation and vector storage for retrieval — avoiding always-running infrastructure.",
   },
   techStack: [
     {

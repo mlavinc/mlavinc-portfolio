@@ -14,8 +14,15 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "Personal portfolio",
+  title: "Martin Lavin Carvajal | Cloud, AI & Software Engineer",
+  description:
+    "Portfolio of Martin Lavin Carvajal — Computer Engineering student specializing in cloud engineering, AWS architecture, AI-powered applications, backend development, and Infrastructure as Code.",
+  openGraph: {
+    title: "Martin Lavin Carvajal | Cloud, AI & Software Engineer",
+    description:
+      "Cloud engineering, AI applications, backend systems, and scalable software solutions — with hands-on AWS, Terraform, and full-stack delivery.",
+    type: "website",
+  },
 };
 
 export default function RootLayout({

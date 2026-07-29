@@ -11,7 +11,7 @@ export const projects: Project[] = [
     subtitle:
       "Intelligent Document Processing & AI Knowledge Retrieval Platform",
     description:
-      "A cloud-native RAG platform that transforms documents into interactive knowledge sources.",
+      "Cloud-native RAG platform: document ingestion, vector search, and grounded AI answers on a serverless AWS stack (Lambda, API Gateway, S3, CloudFront, Bedrock) with Terraform.",
     technologies: [
       "Python",
       "Node.js",
@@ -34,7 +34,7 @@ export const projects: Project[] = [
     title: "Cloud Operations Lab",
     subtitle: "Cloud Infrastructure & DevOps Automation Platform",
     description:
-      "A production-oriented AWS environment using Infrastructure as Code, DevOps automation, and modern cloud practices.",
+      "Production-oriented AWS lab with Terraform modules, GitHub Actions OIDC, remote state locking, and deploy-on-demand workflows for cost-aware cloud operations.",
     technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Linux"],
     githubUrl: "https://github.com/mlavinc/cloud-operations-lab",
     caseStudyUrl: "/projects/cloud-operations-lab",
@@ -47,7 +47,7 @@ export const projects: Project[] = [
     title: "ECG-AI Serverless",
     subtitle: "Serverless ECG Analysis Platform with Machine Learning",
     description:
-      "A machine learning-powered platform for analyzing ECG signals and classifying cardiac patterns with serverless cloud architecture.",
+      "End-to-end ECG classification (~75.5% balanced accuracy) with serverless inference on AWS Lambda, API Gateway, and Terraform — from signal processing to deployable ML software.",
     technologies: [
       "Python",
       "Machine Learning",
@@ -65,7 +65,7 @@ export const projects: Project[] = [
     title: "Skill Tracker",
     subtitle: "Personal Skill Management Platform",
     description:
-      "A full-stack platform to organize, track, and manage technical skills with scalable engineering practices.",
+      "Full-stack skill tracking platform with a layered Go REST API, PostgreSQL, React, and Docker Compose — focused on clean architecture and reproducible multi-service development.",
     technologies: ["Go", "React", "PostgreSQL", "Docker"],
     githubUrl: "https://github.com/mlavinc/skill-tracker",
     caseStudyUrl: "/projects/skill-tracker",

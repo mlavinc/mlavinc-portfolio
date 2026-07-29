@@ -155,11 +155,15 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             title="Architecture"
           >
             <div className="space-y-8">
-              <FlowDiagram
-                steps={caseStudy.architectureFlow}
-                image={project.architectureImage}
-                imageAlt={`${project.title} architecture diagram`}
-              />
+              {(project.architectureImage ||
+                (caseStudy.architectureFlow &&
+                  caseStudy.architectureFlow.length > 0)) && (
+                <FlowDiagram
+                  steps={caseStudy.architectureFlow}
+                  image={project.architectureImage}
+                  imageAlt={`${project.title} architecture diagram`}
+                />
+              )}
 
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {caseStudy.architecture.map((layer) => (
