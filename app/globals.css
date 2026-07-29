@@ -41,7 +41,7 @@ body {
 .hero-starfield__star-static {
   position: absolute;
   border-radius: 9999px;
-  background-color: rgb(113 113 122 / 0.28);
+  background-color: rgb(82 82 91 / 0.48);
 }
 
 .hero-starfield__star {
@@ -53,13 +53,14 @@ body {
 
 .hero-starfield__meteor {
   position: absolute;
-  width: 48px;
-  height: 1px;
+  width: 88px;
+  height: 1.5px;
   border-radius: 9999px;
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(113 113 122 / 0.22),
+    rgb(82 82 91 / 0.42),
+    rgb(82 82 91 / 0.28),
     transparent
   );
   transform: rotate(125deg);
@@ -73,14 +74,14 @@ body {
 @keyframes hero-star-drift {
   0% {
     transform: translate3d(0, 0, 0);
-    opacity: 0.15;
+    opacity: 0.35;
   }
   40% {
-    opacity: 0.4;
+    opacity: 0.72;
   }
   100% {
     transform: translate3d(0, 18px, 0);
-    opacity: 0.15;
+    opacity: 0.35;
   }
 }
 
@@ -89,14 +90,14 @@ body {
     transform: rotate(125deg) translate3d(0, 0, 0);
     opacity: 0;
   }
-  8% {
-    opacity: 0.35;
+  6% {
+    opacity: 0.55;
   }
-  35% {
+  40% {
     opacity: 0;
   }
   100% {
-    transform: rotate(125deg) translate3d(120px, 160px, 0);
+    transform: rotate(125deg) translate3d(140px, 180px, 0);
     opacity: 0;
   }
 }
@@ -104,14 +105,15 @@ body {
 @media (prefers-color-scheme: dark) {
   .hero-starfield__star,
   .hero-starfield__star-static {
-    background-color: rgb(212 212 216 / 0.22);
+    background-color: rgb(228 228 231 / 0.4);
   }
 
   .hero-starfield__meteor {
     background: linear-gradient(
       90deg,
       transparent,
-      rgb(212 212 216 / 0.2),
+      rgb(228 228 231 / 0.38),
+      rgb(228 228 231 / 0.22),
       transparent
     );
   }
