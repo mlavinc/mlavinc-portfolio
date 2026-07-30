@@ -71,6 +71,15 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
       <div className="mt-8">
         {project.liveUrl ? (
           <LiveDemoEmbed url={project.liveUrl} title={project.title} />
+        ) : project.image ? (
+          <div className="overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={project.image}
+              alt={`${project.title} preview`}
+              className="h-auto w-full object-contain"
+            />
+          </div>
         ) : (
           <MediaPlaceholder label="Project preview" />
         )}
@@ -174,6 +183,122 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               </div>
             </div>
           </CaseStudySection>
+
+          {caseStudy.infrastructureAsCode ? (
+            <CaseStudySection
+              id="iac-heading"
+              title="Infrastructure as Code"
+              intro={caseStudy.infrastructureAsCode.intro}
+            >
+              <div className="space-y-6">
+                {caseStudy.infrastructureAsCode.image ? (
+                  <FlowDiagram
+                    image={caseStudy.infrastructureAsCode.image}
+                    imageAlt={
+                      caseStudy.infrastructureAsCode.imageAlt ??
+                      `${project.title} Infrastructure as Code diagram`
+                    }
+                  />
+                ) : null}
+                {caseStudy.infrastructureAsCode.items ? (
+                  <InfoCard>
+                    <BulletList items={caseStudy.infrastructureAsCode.items} />
+                  </InfoCard>
+                ) : null}
+              </div>
+            </CaseStudySection>
+          ) : null}
+
+          {caseStudy.securityDecisions ? (
+            <CaseStudySection
+              id="security-heading"
+              title="Security Decisions"
+              intro={caseStudy.securityDecisions.intro}
+            >
+              <div className="space-y-6">
+                {caseStudy.securityDecisions.image ? (
+                  <FlowDiagram
+                    image={caseStudy.securityDecisions.image}
+                    imageAlt={
+                      caseStudy.securityDecisions.imageAlt ??
+                      `${project.title} security decisions diagram`
+                    }
+                  />
+                ) : null}
+                {caseStudy.securityDecisions.groups &&
+                caseStudy.securityDecisions.groups.length > 0 ? (
+                  <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    {caseStudy.securityDecisions.groups.map((group) => (
+                      <InfoCard key={group.title} title={group.title}>
+                        <BulletList items={group.items} />
+                      </InfoCard>
+                    ))}
+                  </div>
+                ) : null}
+                {caseStudy.securityDecisions.items ? (
+                  <InfoCard>
+                    <BulletList items={caseStudy.securityDecisions.items} />
+                  </InfoCard>
+                ) : null}
+              </div>
+            </CaseStudySection>
+          ) : null}
+
+          {caseStudy.cicdWorkflow ? (
+            <CaseStudySection
+              id="cicd-heading"
+              title="CI/CD Workflow"
+              intro={caseStudy.cicdWorkflow.intro}
+            >
+              <div className="space-y-6">
+                {caseStudy.cicdWorkflow.image ? (
+                  <FlowDiagram
+                    image={caseStudy.cicdWorkflow.image}
+                    imageAlt={
+                      caseStudy.cicdWorkflow.imageAlt ??
+                      `${project.title} CI/CD workflow diagram`
+                    }
+                  />
+                ) : null}
+                {caseStudy.cicdWorkflow.flow &&
+                caseStudy.cicdWorkflow.flow.length > 0 ? (
+                  <FlowDiagram steps={caseStudy.cicdWorkflow.flow} />
+                ) : null}
+                {caseStudy.cicdWorkflow.items ? (
+                  <InfoCard>
+                    <BulletList items={caseStudy.cicdWorkflow.items} />
+                  </InfoCard>
+                ) : null}
+              </div>
+            </CaseStudySection>
+          ) : null}
+
+          {caseStudy.operationsObservability ? (
+            <CaseStudySection
+              id="operations-heading"
+              title="Operations and Observability"
+              intro={caseStudy.operationsObservability.intro}
+            >
+              <div className="space-y-6">
+                {caseStudy.operationsObservability.image ? (
+                  <FlowDiagram
+                    image={caseStudy.operationsObservability.image}
+                    imageAlt={
+                      caseStudy.operationsObservability.imageAlt ??
+                      `${project.title} operations and observability diagram`
+                    }
+                  />
+                ) : null}
+                {caseStudy.operationsObservability.items ? (
+                  <InfoCard>
+                    <BulletList
+                      items={caseStudy.operationsObservability.items}
+                    />
+                  </InfoCard>
+                ) : null}
+              </div>
+            </CaseStudySection>
+          ) : null}
 
           {caseStudy.features && caseStudy.features.length > 0 ? (
             <CaseStudySection

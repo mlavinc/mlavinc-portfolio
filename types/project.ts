@@ -31,6 +31,15 @@ export interface ProjectFrontendDevelopment {
   items: string[];
 }
 
+export interface ProjectDiagramBlock {
+  intro?: string;
+  image?: string;
+  imageAlt?: string;
+  flow?: string[];
+  items?: string[];
+  groups?: ProjectFeatureGroup[];
+}
+
 export interface ProjectCaseStudy {
   introduction: string[];
   overview: string[];
@@ -39,6 +48,10 @@ export interface ProjectCaseStudy {
   features?: ProjectFeatureGroup[];
   architectureFlow?: string[];
   architecture: ProjectArchitectureLayer[];
+  infrastructureAsCode?: ProjectDiagramBlock;
+  securityDecisions?: ProjectDiagramBlock;
+  cicdWorkflow?: ProjectDiagramBlock;
+  operationsObservability?: ProjectDiagramBlock;
   mlPipeline?: ProjectMlPipeline;
   backendEngineering?: ProjectBackendEngineering;
   databaseDesign?: string[];

@@ -32,10 +32,19 @@ export const projects: Project[] = [
   {
     id: "cloud-operations-lab",
     title: "Cloud Operations Lab",
-    subtitle: "Cloud Infrastructure & DevOps Automation Platform",
+    subtitle: "AWS · Terraform · Cloud / Platform Engineering",
     description:
-      "Production-oriented AWS lab with Terraform modules, GitHub Actions OIDC, remote state locking, and deploy-on-demand workflows for cost-aware cloud operations.",
-    technologies: ["AWS", "Terraform", "Docker", "GitHub Actions", "Linux"],
+      "AWS operations platform defined with modular Terraform, secure SSM access, and a GitHub Actions pipeline with OIDC and manual approval before apply.",
+    technologies: [
+      "AWS",
+      "Terraform",
+      "GitHub Actions",
+      "OIDC",
+      "SSM",
+      "CloudWatch",
+    ],
+    image: "/projects/cloud-operations-lab.png",
+    architectureImage: "/projects/cloud-operations-lab-architecture.png",
     githubUrl: "https://github.com/mlavinc/cloud-operations-lab",
     caseStudyUrl: "/projects/cloud-operations-lab",
     caseStudy: cloudOperationsLabCaseStudy,

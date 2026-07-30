@@ -2,112 +2,174 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const cloudOperationsLabCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "Cloud Operations Lab is a hands-on AWS environment built to practice production-oriented Cloud Engineering: Infrastructure as Code, secure CI/CD, and cost-aware operations.",
-    "The core trade-off was clear: favor reproducibility and security (Terraform modules, remote state, OIDC-based auth) while keeping spend low by deploying and destroying resources on demand.",
+    "Cloud Operations Lab is an AWS platform engineering environment focused on Infrastructure as Code, secure CI/CD, and operational visibility.",
+    "It is not an end-user application. It demonstrates how to define, review, apply, observe, and automate infrastructure with the same controls used in cloud operations teams.",
   ],
   overview: [
-    "Manually managed cloud resources drift, hide configuration, and create security risk through long-lived credentials.",
-    "This project treats infrastructure as software: Terraform defines the environment, GitHub Actions deploys it, S3/DynamoDB manage remote state and locking, and GitHub OIDC assumes IAM roles with temporary credentials instead of static keys.",
-  ],
-  featuresTitle: "Solution",
-  featuresIntro:
-    "The project implements an AWS infrastructure workflow where resources are:",
-  features: [
-    {
-      title: "Workflow",
-      items: [
-        "Defined using Terraform",
-        "Managed through version control",
-        "Deployed using automated CI/CD pipelines",
-        "Protected with identity-based authentication",
-        "Created and destroyed on demand to control costs",
-      ],
-    },
+    "In real cloud environments, the hard part is rarely creating a single resource. The hard part is changing infrastructure with control: no long-lived CI credentials, no improvised SSH access, clear visibility when something fails, and review before the environment changes.",
+    "Cloud Operations Lab addresses that gap with a small but complete AWS baseline: modular Terraform, remote state, GitHub Actions with OIDC, least-privilege IAM, SSM-based access, and CloudWatch observability.",
+    "The result is a Cloud / Platform Engineering case study that shows how the platform under applications is provisioned, secured, and operated.",
   ],
   architecture: [
     {
+      title: "Control Plane",
+      items: [
+        "GitHub",
+        "GitHub Actions",
+        "GitHub OIDC",
+        "Terraform",
+        "S3 remote state",
+        "DynamoDB state lock",
+      ],
+    },
+    {
+      title: "AWS Runtime",
+      items: [
+        "VPC",
+        "EC2 (Amazon Linux 2023)",
+        "IAM instance profile",
+        "SSM Session Manager",
+        "CloudWatch",
+        "SNS",
+        "DynamoDB ops-logs",
+      ],
+    },
+  ],
+  infrastructureAsCode: {
+    intro:
+      "Infrastructure is defined as modular Terraform and composed by environment, with bootstrap separated from workload.",
+    items: [
+      "Reusable modules for VPC, IAM, EC2, CloudWatch, DynamoDB, and SSM",
+      "Bootstrap creates the remote state backend, locks, OIDC trust, and CI/CD roles",
+      "Workload environments consume modules without mixing state backend wiring into resource definitions",
+      "S3 remote state with DynamoDB locking for safe collaboration and CI applies",
+      "Environment-oriented composition for a clear, reproducible deployment model",
+    ],
+  },
+  securityDecisions: {
+    intro:
+      "Security choices favor temporary credentials, least privilege, and reduced attack surface.",
+    image: "/projects/cloud-operations-lab-security.png",
+    imageAlt: "Cloud Operations Lab security decisions diagram",
+    groups: [
+      {
+        title: "Avoided",
+        items: [
+          "AWS Access Keys in CI",
+          "SSH with open port 22",
+          "A single overpowered IAM role",
+          "Unencrypted or public Terraform state",
+        ],
+      },
+      {
+        title: "Implemented",
+        items: [
+          "GitHub OIDC with short-lived credentials",
+          "SSM Session Manager for operational access",
+          "Separate plan and apply IAM roles",
+          "Encrypted and versioned S3 remote state",
+        ],
+      },
+    ],
+  },
+  cicdWorkflow: {
+    intro:
+      "Infrastructure changes move through review before AWS is updated: the code proposes the change, CI simulates it, a person approves it, and only then Terraform apply runs.",
+    image: "/projects/cloud-operations-lab-cicd.png",
+    imageAlt: "Cloud Operations Lab CI/CD workflow diagram",
+    flow: [
+      "Pull Request",
+      "Terraform Plan",
+      "Review",
+      "Merge",
+      "Approval",
+      "Terraform Apply",
+    ],
+    items: [
+      "Pull requests run fmt, validate, and plan with a read-oriented OIDC role",
+      "Merge to main requires GitHub Environment approval before apply",
+      "Apply uses a write-scoped OIDC role for controlled Terraform execution",
+    ],
+  },
+  operationsObservability: {
+    intro:
+      "The environment is not create-and-forget. It reports logs, metrics, alarms, and operational events.",
+    image: "/projects/cloud-operations-lab-operations.png",
+    imageAlt: "Cloud Operations Lab operations and observability diagram",
+    items: [
+      "CloudWatch Agent for logs and CPU metrics on the EC2 host",
+      "CloudWatch Alarm with SNS email notifications",
+      "SSM Run Command automation for health checks and operational scripts",
+      "DynamoDB ops-logs for recorded operational events",
+    ],
+  },
+  featuresTitle: "Key Features",
+  features: [
+    {
       title: "Infrastructure as Code",
       items: [
-        "Terraform modular architecture",
-        "Reusable modules",
-        "Reproducible deployments",
+        "Modular Terraform with environment composition",
+        "Bootstrap and workload separation",
+        "Remote state and locking",
       ],
     },
     {
-      title: "Remote State",
+      title: "Secure access",
       items: [
-        "Amazon S3 for Terraform state storage",
-        "Amazon DynamoDB for state locking",
+        "SSM Session Manager without SSH",
+        "GitHub OIDC instead of static access keys",
+        "Least-privilege IAM for instance and pipeline",
       ],
     },
     {
-      title: "CI/CD Security",
+      title: "CI/CD for infrastructure",
       items: [
-        "GitHub Actions",
-        "GitHub OpenID Connect (OIDC)",
-        "AWS IAM role-based authentication",
-        "Temporary credentials instead of static keys",
+        "PR checks with Terraform plan",
+        "Manual approval before apply",
+        "Separate plan and apply roles",
       ],
     },
     {
-      title: "AWS Environment",
+      title: "Operations",
       items: [
-        "Networking foundations",
-        "Compute resources",
-        "IAM permissions",
-        "Secure administration using AWS Systems Manager Session Manager",
+        "CloudWatch logs, metrics, and alarms",
+        "SNS notifications",
+        "SSM automation with DynamoDB event logging",
       ],
     },
   ],
   engineeringHighlights: [
-    "Modular Terraform for reusable, reproducible AWS environments",
-    "Remote state in S3 with DynamoDB locking to prevent concurrent apply conflicts",
-    "GitHub Actions CI/CD authenticated via OIDC (no long-lived access keys)",
-    "Least-privilege IAM roles for pipeline and runtime access",
-    "Session Manager for secure administration without exposing SSH",
-    "Deploy → validate → destroy workflow to control cloud cost",
+    "Control plane and AWS workload clearly separated",
+    "Modular Terraform with reusable infrastructure building blocks",
+    "OIDC-authenticated GitHub Actions with plan/apply role separation",
+    "SSM-based operations without SSH or inbound management ports",
+    "Observability through CloudWatch, SNS, and operational event logging",
+    "Cost-aware design: small footprint without unnecessary managed layers",
   ],
-  cloudArchitectureTitle: "Cost Optimization",
-  cloudArchitecture: {
-    services: ["Terraform", "GitHub Actions", "AWS"],
-    description:
-      "The environment is intentionally ephemeral: infrastructure is provisioned for validation, then destroyed. That FinOps-minded choice keeps the architecture production-like without paying for idle compute.",
-    workflow: [
-      "Deploy when needed",
-      "Validate functionality",
-      "Destroy resources afterwards",
-    ],
-  },
   techStack: [
     {
       title: "Cloud",
-      items: ["AWS"],
+      items: ["AWS", "VPC", "EC2", "IAM", "S3", "DynamoDB"],
     },
     {
-      title: "Infrastructure",
-      items: [
-        "Terraform",
-        "Terraform Modules",
-        "Amazon S3",
-        "Amazon DynamoDB",
-        "Amazon IAM",
-        "Amazon EC2",
-      ],
+      title: "Infrastructure as Code",
+      items: ["Terraform", "Terraform Modules", "Remote State"],
     },
     {
-      title: "DevOps",
-      items: ["GitHub Actions", "GitHub OIDC", "CI/CD"],
+      title: "CI/CD & Identity",
+      items: ["GitHub Actions", "GitHub OIDC", "GitHub Environments"],
     },
     {
       title: "Operations",
-      items: ["AWS Systems Manager", "Git", "PowerShell"],
+      items: ["SSM", "CloudWatch", "SNS", "Bash automation"],
     },
   ],
   futureImprovements: [
-    "CloudWatch monitoring and alerting",
-    "Centralized logging",
-    "Security scanning in CI/CD",
+    "Security scanning in the CI/CD pipeline",
+    "Richer alerting policies and dashboards",
     "Multi-account AWS architecture",
-    "Kubernetes workloads",
+    "Additional reusable Terraform modules",
   ],
+  projectImpact:
+    "Cloud Operations Lab complements application-focused projects by showing platform ownership: designing, securing, deploying, and operating the infrastructure those applications would run on.",
 };
