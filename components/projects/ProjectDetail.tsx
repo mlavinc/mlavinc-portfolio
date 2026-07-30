@@ -72,12 +72,12 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
         {project.liveUrl ? (
           <LiveDemoEmbed url={project.liveUrl} title={project.title} />
         ) : project.image ? (
-          <div className="overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50">
+          <div className="mx-auto flex max-h-[min(50vh,22rem)] max-w-3xl items-center justify-center overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-3 sm:max-h-[24rem] dark:border-zinc-700 dark:bg-zinc-900/50">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={project.image}
               alt={`${project.title} preview`}
-              className="h-auto w-full object-contain"
+              className="max-h-[min(50vh,20rem)] w-full object-contain sm:max-h-[22rem]"
             />
           </div>
         ) : (
@@ -171,6 +171,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                   steps={caseStudy.architectureFlow}
                   image={project.architectureImage}
                   imageAlt={`${project.title} architecture diagram`}
+                  variant="primary"
                 />
               )}
 
@@ -198,6 +199,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                       caseStudy.infrastructureAsCode.imageAlt ??
                       `${project.title} Infrastructure as Code diagram`
                     }
+                    variant="primary"
                   />
                 ) : null}
                 {caseStudy.infrastructureAsCode.items ? (
@@ -209,6 +211,48 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </CaseStudySection>
           ) : null}
 
+          {(caseStudy.cicdWorkflow?.image ||
+            caseStudy.securityDecisions?.image ||
+            caseStudy.operationsObservability?.image) && (
+            <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+              {caseStudy.cicdWorkflow?.image ? (
+                <FlowDiagram
+                  image={caseStudy.cicdWorkflow.image}
+                  imageAlt={
+                    caseStudy.cicdWorkflow.imageAlt ??
+                    `${project.title} CI/CD workflow diagram`
+                  }
+                  variant="secondary"
+                  caption="CI/CD Workflow"
+                />
+              ) : null}
+              {caseStudy.securityDecisions?.image ? (
+                <FlowDiagram
+                  image={caseStudy.securityDecisions.image}
+                  imageAlt={
+                    caseStudy.securityDecisions.imageAlt ??
+                    `${project.title} security decisions diagram`
+                  }
+                  variant="secondary"
+                  caption="Security Decisions"
+                />
+              ) : null}
+              {caseStudy.operationsObservability?.image ? (
+                <div className="md:col-span-2 md:mx-auto md:w-full md:max-w-xl">
+                  <FlowDiagram
+                    image={caseStudy.operationsObservability.image}
+                    imageAlt={
+                      caseStudy.operationsObservability.imageAlt ??
+                      `${project.title} operations and observability diagram`
+                    }
+                    variant="secondary"
+                    caption="Operations and Observability"
+                  />
+                </div>
+              ) : null}
+            </div>
+          )}
+
           {caseStudy.securityDecisions ? (
             <CaseStudySection
               id="security-heading"
@@ -216,15 +260,6 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               intro={caseStudy.securityDecisions.intro}
             >
               <div className="space-y-6">
-                {caseStudy.securityDecisions.image ? (
-                  <FlowDiagram
-                    image={caseStudy.securityDecisions.image}
-                    imageAlt={
-                      caseStudy.securityDecisions.imageAlt ??
-                      `${project.title} security decisions diagram`
-                    }
-                  />
-                ) : null}
                 {caseStudy.securityDecisions.groups &&
                 caseStudy.securityDecisions.groups.length > 0 ? (
                   <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -251,15 +286,6 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               intro={caseStudy.cicdWorkflow.intro}
             >
               <div className="space-y-6">
-                {caseStudy.cicdWorkflow.image ? (
-                  <FlowDiagram
-                    image={caseStudy.cicdWorkflow.image}
-                    imageAlt={
-                      caseStudy.cicdWorkflow.imageAlt ??
-                      `${project.title} CI/CD workflow diagram`
-                    }
-                  />
-                ) : null}
                 {caseStudy.cicdWorkflow.flow &&
                 caseStudy.cicdWorkflow.flow.length > 0 ? (
                   <FlowDiagram steps={caseStudy.cicdWorkflow.flow} />
@@ -279,24 +305,13 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               title="Operations and Observability"
               intro={caseStudy.operationsObservability.intro}
             >
-              <div className="space-y-6">
-                {caseStudy.operationsObservability.image ? (
-                  <FlowDiagram
-                    image={caseStudy.operationsObservability.image}
-                    imageAlt={
-                      caseStudy.operationsObservability.imageAlt ??
-                      `${project.title} operations and observability diagram`
-                    }
+              {caseStudy.operationsObservability.items ? (
+                <InfoCard>
+                  <BulletList
+                    items={caseStudy.operationsObservability.items}
                   />
-                ) : null}
-                {caseStudy.operationsObservability.items ? (
-                  <InfoCard>
-                    <BulletList
-                      items={caseStudy.operationsObservability.items}
-                    />
-                  </InfoCard>
-                ) : null}
-              </div>
+                </InfoCard>
+              ) : null}
             </CaseStudySection>
           ) : null}
 

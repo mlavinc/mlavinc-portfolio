@@ -6,6 +6,9 @@ interface FlowDiagramProps {
   image?: string;
   imageAlt?: string;
   placeholderLabel?: string;
+  /** primary: main architecture visual; secondary: supporting diagrams */
+  variant?: "primary" | "secondary";
+  caption?: string;
 }
 
 export function FlowDiagram({
@@ -13,17 +16,44 @@ export function FlowDiagram({
   image,
   imageAlt = "Architecture diagram",
   placeholderLabel,
+  variant = "primary",
+  caption,
 }: FlowDiagramProps) {
   if (image) {
+    const isPrimary = variant === "primary";
+
     return (
-      <div className="w-full overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={image}
-          alt={imageAlt}
-          className="h-auto w-full object-contain"
-        />
-      </div>
+      <figure
+        className={
+          isPrimary
+            ? "mx-auto w-full max-w-3xl"
+            : "mx-auto flex h-full w-full max-w-xl flex-col"
+        }
+      >
+        <div
+          className={
+            isPrimary
+              ? "flex max-h-[min(50vh,22rem)] items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 sm:max-h-[24rem] sm:p-4 dark:border-zinc-800 dark:bg-zinc-950"
+              : "flex flex-1 items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950"
+          }
+        >
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={image}
+            alt={imageAlt}
+            className={
+              isPrimary
+                ? "max-h-[min(50vh,20rem)] w-full object-contain sm:max-h-[22rem]"
+                : "max-h-56 w-full object-contain sm:max-h-64"
+            }
+          />
+        </div>
+        {caption ? (
+          <figcaption className="mt-2 text-center text-xs font-medium tracking-wide text-zinc-500 uppercase dark:text-zinc-400">
+            {caption}
+          </figcaption>
+        ) : null}
+      </figure>
     );
   }
 
