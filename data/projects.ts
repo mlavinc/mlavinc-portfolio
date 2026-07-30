@@ -68,9 +68,12 @@ export const projects: Project[] = [
     title: "Skill Tracker",
     subtitle: "Personal Skill Management Platform",
     description:
-      "Full-stack skill tracking platform with a layered Go REST API, PostgreSQL, React, and Docker Compose, focused on clean architecture and reproducible multi-service development.",
+      "Full-stack learning progress tracker to manage skills, record practice sessions, and visualize improvement over time, with a Go API, React frontend, and PostgreSQL.",
     technologies: ["Go", "React", "PostgreSQL", "Docker"],
+    image: "/projects/skill-tracker.png",
+    architectureImage: "/projects/skill-tracker-architecture.png",
     githubUrl: "https://github.com/mlavinc/skill-tracker",
+    liveUrl: "https://skill-tracker-kappa.vercel.app/",
     caseStudyUrl: "/projects/skill-tracker",
     caseStudy: skillTrackerCaseStudy,
     status: "completed",
