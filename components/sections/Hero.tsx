@@ -60,7 +60,7 @@ export function Hero() {
             transition={fadeUpTransition}
           >
             Focused on cloud engineering, AWS architecture, AI-powered
-            applications, backend development, and Infrastructure as Code —
+            applications, backend development, and Infrastructure as Code,
             with full-stack delivery when the product requires it.
           </motion.p>
 

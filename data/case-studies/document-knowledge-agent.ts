@@ -4,7 +4,7 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
   introduction: [
     "A cloud-native Retrieval-Augmented Generation (RAG) platform that turns documents into queryable knowledge sources through semantic search and grounded AI answers.",
     "Users upload documents, the system extracts and chunks content, generates embeddings, indexes them for vector retrieval, and answers natural-language questions using retrieved context.",
-    "The engineering focus was building a modular AI pipeline — not a thin chatbot wrapper — combining document processing, vector search, foundation models, and a serverless AWS deployment model.",
+    "The engineering focus was building a modular AI pipeline (not a thin chatbot wrapper), combining document processing, vector search, foundation models, and a serverless AWS deployment model.",
   ],
   overview: [
     "Unstructured PDFs and technical documents are hard to query with keyword search when users need meaning-based answers.",
@@ -93,7 +93,7 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       "Terraform",
     ],
     description:
-      "Traffic is fronted by CloudFront, with the SPA served from S3 and /api/* routed through API Gateway to Lambda. FastAPI handles search synchronously and ingestion asynchronously, integrating Bedrock for generation and vector storage for retrieval — avoiding always-running infrastructure.",
+      "Traffic is fronted by CloudFront, with the SPA served from S3 and /api/* routed through API Gateway to Lambda. FastAPI handles search synchronously and ingestion asynchronously, integrating Bedrock for generation and vector storage for retrieval, avoiding always-running infrastructure.",
   },
   techStack: [
     {

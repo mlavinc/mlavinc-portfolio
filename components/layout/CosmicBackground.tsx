@@ -3,7 +3,7 @@
 import { useReducedMotion } from "framer-motion";
 
 /**
- * Minimal star field — deterministic positions, no random, GPU-friendly transforms.
+ * Minimal star field: deterministic positions, no random, GPU-friendly transforms.
  */
 const STARS = [
   { x: 6, y: 10, s: 1.35, o: 0.62, d: 7, delay: 0 },
@@ -34,7 +34,7 @@ const STARS = [
   { x: 16, y: 88, s: 1.25, o: 0.52, d: 11.5, delay: 0.7 },
 ] as const;
 
-/** Rare, slow meteors — long cycle = infrequent appearance */
+/** Rare, slow meteors: long cycle = infrequent appearance */
 const METEORS = [
   { x: 22, y: 4, delay: 1, duration: 18 },
   { x: 58, y: 0, delay: 8, duration: 20 },

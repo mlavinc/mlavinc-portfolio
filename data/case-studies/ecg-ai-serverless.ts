@@ -2,7 +2,7 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "ECG-AI is an end-to-end machine learning system for classifying cardiac patterns from electrocardiogram signals — from preprocessing and model training through serverless inference and a React client.",
+    "ECG-AI is an end-to-end machine learning system for classifying cardiac patterns from electrocardiogram signals: from preprocessing and model training through serverless inference and a React client.",
     "The main engineering challenge was packaging a biomedical ML workflow as deployable software: feature extraction and Random Forest inference behind an API, running on AWS Lambda with Terraform-managed infrastructure.",
   ],
   overview: [

@@ -3,7 +3,7 @@ import type { ProjectCaseStudy } from "@/types/project";
 export const cloudOperationsLabCaseStudy: ProjectCaseStudy = {
   introduction: [
     "Cloud Operations Lab is a hands-on AWS environment built to practice production-oriented Cloud Engineering: Infrastructure as Code, secure CI/CD, and cost-aware operations.",
-    "The core trade-off was clear — favor reproducibility and security (Terraform modules, remote state, OIDC-based auth) while keeping spend low by deploying and destroying resources on demand.",
+    "The core trade-off was clear: favor reproducibility and security (Terraform modules, remote state, OIDC-based auth) while keeping spend low by deploying and destroying resources on demand.",
   ],
   overview: [
     "Manually managed cloud resources drift, hide configuration, and create security risk through long-lived credentials.",
@@ -62,7 +62,7 @@ export const cloudOperationsLabCaseStudy: ProjectCaseStudy = {
   engineeringHighlights: [
     "Modular Terraform for reusable, reproducible AWS environments",
     "Remote state in S3 with DynamoDB locking to prevent concurrent apply conflicts",
-    "GitHub Actions CI/CD authenticated via OIDC — no long-lived access keys",
+    "GitHub Actions CI/CD authenticated via OIDC (no long-lived access keys)",
     "Least-privilege IAM roles for pipeline and runtime access",
     "Session Manager for secure administration without exposing SSH",
     "Deploy → validate → destroy workflow to control cloud cost",

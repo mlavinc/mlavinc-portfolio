@@ -3,7 +3,7 @@ import type { ProjectCaseStudy } from "@/types/project";
 export const skillTrackerCaseStudy: ProjectCaseStudy = {
   introduction: [
     "Skill Tracker is a full-stack application for organizing and tracking technical skills, built to practice maintainable backend architecture rather than a thin CRUD demo.",
-    "The stack — Go REST API, PostgreSQL, React, and Docker Compose — was chosen to enforce clear API contracts, relational modeling, and a reproducible multi-service local environment.",
+    "The stack (Go REST API, PostgreSQL, React, and Docker Compose) was chosen to enforce clear API contracts, relational modeling, and a reproducible multi-service local environment.",
   ],
   overview: [
     "Skill knowledge often lives in scattered notes. Skill Tracker centralizes that data behind a structured API and UI.",

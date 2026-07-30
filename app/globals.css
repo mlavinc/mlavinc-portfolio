@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Force class-based dark mode — ignore system light/dark preference */
+/* Force class-based dark mode: ignore system light/dark preference */
 @custom-variant dark (&:where(.dark, .dark *));
 
 :root {
@@ -33,7 +33,7 @@ body {
   }
 }
 
-/* Site-wide starfield — fixed, transparent over shared dark background */
+/* Site-wide starfield: fixed, transparent over shared dark background */
 .site-starfield {
   position: fixed;
   inset: 0;
