@@ -6,8 +6,12 @@ interface FlowDiagramProps {
   image?: string;
   imageAlt?: string;
   placeholderLabel?: string;
-  /** primary: main architecture visual; secondary: supporting diagrams */
-  variant?: "primary" | "secondary";
+  /**
+   * default: full-width (ECG / RAG / Skill Tracker)
+   * featured: constrained width, height follows image (Cloud Ops architecture)
+   * supporting: compact secondary diagram card (Cloud Ops CI/CD, Security, Ops)
+   */
+  variant?: "default" | "featured" | "supporting";
   caption?: string;
 }
 
@@ -16,36 +20,46 @@ export function FlowDiagram({
   image,
   imageAlt = "Architecture diagram",
   placeholderLabel,
-  variant = "primary",
+  variant = "default",
   caption,
 }: FlowDiagramProps) {
   if (image) {
-    const isPrimary = variant === "primary";
-
-    return (
-      <figure
-        className={
-          isPrimary
-            ? "mx-auto w-full max-w-3xl"
-            : "mx-auto flex h-full w-full max-w-xl flex-col"
-        }
-      >
-        <div
-          className={
-            isPrimary
-              ? "flex max-h-[min(50vh,22rem)] items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 sm:max-h-[24rem] sm:p-4 dark:border-zinc-800 dark:bg-zinc-950"
-              : "flex flex-1 items-center justify-center overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950"
-          }
-        >
+    if (variant === "default") {
+      return (
+        <div className="w-full overflow-hidden rounded-lg border border-zinc-200 bg-white dark:border-zinc-800 dark:bg-zinc-950">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={image}
             alt={imageAlt}
-            className={
-              isPrimary
-                ? "max-h-[min(50vh,20rem)] w-full object-contain sm:max-h-[22rem]"
-                : "max-h-56 w-full object-contain sm:max-h-64"
-            }
+            className="h-auto w-full object-contain"
+          />
+        </div>
+      );
+    }
+
+    if (variant === "featured") {
+      return (
+        <figure className="mx-auto w-full max-w-3xl">
+          <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 sm:p-4 dark:border-zinc-800 dark:bg-zinc-950">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={image}
+              alt={imageAlt}
+              className="h-auto w-full object-contain"
+            />
+          </div>
+        </figure>
+      );
+    }
+
+    return (
+      <figure className="w-full">
+        <div className="overflow-hidden rounded-lg border border-zinc-200 bg-white p-3 dark:border-zinc-800 dark:bg-zinc-950">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={image}
+            alt={imageAlt}
+            className="h-auto w-full object-contain"
           />
         </div>
         {caption ? (

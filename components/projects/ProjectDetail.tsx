@@ -72,12 +72,18 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
         {project.liveUrl ? (
           <LiveDemoEmbed url={project.liveUrl} title={project.title} />
         ) : project.image ? (
-          <div className="mx-auto flex max-h-[min(50vh,22rem)] max-w-3xl items-center justify-center overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-3 sm:max-h-[24rem] dark:border-zinc-700 dark:bg-zinc-900/50">
+          <div
+            className={
+              project.id === "cloud-operations-lab"
+                ? "mx-auto w-full max-w-3xl overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 p-3 dark:border-zinc-700 dark:bg-zinc-900/50"
+                : "overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50"
+            }
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={project.image}
               alt={`${project.title} preview`}
-              className="max-h-[min(50vh,20rem)] w-full object-contain sm:max-h-[22rem]"
+              className="h-auto w-full object-contain"
             />
           </div>
         ) : (
@@ -171,7 +177,11 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                   steps={caseStudy.architectureFlow}
                   image={project.architectureImage}
                   imageAlt={`${project.title} architecture diagram`}
-                  variant="primary"
+                  variant={
+                    project.id === "cloud-operations-lab"
+                      ? "featured"
+                      : "default"
+                  }
                 />
               )}
 
@@ -199,7 +209,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                       caseStudy.infrastructureAsCode.imageAlt ??
                       `${project.title} Infrastructure as Code diagram`
                     }
-                    variant="primary"
+                    variant="featured"
                   />
                 ) : null}
                 {caseStudy.infrastructureAsCode.items ? (
@@ -222,7 +232,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                     caseStudy.cicdWorkflow.imageAlt ??
                     `${project.title} CI/CD workflow diagram`
                   }
-                  variant="secondary"
+                  variant="supporting"
                   caption="CI/CD Workflow"
                 />
               ) : null}
@@ -233,19 +243,19 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
                     caseStudy.securityDecisions.imageAlt ??
                     `${project.title} security decisions diagram`
                   }
-                  variant="secondary"
+                  variant="supporting"
                   caption="Security Decisions"
                 />
               ) : null}
               {caseStudy.operationsObservability?.image ? (
-                <div className="md:col-span-2 md:mx-auto md:w-full md:max-w-xl">
+                <div className="md:col-span-2 md:mx-auto md:w-full md:max-w-lg">
                   <FlowDiagram
                     image={caseStudy.operationsObservability.image}
                     imageAlt={
                       caseStudy.operationsObservability.imageAlt ??
                       `${project.title} operations and observability diagram`
                     }
-                    variant="secondary"
+                    variant="supporting"
                     caption="Operations and Observability"
                   />
                 </div>
