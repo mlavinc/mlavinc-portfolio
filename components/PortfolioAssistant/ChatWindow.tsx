@@ -5,10 +5,12 @@ import type { ChatMessageData } from "./assistant.client";
 import { ChatMessage } from "./ChatMessage";
 
 const SUGGESTIONS = [
-  "Who is Martín Lavín?",
-  "Tell me about his projects",
-  "What AWS experience does he have?",
-  "What did he build at Nestlé?",
+  "Who are you?",
+  "Tell me about your experience.",
+  "What projects have you built?",
+  "What AWS technologies have you used?",
+  "What did you build at Nestlé?",
+  "Explain your Document Knowledge Agent.",
 ];
 
 interface ChatWindowProps {

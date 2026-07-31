@@ -13,7 +13,7 @@ const WELCOME_MESSAGE: ChatMessageData = {
   id: "welcome",
   role: "assistant",
   content:
-    "Hi! I'm Martín's portfolio assistant. Ask me anything about his background, projects, experience, or technical skills.",
+    "Hi! I'm Martín's portfolio assistant. Ask me anything about my experience, projects, and technical skills.",
   createdAt: new Date(0).toISOString(),
 };
 

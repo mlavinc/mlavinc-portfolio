@@ -4,12 +4,28 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
   introduction: [
     "A cloud-native Retrieval-Augmented Generation (RAG) platform that turns documents into queryable knowledge sources through semantic search and grounded AI answers.",
     "Users upload documents, the system extracts and chunks content, generates embeddings, indexes them for vector retrieval, and answers natural-language questions using retrieved context.",
-    "The engineering focus was building a modular AI pipeline (not a thin chatbot wrapper), combining document processing, vector search, foundation models, and a serverless AWS deployment model.",
+    "The engineering focus was building a modular AI pipeline (not a thin chatbot wrapper), combining document processing, vector search, foundation models, and a serverless AWS deployment model. As a product extension of the same system, Portfolio Assistant brings that RAG capability into this portfolio as a visitor-facing chat experience.",
   ],
   overview: [
     "Unstructured PDFs and technical documents are hard to query with keyword search when users need meaning-based answers.",
     "Document Knowledge Agent addresses this with a RAG pipeline: ingest → chunk → embed → retrieve → generate, separated into synchronous search paths and asynchronous ingestion so long-running processing does not block API requests.",
+    "Portfolio Assistant is not a separate product. It is an extension of Document Knowledge Agent that reuses the same search path against a curated portfolio knowledge base, exposing the RAG system through a Messenger-style widget on this site.",
   ],
+  productExtension: {
+    title: "Portfolio Assistant Extension",
+    paragraphs: [
+      "As an extension of the Document Knowledge Agent, I integrated the RAG system into my personal portfolio as an interactive assistant.",
+      "The assistant uses a curated knowledge base containing my CV, technical experience, and project documentation, allowing visitors to ask questions about my background, skills, and work through a natural language interface.",
+      "This extension demonstrates how a production-oriented AI system can be transformed into a user-facing product experience.",
+    ],
+    image: "/projects/document-knowledge-agent-portfolio-assistant.png",
+    imageAlt:
+      "Portfolio Assistant chat widget open on the portfolio site with suggested questions",
+    secondaryImage:
+      "/projects/document-knowledge-agent-portfolio-assistant-demo.png",
+    secondaryImageAlt:
+      "Portfolio Assistant standalone demo interface with suggested prompts",
+  },
   features: [
     {
       title: "Document ingestion pipeline",
@@ -82,6 +98,7 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
     "Serverless deployment with AWS Lambda, API Gateway, S3, CloudFront, and ECR",
     "Infrastructure as Code with Terraform for reproducible cloud environments",
     "Cost-conscious design: pay-per-use compute instead of always-on servers",
+    "Portfolio Assistant extension: same RAG search API, isolated portfolio corpus, integrated as a floating chat widget",
   ],
   cloudArchitecture: {
     services: [

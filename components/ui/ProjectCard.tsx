@@ -29,6 +29,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
           {project.title}
         </h3>
 
+        {project.subtitle ? (
+          <p className="mt-1 text-sm font-medium text-zinc-600 dark:text-zinc-400">
+            {project.subtitle}
+          </p>
+        ) : null}
+
         <p className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
           {project.description}
         </p>

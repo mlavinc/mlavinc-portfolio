@@ -8,10 +8,9 @@ export const projects: Project[] = [
   {
     id: "document-knowledge-agent",
     title: "Document Knowledge Agent",
-    subtitle:
-      "Intelligent Document Processing & AI Knowledge Retrieval Platform",
+    subtitle: "with Portfolio Assistant extension",
     description:
-      "Cloud-native RAG platform: document ingestion, vector search, and grounded AI answers on a serverless AWS stack (Lambda, API Gateway, S3, CloudFront, Bedrock) with Terraform.",
+      "Production-oriented Retrieval-Augmented Generation platform built with AWS serverless architecture, OpenAI embeddings, vector search, and a portfolio-integrated AI assistant.",
     technologies: [
       "Python",
       "Node.js",

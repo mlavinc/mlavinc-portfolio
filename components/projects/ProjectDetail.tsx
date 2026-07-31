@@ -165,6 +165,61 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             </div>
           </CaseStudySection>
 
+          {caseStudy.productExtension ? (
+            <CaseStudySection
+              id="extension-heading"
+              title={caseStudy.productExtension.title}
+            >
+              <div className="space-y-8">
+                <div className="max-w-3xl space-y-4">
+                  {caseStudy.productExtension.paragraphs.map((paragraph) => (
+                    <p
+                      key={paragraph}
+                      className="text-base leading-relaxed text-zinc-500 dark:text-zinc-400"
+                    >
+                      {paragraph}
+                    </p>
+                  ))}
+                </div>
+
+                {(caseStudy.productExtension.image ||
+                  caseStudy.productExtension.secondaryImage) && (
+                  <div
+                    className={
+                      caseStudy.productExtension.image &&
+                      caseStudy.productExtension.secondaryImage
+                        ? "grid grid-cols-1 gap-5 md:grid-cols-2"
+                        : "space-y-5"
+                    }
+                  >
+                    {caseStudy.productExtension.image ? (
+                      <FlowDiagram
+                        image={caseStudy.productExtension.image}
+                        imageAlt={
+                          caseStudy.productExtension.imageAlt ??
+                          `${caseStudy.productExtension.title} screenshot`
+                        }
+                        variant="supporting"
+                        caption="Portfolio widget"
+                      />
+                    ) : null}
+                    {caseStudy.productExtension.secondaryImage ? (
+                      <FlowDiagram
+                        image={caseStudy.productExtension.secondaryImage}
+                        imageAlt={
+                          caseStudy.productExtension.secondaryImageAlt ??
+                          `${caseStudy.productExtension.title} demo screenshot`
+                        }
+                        variant="supporting"
+                        caption="Standalone assistant demo"
+                      />
+                    ) : null}
+                  </div>
+                )}
+              </div>
+            </CaseStudySection>
+          ) : null}
+
           <CaseStudySection
             id="architecture-heading"
             title="Architecture"

@@ -40,6 +40,15 @@ export interface ProjectDiagramBlock {
   groups?: ProjectFeatureGroup[];
 }
 
+export interface ProjectExtensionSection {
+  title: string;
+  paragraphs: string[];
+  image?: string;
+  imageAlt?: string;
+  secondaryImage?: string;
+  secondaryImageAlt?: string;
+}
+
 export interface ProjectCaseStudy {
   introduction: string[];
   overview: string[];
@@ -48,6 +57,7 @@ export interface ProjectCaseStudy {
   features?: ProjectFeatureGroup[];
   architectureFlow?: string[];
   architecture: ProjectArchitectureLayer[];
+  productExtension?: ProjectExtensionSection;
   infrastructureAsCode?: ProjectDiagramBlock;
   securityDecisions?: ProjectDiagramBlock;
   cicdWorkflow?: ProjectDiagramBlock;
