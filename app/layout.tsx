@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { CosmicBackground } from "@/components/layout/CosmicBackground";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { PortfolioAssistant } from "@/components/PortfolioAssistant/PortfolioAssistant";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -41,6 +42,7 @@ export default function RootLayout({
         <div className="relative z-10 flex min-h-full flex-1 flex-col">
           <PageTransition>{children}</PageTransition>
         </div>
+        <PortfolioAssistant />
       </body>
     </html>
   );

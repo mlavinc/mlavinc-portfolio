@@ -24,6 +24,7 @@ The site presents selected projects as professional case studies, with optional 
 - Architecture diagrams and structured case study sections
 - Subtle site-wide starfield background with reduced-motion support
 - CV downloads (English / Spanish) from the Hero section
+- Floating portfolio RAG assistant widget (Messenger-style chat)
 
 ## Featured projects
 
@@ -42,6 +43,7 @@ components/
   layout/             # Navbar, Footer, cosmic background
   sections/           # Hero, Projects, About, Skills, Contact
   projects/           # Case study UI building blocks
+  PortfolioAssistant/ # Floating RAG chat widget
   ui/                 # ProjectCard, LiveDemoEmbed
   motion/             # Page and reveal animations
 data/                 # Projects, case studies, about, skills, contact
@@ -73,6 +75,8 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
+
+Optional: copy `.env.example` to `.env.local` and set `NEXT_PUBLIC_API_GATEWAY_URL` for the portfolio assistant widget (defaults to the production API Gateway used by the RAG demo).
 
 ### Build
 
