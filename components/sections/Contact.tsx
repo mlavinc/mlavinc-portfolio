@@ -1,27 +1,32 @@
 "use client";
 
 import { Reveal } from "@/components/motion/Reveal";
-import { contactLinks, contactMessage } from "@/data/contact";
+import { getContactLinks, getContactMessage } from "@/data/contact";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 export function Contact() {
+  const { locale, t } = useLocale();
+  const contactLinks = getContactLinks(locale);
+
   return (
     <section
+      id="contact-section"
       aria-labelledby="contact"
-      className="pt-8 pb-20 sm:pb-24"
+      className="section-band section-band--muted scroll-mt-24 py-24 sm:py-28"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
           id="contact"
-          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl"
         >
-          Contact
+          {t("contact.title")}
         </h2>
 
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
-          {contactMessage}
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+          {getContactMessage(locale)}
         </p>
 
-        <ul className="mt-5 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-6">
+        <ul className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:gap-8">
           {contactLinks.map((link) => {
             const isExternal = link.href.startsWith("http");
 
@@ -32,7 +37,7 @@ export function Contact() {
                   {...(isExternal
                     ? { target: "_blank", rel: "noopener noreferrer" }
                     : {})}
-                  className="text-base font-medium text-zinc-950 underline-offset-4 transition-colors duration-200 hover:underline dark:text-zinc-50"
+                  className="text-base font-medium text-zinc-50 underline-offset-4 transition-colors duration-200 hover:underline"
                 >
                   <span className="sr-only">{link.label}: </span>
                   {link.display}

@@ -1,0 +1,178 @@
+# Skill Tracker
+
+### Plataforma Personal de Gestión de Habilidades
+
+Skill Tracker es una aplicación full-stack para gestionar habilidades, registrar sesiones de práctica y visualizar el progreso de aprendizaje a lo largo del tiempo.
+
+La aplicación separa claramente sus responsabilidades mediante un frontend desarrollado en React y desplegado en Vercel, una API REST escrita en Go ejecutándose en Render y una base de datos PostgreSQL administrada por Neon, utilizando Docker Compose para el entorno de desarrollo local.
+
+**Tecnologías**
+
+Go · React · PostgreSQL · Docker · GitHub
+
+**Botón**
+
+Demo en Vivo
+
+---
+
+# Descripción General
+
+El progreso de aprendizaje suele distribuirse entre notas, documentos y herramientas desconectadas. Skill Tracker centraliza las habilidades, el historial de práctica y las métricas de progreso mediante una API estructurada y un panel interactivo.
+
+La principal decisión de diseño fue implementar una arquitectura backend por capas en Go (**HTTP → Controllers → Services → Repositories → Database**), permitiendo mantener la lógica de negocio desacoplada de la comunicación HTTP y de la persistencia de datos.
+
+---
+
+# Arquitectura
+
+## Frontend
+
+* React
+* Vite
+* Desplegado en Vercel
+
+## Backend
+
+* API REST en Go
+* Docker
+* Desplegado en Render
+
+## Base de Datos
+
+* Neon PostgreSQL
+* Conexiones SQL sobre TLS
+
+## Desarrollo Local
+
+* Docker Compose
+* Entorno reproducible con múltiples servicios
+
+---
+
+# Características Principales
+
+## Gestión de Usuarios
+
+* Administración de perfiles de usuario.
+* Gestión de habilidades por usuario.
+
+## Habilidades y Práctica
+
+* Creación y seguimiento de habilidades técnicas.
+* Registro de sesiones de práctica con duración y observaciones.
+* Seguimiento del progreso acumulado por habilidad.
+
+## Dashboard
+
+* Visualización de métricas.
+* Ranking de habilidades.
+* Seguimiento del progreso a lo largo del tiempo.
+
+## Persistencia
+
+* Almacenamiento relacional mediante PostgreSQL.
+* Persistencia de habilidades y sesiones de práctica.
+
+---
+
+# Ingeniería Backend
+
+El backend sigue una arquitectura por capas:
+
+**HTTP Layer → Controllers → Services → Repositories → Database**
+
+* Los **Controllers** gestionan la comunicación HTTP.
+* Los **Services** implementan la lógica de negocio.
+* Los **Repositories** encapsulan el acceso a la base de datos.
+* Los **Models** representan las entidades de la aplicación.
+
+Esta arquitectura mejora la mantenibilidad, facilita las pruebas y permite extender el sistema sin acoplar la interfaz de usuario a los detalles de SQL o la persistencia.
+
+---
+
+# Diseño de Base de Datos
+
+* Neon PostgreSQL como base de datos relacional administrada.
+* Usuarios, habilidades y sesiones de práctica como entidades principales.
+* Modelo de datos estructurado para el seguimiento del progreso.
+* Patrón Repository implementado en la API desarrollada en Go.
+
+---
+
+# Desarrollo Frontend
+
+La aplicación cliente desarrollada en React y desplegada en Vercel ofrece:
+
+* Gestión de habilidades y sesiones de práctica.
+* Dashboard con métricas y ranking.
+* Componentes responsivos.
+* Comunicación mediante API REST con el backend desarrollado en Go.
+
+---
+
+# Aspectos Destacados de Ingeniería
+
+* Arquitectura backend en Go basada en separación de responsabilidades.
+* Contratos REST desacoplados entre frontend y persistencia.
+* Arquitectura cloud distribuida: Vercel para el frontend, Render para la API y Neon PostgreSQL como base de datos administrada.
+* Backend contenerizado mediante Docker para despliegues consistentes en Render.
+* Desarrollo local reproducible utilizando Docker Compose.
+
+---
+
+# Stack Tecnológico
+
+## Backend
+
+* Go
+* API REST
+* Docker
+
+## Frontend
+
+* React
+* Vite
+* TypeScript
+* Vercel
+
+## Base de Datos
+
+* Neon PostgreSQL
+
+## Infraestructura
+
+* Render
+* Docker Compose
+* Git
+
+---
+
+# Desafíos Técnicos
+
+### Diseñar una estructura backend mantenible
+
+Implementación de una arquitectura por capas para evitar código altamente acoplado y facilitar la evolución del sistema.
+
+### Separar el despliegue del frontend y backend
+
+Despliegue de la SPA en Vercel y de la API en Render, manteniendo límites claros mediante una API REST.
+
+### Consistencia entre desarrollo local y producción
+
+Uso de Docker Compose durante el desarrollo local y una API contenerizada para Render, utilizando Neon PostgreSQL como base de datos administrada en producción.
+
+---
+
+# Mejoras Futuras
+
+* Autenticación y autorización de usuarios.
+* Objetivos de aprendizaje y seguimiento de hitos.
+* Analíticas más avanzadas sobre el historial de práctica.
+* Integración de un pipeline CI/CD.
+
+---
+
+# Impacto del Proyecto
+
+Skill Tracker demuestra competencias en ingeniería full-stack mediante el diseño de una arquitectura backend por capas, modelado de bases de datos relacionales, integración frontend-backend y una estrategia de despliegue distribuida en la nube.

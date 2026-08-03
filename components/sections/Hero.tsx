@@ -1,6 +1,8 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
+import { HeroConstellation } from "@/components/layout/HeroConstellation";
+import { useLocale } from "@/lib/i18n/locale-context";
 import {
   fadeUpTransition,
   fadeUpVariants,
@@ -11,17 +13,24 @@ const linkedInUrl =
   "https://www.linkedin.com/in/martin-lavin-carvajal-010b08339/";
 
 const secondaryButtonClassName =
-  "inline-flex h-10 items-center justify-center rounded-md border border-zinc-200 bg-transparent px-5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-100 dark:border-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-900";
+  "inline-flex h-10 items-center justify-center rounded-md border border-zinc-800 bg-transparent px-5 text-sm font-medium text-zinc-50 transition-colors duration-200 hover:bg-zinc-900";
 
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
+  const { locale, t } = useLocale();
+  const cvHref =
+    locale === "es"
+      ? "/cv/martin-lavin-cv-es.pdf"
+      : "/cv/martin-lavin-cv-en.pdf";
 
   return (
     <section
       aria-labelledby="hero-heading"
-      className="flex min-h-[calc(100svh-4.25rem)] items-center"
+      className="relative flex min-h-[calc(100svh-4.25rem)] items-center overflow-hidden"
     >
-      <div className="mx-auto w-full max-w-5xl px-6">
+      <HeroConstellation />
+
+      <div className="relative z-10 mx-auto w-full max-w-5xl px-6">
         <motion.div
           className="mx-auto flex w-full max-w-2xl flex-col items-center text-center"
           variants={heroContainerVariants}
@@ -30,7 +39,7 @@ export function Hero() {
         >
           <motion.h1
             id="hero-heading"
-            className="text-4xl font-semibold tracking-tight text-zinc-950 sm:text-5xl dark:text-zinc-50"
+            className="text-4xl font-semibold tracking-tight text-zinc-50 sm:text-5xl"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
@@ -38,30 +47,27 @@ export function Hero() {
           </motion.h1>
 
           <motion.p
-            className="mt-4 text-base font-medium text-zinc-600 sm:text-lg dark:text-zinc-400"
+            className="mt-4 text-base font-medium text-zinc-400 sm:text-lg"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
-            Full-Stack Engineer | Cloud &amp; AI
+            {t("hero.role")}
           </motion.p>
 
           <motion.p
-            className="mt-4 max-w-xl text-base leading-relaxed text-zinc-500 dark:text-zinc-500"
+            className="mt-4 max-w-xl text-base leading-relaxed text-zinc-500"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
-            Engineering cloud-native systems, AI applications and scalable
-            software solutions.
+            {t("hero.tagline")}
           </motion.p>
 
           <motion.p
-            className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-500 dark:text-zinc-500"
+            className="mt-3 max-w-xl text-sm leading-relaxed text-zinc-500"
             variants={fadeUpVariants}
             transition={fadeUpTransition}
           >
-            Focused on cloud engineering, AWS architecture, AI-powered
-            applications, backend development, and Infrastructure as Code,
-            with full-stack delivery when the product requires it.
+            {t("hero.focus")}
           </motion.p>
 
           <motion.div
@@ -71,23 +77,12 @@ export function Hero() {
           >
             <a
               href="#projects"
-              className="inline-flex h-10 items-center justify-center rounded-md bg-zinc-950 px-5 text-sm font-medium text-zinc-50 transition-colors duration-200 hover:bg-zinc-800 dark:bg-zinc-50 dark:text-zinc-950 dark:hover:bg-zinc-200"
+              className="inline-flex h-10 items-center justify-center rounded-md bg-zinc-50 px-5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-200"
             >
-              View Projects
+              {t("hero.viewProjects")}
             </a>
-            <a
-              href="/cv/martin-lavin-cv-en.pdf"
-              download
-              className={secondaryButtonClassName}
-            >
-              Download CV (English)
-            </a>
-            <a
-              href="/cv/martin-lavin-cv-es.pdf"
-              download
-              className={secondaryButtonClassName}
-            >
-              Descargar CV (Español)
+            <a href={cvHref} download className={secondaryButtonClassName}>
+              {t("hero.downloadCv")}
             </a>
             <a
               href={linkedInUrl}
@@ -95,7 +90,7 @@ export function Hero() {
               rel="noopener noreferrer"
               className={secondaryButtonClassName}
             >
-              LinkedIn
+              {t("hero.linkedIn")}
             </a>
           </motion.div>
         </motion.div>

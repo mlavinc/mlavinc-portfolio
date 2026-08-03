@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { ProjectDetail } from "@/components/projects/ProjectDetail";
+import { ProjectDetailClient } from "@/components/projects/ProjectDetailClient";
 import { getAllProjectSlugs, getProjectBySlug } from "@/lib/projects";
 
 interface ProjectPageProps {
@@ -35,5 +35,5 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound();
   }
 
-  return <ProjectDetail project={project} />;
+  return <ProjectDetailClient slug={slug} />;
 }

@@ -1,11 +1,14 @@
+"use client";
+
 import Link from "next/link";
 import { BulletList } from "@/components/projects/BulletList";
 import { CaseStudySection } from "@/components/projects/CaseStudySection";
 import { FlowDiagram } from "@/components/projects/FlowDiagram";
 import { InfoCard } from "@/components/projects/InfoCard";
 import { MediaPlaceholder } from "@/components/projects/MediaPlaceholder";
-import { PillList } from "@/components/projects/PillList";
 import { LiveDemoEmbed } from "@/components/ui/LiveDemoEmbed";
+import { TechBadgeList } from "@/components/ui/TechBadge";
+import { useLocale } from "@/lib/i18n/locale-context";
 import type { Project } from "@/types/project";
 
 interface ProjectDetailProps {
@@ -20,13 +23,14 @@ interface ActionLink {
 }
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
+  const { t } = useLocale();
   const { caseStudy } = project;
 
   const actionLinks: ActionLink[] = [
     project.githubUrl
       ? {
           href: project.githubUrl,
-          label: "GitHub",
+          label: t("projects.github"),
           external: true,
           variant: "primary",
         }
@@ -34,7 +38,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
     project.liveUrl
       ? {
           href: project.liveUrl,
-          label: "Live Demo",
+          label: t("caseStudy.liveDemo"),
           external: true,
           variant: "secondary",
         }
@@ -42,7 +46,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
     project.architectureUrl
       ? {
           href: project.architectureUrl,
-          label: "Architecture",
+          label: t("caseStudy.architectureLink"),
           external: true,
           variant: "secondary",
         }
@@ -50,7 +54,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
     project.videoUrl
       ? {
           href: project.videoUrl,
-          label: "Video",
+          label: t("caseStudy.video"),
           external: true,
           variant: "secondary",
         }
@@ -65,7 +69,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
         href="/#projects"
         className="inline-flex items-center gap-1.5 rounded-md border border-zinc-200 px-3 py-1.5 text-sm font-medium text-zinc-600 transition-colors duration-200 hover:border-zinc-300 hover:text-zinc-950 dark:border-zinc-800 dark:text-zinc-400 dark:hover:border-zinc-700 dark:hover:text-zinc-50"
       >
-        <span aria-hidden="true">←</span> Back to Projects
+        <span aria-hidden="true">←</span> {t("caseStudy.backToProjects")}
       </Link>
 
       <div className="mt-8">
@@ -123,9 +127,9 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
         )}
       </header>
 
-      <PillList
+      <TechBadgeList
         items={project.technologies}
-        ariaLabel="Technologies"
+        ariaLabel={t("caseStudy.technologies")}
         className="mt-6 flex flex-wrap gap-2"
       />
 
@@ -152,7 +156,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
       {caseStudy ? (
         <div className="mt-16 space-y-12">
-          <CaseStudySection id="overview-heading" title="Overview">
+          <CaseStudySection id="overview-heading" title={t("caseStudy.overview")}>
             <div className="max-w-3xl space-y-4">
               {caseStudy.overview.map((paragraph) => (
                 <p
@@ -222,7 +226,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
           <CaseStudySection
             id="architecture-heading"
-            title="Architecture"
+            title={t("caseStudy.architecture")}
           >
             <div className="space-y-8">
               {(project.architectureImage ||
@@ -243,7 +247,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
                 {caseStudy.architecture.map((layer) => (
                   <InfoCard key={layer.title} title={layer.title}>
-                    <PillList items={layer.items} />
+                    <TechBadgeList items={layer.items} />
                   </InfoCard>
                 ))}
               </div>
@@ -253,7 +257,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.infrastructureAsCode ? (
             <CaseStudySection
               id="iac-heading"
-              title="Infrastructure as Code"
+              title={t("caseStudy.infrastructureAsCode")}
               intro={caseStudy.infrastructureAsCode.intro}
             >
               <div className="space-y-6">
@@ -321,7 +325,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.securityDecisions ? (
             <CaseStudySection
               id="security-heading"
-              title="Security Decisions"
+              title={t("caseStudy.securityDecisions")}
               intro={caseStudy.securityDecisions.intro}
             >
               <div className="space-y-6">
@@ -347,7 +351,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.cicdWorkflow ? (
             <CaseStudySection
               id="cicd-heading"
-              title="CI/CD Workflow"
+              title={t("caseStudy.cicdWorkflow")}
               intro={caseStudy.cicdWorkflow.intro}
             >
               <div className="space-y-6">
@@ -367,7 +371,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.operationsObservability ? (
             <CaseStudySection
               id="operations-heading"
-              title="Operations and Observability"
+              title={t("caseStudy.operationsObservability")}
               intro={caseStudy.operationsObservability.intro}
             >
               {caseStudy.operationsObservability.items ? (
@@ -383,7 +387,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.features && caseStudy.features.length > 0 ? (
             <CaseStudySection
               id="features-heading"
-              title={caseStudy.featuresTitle ?? "Key Features"}
+              title={caseStudy.featuresTitle ?? t("caseStudy.keyFeatures")}
               intro={caseStudy.featuresIntro}
             >
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -399,7 +403,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.mlPipeline ? (
             <CaseStudySection
               id="ml-pipeline-heading"
-              title="Machine Learning Pipeline"
+              title={t("caseStudy.mlPipeline")}
             >
               <div className="space-y-6">
                 <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
@@ -421,8 +425,8 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.backendEngineering ? (
             <CaseStudySection
               id="backend-heading"
-              title="Backend Engineering"
-              intro="The backend follows a layered architecture:"
+              title={t("caseStudy.backendEngineering")}
+              intro={t("caseStudy.backendIntro")}
             >
               <div className="space-y-6">
                 <FlowDiagram steps={caseStudy.backendEngineering.layers} />
@@ -441,7 +445,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           ) : null}
 
           {caseStudy.databaseDesign ? (
-            <CaseStudySection id="database-heading" title="Database Design">
+            <CaseStudySection id="database-heading" title={t("caseStudy.databaseDesign")}>
               <InfoCard>
                 <BulletList items={caseStudy.databaseDesign} />
               </InfoCard>
@@ -451,7 +455,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.frontendDevelopment ? (
             <CaseStudySection
               id="frontend-heading"
-              title="Frontend Development"
+              title={t("caseStudy.frontendDevelopment")}
               intro={caseStudy.frontendDevelopment.intro}
             >
               <InfoCard>
@@ -462,7 +466,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
           <CaseStudySection
             id="engineering-heading"
-            title="Engineering Highlights"
+            title={t("caseStudy.engineeringHighlights")}
           >
             <InfoCard>
               <BulletList
@@ -475,33 +479,33 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           {caseStudy.cloudArchitecture ? (
             <CaseStudySection
               id="cloud-heading"
-              title={caseStudy.cloudArchitectureTitle ?? "Cloud Architecture"}
+              title={caseStudy.cloudArchitectureTitle ?? t("caseStudy.cloudArchitecture")}
               intro={caseStudy.cloudArchitecture.description}
             >
               <div className="space-y-6">
                 {caseStudy.cloudArchitecture.workflow ? (
                   <FlowDiagram steps={caseStudy.cloudArchitecture.workflow} />
                 ) : null}
-                <PillList
+                <TechBadgeList
                   items={caseStudy.cloudArchitecture.services}
-                  ariaLabel="Cloud services"
+                  ariaLabel={t("caseStudy.cloudArchitecture")}
                 />
               </div>
             </CaseStudySection>
           ) : null}
 
-          <CaseStudySection id="stack-heading" title="Technology Stack">
+          <CaseStudySection id="stack-heading" title={t("caseStudy.technologyStack")}>
             <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
               {caseStudy.techStack.map((group) => (
                 <InfoCard key={group.title} title={group.title}>
-                  <PillList items={group.items} />
+                  <TechBadgeList items={group.items} />
                 </InfoCard>
               ))}
             </div>
           </CaseStudySection>
 
           {caseStudy.challengeGroups ? (
-            <CaseStudySection id="challenges-heading" title="Challenges">
+            <CaseStudySection id="challenges-heading" title={t("caseStudy.challenges")}>
               <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
                 {caseStudy.challengeGroups.map((group) => (
                   <InfoCard key={group.title} title={group.title}>
@@ -511,7 +515,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               </div>
             </CaseStudySection>
           ) : caseStudy.challenges ? (
-            <CaseStudySection id="challenges-heading" title="Challenges">
+            <CaseStudySection id="challenges-heading" title={t("caseStudy.challenges")}>
               <InfoCard>
                 <BulletList items={caseStudy.challenges} />
               </InfoCard>
@@ -520,7 +524,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
           <CaseStudySection
             id="future-heading"
-            title="Future Improvements"
+            title={t("caseStudy.futureImprovements")}
           >
             <InfoCard>
               <BulletList
@@ -531,7 +535,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
           </CaseStudySection>
 
           {caseStudy.projectImpact ? (
-            <CaseStudySection id="impact-heading" title="Project Impact">
+            <CaseStudySection id="impact-heading" title={t("caseStudy.projectImpact")}>
               <p className="max-w-3xl text-base leading-relaxed text-zinc-500 dark:text-zinc-400">
                 {caseStudy.projectImpact}
               </p>

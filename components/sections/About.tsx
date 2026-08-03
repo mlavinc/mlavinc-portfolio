@@ -1,47 +1,29 @@
 "use client";
 
 import { Reveal } from "@/components/motion/Reveal";
-import { aboutIntro, experience } from "@/data/about";
+import { getAboutIntro } from "@/data/about";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 export function About() {
+  const { locale, t } = useLocale();
+
   return (
     <section
+      id="about-section"
       aria-labelledby="about"
-      className="pt-20 pb-0 sm:pt-24"
+      className="section-band section-band--muted scroll-mt-24 py-24 sm:py-28"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
           id="about"
-          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl"
         >
-          About
+          {t("about.title")}
         </h2>
 
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500 sm:text-lg dark:text-zinc-400">
-          {aboutIntro}
+        <p className="mt-5 max-w-2xl text-base leading-relaxed text-zinc-400 sm:text-lg">
+          {getAboutIntro(locale)}
         </p>
-
-        <div className="mt-8">
-          <h3 className="text-xl font-semibold tracking-tight text-zinc-950 sm:text-2xl dark:text-zinc-50">
-            Experience
-          </h3>
-
-          <ul className="mt-4 space-y-6">
-            {experience.map((item) => (
-              <li key={item.id} className="max-w-2xl">
-                <p className="text-base font-medium text-zinc-950 dark:text-zinc-50">
-                  {item.role}
-                </p>
-                <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-                  {item.company}
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                  {item.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
       </Reveal>
     </section>
   );

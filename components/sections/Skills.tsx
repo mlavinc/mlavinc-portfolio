@@ -1,42 +1,41 @@
 "use client";
 
 import { Reveal } from "@/components/motion/Reveal";
-import { skillCategories } from "@/data/skills";
+import { TechBadgeList } from "@/components/ui/TechBadge";
+import { getSkillCategories } from "@/data/skills";
+import { useLocale } from "@/lib/i18n/locale-context";
 
 export function Skills() {
+  const { locale, t } = useLocale();
+  const skillCategories = getSkillCategories(locale);
+
   return (
     <section
+      id="skills-section"
       aria-labelledby="skills"
-      className="pt-8 pb-0"
+      className="section-band scroll-mt-24 py-24 sm:py-28"
     >
       <Reveal className="mx-auto w-full max-w-5xl px-6">
         <h2
           id="skills"
-          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-950 sm:text-3xl dark:text-zinc-50"
+          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl"
         >
-          Skills
+          {t("skills.title")}
         </h2>
 
-        <div className="mt-4 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
           {skillCategories.map((category) => (
             <div key={category.id}>
-              <h3 className="text-sm font-medium tracking-wide text-zinc-950 uppercase dark:text-zinc-50">
+              <h3 className="text-sm font-medium tracking-wide text-zinc-200 uppercase">
                 {category.title}
               </h3>
 
-              <ul
-                className="mt-3 flex flex-wrap gap-2"
-                aria-label={category.title}
-              >
-                {category.skills.map((skill) => (
-                  <li
-                    key={skill}
-                    className="rounded-full border border-zinc-200 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:border-zinc-800 dark:text-zinc-400"
-                  >
-                    {skill}
-                  </li>
-                ))}
-              </ul>
+              <TechBadgeList
+                items={category.skills}
+                ariaLabel={category.title}
+                size="emphasis"
+                className="mt-4 flex flex-wrap gap-2.5"
+              />
             </div>
           ))}
         </div>
