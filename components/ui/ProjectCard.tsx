@@ -94,7 +94,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center justify-center rounded-md border border-zinc-800 px-3.5 text-sm font-medium text-zinc-50 transition-colors duration-200 hover:bg-zinc-900"
+              className="inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-200"
             >
               {t("projects.liveDemo")}
             </a>
