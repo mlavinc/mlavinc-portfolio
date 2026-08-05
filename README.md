@@ -115,7 +115,7 @@ npm run lint
 **Martin Lavin Carvajal**
 
 - Email: [martinlavinc@gmail.com](mailto:martinlavinc@gmail.com)
-- LinkedIn: [martin-lavin-carvajal](https://www.linkedin.com/in/martin-lavin-carvajal-010b08339/)
+- LinkedIn: [martinlavin](https://www.linkedin.com/in/martinlavin/)
 - GitHub: [mlavinc](https://github.com/mlavinc)
 
 ## License

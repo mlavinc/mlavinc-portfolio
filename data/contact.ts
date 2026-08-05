@@ -23,7 +23,7 @@ export function getContactLinks(locale: Locale): ContactLink[] {
     {
       id: "linkedin",
       label: t(locale, "contact.linkedIn"),
-      href: "https://www.linkedin.com/in/martin-lavin-carvajal-010b08339/",
+      href: "https://www.linkedin.com/in/martinlavin/",
       display: "LinkedIn",
     },
     {

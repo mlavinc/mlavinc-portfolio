@@ -10,7 +10,7 @@ import {
 } from "@/lib/motion";
 
 const linkedInUrl =
-  "https://www.linkedin.com/in/martin-lavin-carvajal-010b08339/";
+  "https://www.linkedin.com/in/martinlavin/";
 
 const secondaryButtonClassName =
   "inline-flex h-10 items-center justify-center rounded-md border border-zinc-800 bg-transparent px-5 text-sm font-medium text-zinc-50 transition-colors duration-200 hover:bg-zinc-900";
