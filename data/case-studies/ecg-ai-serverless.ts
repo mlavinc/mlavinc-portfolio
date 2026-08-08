@@ -2,19 +2,19 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "ECG-AI is an end-to-end machine learning system for classifying cardiac patterns from electrocardiogram signals: from preprocessing and model training through serverless inference and a React client.",
-    "The main engineering challenge was packaging a biomedical ML workflow as deployable software: feature extraction and Random Forest inference behind an API, running on AWS Lambda with Terraform-managed infrastructure.",
+    "End-to-end ECG classification: signal preprocessing and model training through serverless inference and a React client.",
+    "The hard part was turning a biomedical ML workflow into deployable software — feature extraction and Random Forest inference behind an API on AWS Lambda, with Terraform-managed infrastructure.",
   ],
   overview: [
-    "Many ML projects stop at notebooks. Production AI needs APIs, deployment, cost controls, and a clear separation between training-time experimentation and runtime inference.",
-    "ECG-AI bridges that gap: PhysioNet ECG data feeds a supervised pipeline (balanced accuracy ~75.5%, accuracy ~76.4%), and inference is served through API Gateway and Lambda so compute runs only on demand.",
+    "Many ML projects stop at notebooks. Production needs an API, cost control, and a clean split between training-time work and runtime inference.",
+    "PhysioNet ECG data feeds a supervised pipeline (~75.5% balanced accuracy, ~76.4% accuracy). Inference is served through API Gateway and Lambda so compute runs only on demand.",
   ],
   architectureFlow: [
-    "Frontend Application",
+    "React Client",
     "API Gateway",
     "AWS Lambda",
-    "Machine Learning Inference Service",
-    "ECG Classification Model",
+    "ML Inference",
+    "ECG Model",
   ],
   architecture: [
     {
@@ -22,28 +22,20 @@ export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
       items: ["React", "TypeScript", "Vite"],
     },
     {
-      title: "API Layer",
-      items: [
-        "REST API design",
-        "Request validation",
-        "Communication with inference service",
-      ],
+      title: "API",
+      items: ["REST", "Request validation", "Inference handoff"],
     },
     {
-      title: "Machine Learning Layer",
+      title: "ML",
       items: [
-        "ECG signal processing",
+        "ECG preprocessing",
         "Feature extraction",
-        "Random Forest classification",
-        "Model inference",
+        "Random Forest inference",
       ],
     },
     {
-      title: "Cloud Layer",
-      items: [
-        "AWS serverless architecture",
-        "Infrastructure as Code with Terraform",
-      ],
+      title: "Cloud",
+      items: ["Lambda", "API Gateway", "S3", "Terraform"],
     },
   ],
   mlPipeline: {
@@ -55,34 +47,33 @@ export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
       {
         title: "Pipeline",
         items: [
-          "ECG signal preprocessing",
+          "Signal preprocessing",
           "Feature extraction",
-          "Supervised learning",
-          "Model evaluation",
+          "Supervised training",
+          "Evaluation",
         ],
       },
       {
         title: "Model",
-        items: ["Random Forest classifier"],
+        items: ["Random Forest"],
       },
       {
         title: "Results",
-        items: ["Balanced Accuracy: ~75.5%", "Accuracy: ~76.4%"],
+        items: ["Balanced Accuracy ~75.5%", "Accuracy ~76.4%"],
       },
     ],
-    note: "Balanced metrics were prioritized to evaluate performance fairly across cardiac classes.",
+    note: "Balanced accuracy was prioritized so performance is judged fairly across cardiac classes.",
   },
   engineeringHighlights: [
-    "End-to-end path from signal processing to cloud-hosted inference",
-    "Random Forest model packaged for serverless execution on AWS Lambda",
-    "Clear separation of frontend, API, and ML inference concerns",
-    "Terraform for reproducible AWS deployment (Lambda, API Gateway, S3)",
-    "Pay-per-use inference to avoid always-on GPU/CPU servers",
+    "Notebook-to-service path: signal processing packaged for Lambda inference",
+    "Frontend, API, and ML concerns kept separate",
+    "Terraform for reproducible Lambda, API Gateway, and S3 setup",
+    "Pay-per-use inference — no always-on training or serving boxes",
   ],
   cloudArchitecture: {
     services: ["AWS Lambda", "Amazon API Gateway", "Amazon S3", "Terraform"],
     description:
-      "Inference runs only when requested. API Gateway fronts Lambda, keeping operational overhead and cost aligned with actual usage rather than idle capacity.",
+      "API Gateway fronts Lambda. Inference runs only when requested, so cost tracks usage instead of idle capacity.",
   },
   techStack: [
     {
@@ -97,22 +88,31 @@ export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
       title: "Cloud",
       items: ["AWS Lambda", "API Gateway", "S3", "Terraform"],
     },
+  ],
+  challengeGroups: [
     {
-      title: "Development",
-      items: ["Git", "Infrastructure as Code"],
+      title: "ML under Lambda constraints",
+      items: [
+        "Packaging feature extraction and Random Forest inference for a serverless runtime",
+      ],
+    },
+    {
+      title: "Biomedical signal → software pipeline",
+      items: [
+        "Moving ECG preprocessing out of ad-hoc notebooks into a repeatable service path",
+      ],
+    },
+    {
+      title: "Scale without always-on servers",
+      items: [
+        "API Gateway + Lambda so idle time does not mean paying for compute",
+      ],
     },
   ],
-  challenges: [
-    "Adapting a machine learning model for cloud inference constraints",
-    "Handling biomedical signal processing complexity in a software pipeline",
-    "Designing scalable architecture without always-running servers",
-    "Bridging data science experimentation with software engineering practices",
-  ],
   futureImprovements: [
-    "Deep learning approaches for raw ECG waveform analysis",
-    "Explainable AI techniques such as SHAP/LIME",
+    "Deep learning on raw waveforms",
+    "Explainability (SHAP / LIME)",
     "Real-time ECG streaming",
-    "Expanded datasets",
-    "Managed ML services integration",
+    "Broader datasets",
   ],
 };

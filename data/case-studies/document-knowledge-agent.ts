@@ -2,21 +2,18 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "A cloud-native Retrieval-Augmented Generation (RAG) platform that turns documents into queryable knowledge sources through semantic search and grounded AI answers.",
-    "Users upload documents, the system extracts and chunks content, generates embeddings, indexes them for vector retrieval, and answers natural-language questions using retrieved context.",
-    "The engineering focus was building a modular AI pipeline (not a thin chatbot wrapper), combining document processing, vector search, foundation models, and a serverless AWS deployment model. As a product extension of the same system, Portfolio Assistant brings that RAG capability into this portfolio as a visitor-facing chat experience.",
+    "A cloud-native RAG platform that turns documents into queryable knowledge: upload, chunk, embed, retrieve, and answer with grounded context.",
+    "Built as a modular AI pipeline — not a thin chatbot wrapper — with serverless AWS deployment. Portfolio Assistant is a product extension of the same system on this site.",
   ],
   overview: [
-    "Unstructured PDFs and technical documents are hard to query with keyword search when users need meaning-based answers.",
-    "Document Knowledge Agent addresses this with a RAG pipeline: ingest → chunk → embed → retrieve → generate, separated into synchronous search paths and asynchronous ingestion so long-running processing does not block API requests.",
-    "Portfolio Assistant is not a separate product. It is an extension of Document Knowledge Agent that reuses the same search path against a curated portfolio knowledge base, exposing the RAG system through a Messenger-style widget on this site.",
+    "Keyword search falls short when people need meaning-based answers from PDFs and technical docs.",
+    "The pipeline is ingest → chunk → embed → retrieve → generate. Search stays synchronous; ingestion runs asynchronously so long-running work does not block the API.",
   ],
   productExtension: {
     title: "Portfolio Assistant Extension",
     paragraphs: [
-      "As an extension of the Document Knowledge Agent, I integrated the RAG system into my personal portfolio as an interactive assistant.",
-      "The assistant uses a curated knowledge base containing my CV, technical experience, and project documentation, allowing visitors to ask questions about my background, skills, and work through a natural language interface.",
-      "This extension demonstrates how a production-oriented AI system can be transformed into a user-facing product experience.",
+      "Same RAG search path, different corpus: a curated knowledge base of CV, experience, and project docs.",
+      "Exposed here as a Messenger-style chat widget — the production pipeline turned into a visitor-facing product surface.",
     ],
     image: "/projects/document-knowledge-agent-portfolio-assistant.png",
     imageAlt:
@@ -26,38 +23,12 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
     secondaryImageAlt:
       "Portfolio Assistant standalone demo interface with suggested prompts",
   },
-  features: [
-    {
-      title: "Document ingestion pipeline",
-      items: [
-        "Document extraction",
-        "Text processing and chunking",
-        "Embedding generation",
-        "Vector database indexing",
-      ],
-    },
-    {
-      title: "Semantic search",
-      items: [
-        "Meaning-based retrieval instead of keyword matching",
-        "Relevant context retrieval from documents",
-      ],
-    },
-    {
-      title: "AI-powered question answering",
-      items: [
-        "Retrieves relevant document chunks",
-        "Provides context to the language model",
-        "Generates grounded answers based on retrieved knowledge",
-      ],
-    },
-    {
-      title: "Asynchronous processing",
-      items: [
-        "Separates long-running document processing from API requests",
-        "Improves reliability and user experience",
-      ],
-    },
+  architectureFlow: [
+    "React Client",
+    "API Gateway / Express",
+    "FastAPI RAG Core",
+    "Vector Store",
+    "LLM (Ollama / Bedrock)",
   ],
   architecture: [
     {
@@ -65,40 +36,28 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       items: ["React", "TypeScript", "Vite"],
     },
     {
-      title: "API Gateway Layer",
+      title: "API Gateway",
       items: ["Node.js", "Express", "TypeScript"],
     },
     {
       title: "RAG Core",
-      items: [
-        "Python",
-        "FastAPI",
-        "LangChain",
-        "Document processing",
-        "Embeddings",
-        "Retrieval pipeline",
-      ],
+      items: ["Python", "FastAPI", "LangChain", "Embeddings", "Retrieval"],
     },
     {
-      title: "Vector Database",
-      items: ["Semantic storage and similarity search"],
+      title: "Vector Store",
+      items: ["ChromaDB", "Semantic similarity search"],
     },
     {
-      title: "AI Model Layer",
-      items: [
-        "Ollama for local development",
-        "AWS Bedrock foundation models for cloud deployment",
-      ],
+      title: "Models",
+      items: ["Ollama (local)", "AWS Bedrock (cloud)"],
     },
   ],
   engineeringHighlights: [
-    "Provider abstraction for AI models (Ollama locally, AWS Bedrock in cloud)",
-    "Versioned APIs with validation, error handling, and service separation",
-    "Async ingestion vs sync search to isolate long-running workloads",
-    "Serverless deployment with AWS Lambda, API Gateway, S3, CloudFront, and ECR",
-    "Infrastructure as Code with Terraform for reproducible cloud environments",
-    "Cost-conscious design: pay-per-use compute instead of always-on servers",
-    "Portfolio Assistant extension: same RAG search API, isolated portfolio corpus, integrated as a floating chat widget",
+    "Provider abstraction: Ollama locally, Bedrock in cloud",
+    "Async ingestion vs sync search — long jobs stay off the request path",
+    "Serverless path: Lambda, API Gateway, S3, CloudFront, ECR",
+    "Terraform for reproducible environments",
+    "Portfolio Assistant: same search API, isolated corpus, floating chat widget",
   ],
   cloudArchitecture: {
     services: [
@@ -110,7 +69,7 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       "Terraform",
     ],
     description:
-      "Traffic is fronted by CloudFront, with the SPA served from S3 and /api/* routed through API Gateway to Lambda. FastAPI handles search synchronously and ingestion asynchronously, integrating Bedrock for generation and vector storage for retrieval, avoiding always-running infrastructure.",
+      "CloudFront fronts the SPA on S3; /api/* goes through API Gateway to Lambda. FastAPI handles sync search and async ingestion, with Bedrock for generation and the vector store for retrieval.",
   },
   techStack: [
     {
@@ -122,33 +81,39 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       items: ["Python", "FastAPI", "Node.js", "Express"],
     },
     {
-      title: "AI/RAG",
-      items: [
-        "LangChain",
-        "RAG",
-        "Embeddings",
-        "Vector Search",
-        "Ollama",
-        "AWS Bedrock",
-      ],
+      title: "AI / RAG",
+      items: ["LangChain", "Embeddings", "ChromaDB", "Ollama", "AWS Bedrock"],
     },
     {
       title: "Cloud",
+      items: ["Lambda", "API Gateway", "S3", "CloudFront", "ECR", "Terraform"],
+    },
+  ],
+  challengeGroups: [
+    {
+      title: "Keep the API responsive under ingestion load",
       items: [
-        "AWS Lambda",
-        "API Gateway",
-        "S3",
-        "CloudFront",
-        "ECR",
-        "Terraform",
+        "Split async document processing from synchronous search so uploads do not stall queries",
+      ],
+    },
+    {
+      title: "Local vs cloud model providers",
+      items: [
+        "Abstract the LLM layer so Ollama and Bedrock can swap without rewriting the RAG core",
+      ],
+    },
+    {
+      title: "Productize the same pipeline",
+      items: [
+        "Reuse the search API against a portfolio-only corpus and surface it as an in-site chat widget",
       ],
     },
   ],
   futureImprovements: [
-    "Authentication and multi-user document spaces",
+    "Auth and multi-user document spaces",
     "Document permissions",
     "RAG evaluation pipelines",
     "Hybrid search",
-    "Monitoring and observability",
+    "Deeper monitoring",
   ],
 };

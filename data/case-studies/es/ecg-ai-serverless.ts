@@ -2,19 +2,19 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const ecgAiServerlessCaseStudyEs: ProjectCaseStudy = {
   introduction: [
-    "ECG-AI es un sistema integral de Machine Learning para clasificar patrones cardíacos a partir de señales de electrocardiograma (ECG), abarcando desde el preprocesamiento y entrenamiento del modelo hasta la inferencia serverless y una aplicación cliente desarrollada en React.",
-    "El principal desafío de ingeniería consistió en convertir un flujo de trabajo de aprendizaje automático aplicado a datos biomédicos en un sistema desplegable: procesamiento de señales, extracción de características e inferencia mediante un modelo Random Forest expuesto a través de una API sobre AWS Lambda, con infraestructura administrada mediante Terraform.",
+    "Clasificación de ECG de extremo a extremo: preprocesamiento y entrenamiento hasta inferencia serverless y un cliente React.",
+    "El reto fue convertir un flujo de ML biomédico en software desplegable — extracción de features e inferencia Random Forest detrás de una API en AWS Lambda, con infraestructura en Terraform.",
   ],
   overview: [
-    "Muchos proyectos de Machine Learning terminan en notebooks o experimentos aislados. Sin embargo, llevar un modelo a producción requiere APIs, despliegue, control de costos y una clara separación entre el entrenamiento del modelo y la inferencia en tiempo de ejecución.",
-    "ECG-AI aborda ese desafío utilizando el conjunto de datos PhysioNet ECG Fragment Database dentro de un pipeline supervisado que alcanza aproximadamente un 75,5 % de Balanced Accuracy y un 76,4 % de Accuracy. La inferencia se expone mediante Amazon API Gateway y AWS Lambda, permitiendo ejecutar el modelo únicamente cuando existe una solicitud.",
+    "Muchos proyectos de ML terminan en notebooks. Producción exige API, control de costos y una separación clara entre entrenamiento e inferencia en runtime.",
+    "Datos PhysioNet ECG alimentan un pipeline supervisado (~75,5 % balanced accuracy, ~76,4 % accuracy). La inferencia se sirve con API Gateway y Lambda: compute solo bajo demanda.",
   ],
   architectureFlow: [
-    "Aplicación Frontend",
+    "Cliente React",
     "API Gateway",
     "AWS Lambda",
-    "Servicio de Inferencia de Machine Learning",
-    "Modelo de Clasificación de ECG",
+    "Inferencia ML",
+    "Modelo ECG",
   ],
   architecture: [
     {
@@ -22,28 +22,20 @@ export const ecgAiServerlessCaseStudyEs: ProjectCaseStudy = {
       items: ["React", "TypeScript", "Vite"],
     },
     {
-      title: "Capa API",
+      title: "API",
+      items: ["REST", "Validación de requests", "Handoff a inferencia"],
+    },
+    {
+      title: "ML",
       items: [
-        "Diseño de API REST",
-        "Validación de solicitudes",
-        "Comunicación con el servicio de inferencia",
+        "Preprocesamiento ECG",
+        "Extracción de features",
+        "Inferencia Random Forest",
       ],
     },
     {
-      title: "Capa de Machine Learning",
-      items: [
-        "Procesamiento de señales ECG",
-        "Extracción de características",
-        "Clasificación mediante Random Forest",
-        "Inferencia del modelo",
-      ],
-    },
-    {
-      title: "Capa Cloud",
-      items: [
-        "Arquitectura serverless sobre AWS",
-        "Infraestructura como Código con Terraform",
-      ],
+      title: "Cloud",
+      items: ["Lambda", "API Gateway", "S3", "Terraform"],
     },
   ],
   mlPipeline: {
@@ -53,36 +45,35 @@ export const ecgAiServerlessCaseStudyEs: ProjectCaseStudy = {
         items: ["PhysioNet ECG Fragment Database"],
       },
       {
-        title: "Flujo de Procesamiento",
+        title: "Pipeline",
         items: [
-          "Preprocesamiento de señales ECG",
-          "Extracción de características",
+          "Preprocesamiento de señal",
+          "Extracción de features",
           "Entrenamiento supervisado",
-          "Evaluación del modelo",
+          "Evaluación",
         ],
       },
       {
         title: "Modelo",
-        items: ["Clasificador Random Forest"],
+        items: ["Random Forest"],
       },
       {
         title: "Resultados",
-        items: ["Balanced Accuracy: ~75,5 %", "Accuracy: ~76,4 %"],
+        items: ["Balanced Accuracy ~75,5 %", "Accuracy ~76,4 %"],
       },
     ],
-    note: "Se priorizó la Balanced Accuracy para evaluar el rendimiento de forma más representativa entre las distintas clases cardíacas.",
+    note: "Se priorizó balanced accuracy para juzgar el rendimiento de forma justa entre clases cardíacas.",
   },
   engineeringHighlights: [
-    "Flujo completo desde el procesamiento de señales hasta la inferencia desplegada en la nube",
-    "Modelo Random Forest empaquetado para ejecución serverless sobre AWS Lambda",
-    "Separación clara entre frontend, API e inferencia de Machine Learning",
-    "Despliegue reproducible en AWS mediante Terraform (Lambda, API Gateway y Amazon S3)",
-    "Inferencia bajo demanda (pay-per-use), evitando servidores con CPU o GPU permanentemente activos",
+    "De notebook a servicio: procesamiento de señal empaquetado para inferencia en Lambda",
+    "Frontend, API y ML mantenidos como concerns separados",
+    "Terraform para un setup reproducible de Lambda, API Gateway y S3",
+    "Inferencia pay-per-use — sin cajas de training o serving siempre encendidas",
   ],
   cloudArchitecture: {
     services: ["AWS Lambda", "Amazon API Gateway", "Amazon S3", "Terraform"],
     description:
-      "La inferencia se ejecuta únicamente cuando es solicitada. Amazon API Gateway expone la API y dirige las solicitudes hacia AWS Lambda, manteniendo tanto el costo como la operación alineados con el uso real del sistema, en lugar de depender de infraestructura permanentemente encendida.",
+      "API Gateway frente a Lambda. La inferencia corre solo cuando hay request; el costo sigue el uso, no la capacidad idle.",
   },
   techStack: [
     {
@@ -97,22 +88,31 @@ export const ecgAiServerlessCaseStudyEs: ProjectCaseStudy = {
       title: "Cloud",
       items: ["AWS Lambda", "API Gateway", "S3", "Terraform"],
     },
+  ],
+  challengeGroups: [
     {
-      title: "Desarrollo",
-      items: ["Git", "Infraestructura como Código"],
+      title: "ML bajo restricciones de Lambda",
+      items: [
+        "Empaquetar extracción de features e inferencia Random Forest para un runtime serverless",
+      ],
+    },
+    {
+      title: "Señal biomédica → pipeline de software",
+      items: [
+        "Sacar el preprocesamiento ECG de notebooks ad-hoc a un camino de servicio repetible",
+      ],
+    },
+    {
+      title: "Escalar sin servidores siempre activos",
+      items: [
+        "API Gateway + Lambda para que el idle no signifique pagar compute",
+      ],
     },
   ],
-  challenges: [
-    "Adaptar un modelo de Machine Learning a las restricciones de ejecución de AWS Lambda",
-    "Integrar procesamiento de señales biomédicas dentro de un pipeline de software mantenible",
-    "Diseñar una arquitectura escalable sin depender de servidores permanentemente activos",
-    "Reducir la brecha entre la experimentación en ciencia de datos y una solución lista para producción",
-  ],
   futureImprovements: [
-    "Incorporar modelos de Deep Learning para el análisis directo de señales ECG",
-    "Implementar técnicas de IA explicable (SHAP y LIME)",
-    "Soporte para transmisión de ECG en tiempo real",
-    "Ampliar el entrenamiento con nuevos conjuntos de datos",
-    "Integrar servicios administrados de Machine Learning en AWS",
+    "Deep learning sobre waveforms crudas",
+    "Explicabilidad (SHAP / LIME)",
+    "Streaming de ECG en tiempo real",
+    "Datasets más amplios",
   ],
 };

@@ -2,32 +2,29 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const cloudOperationsLabCaseStudyEs: ProjectCaseStudy = {
   introduction: [
-    "Cloud Operations Lab es un entorno de Platform Engineering sobre AWS enfocado en Infraestructura como Código (IaC), CI/CD seguro y observabilidad operacional.",
-    "No es una aplicación para usuarios finales. Su propósito es demostrar cómo definir, revisar, desplegar, supervisar y automatizar infraestructura utilizando las mismas prácticas empleadas por equipos de operaciones cloud.",
+    "Lab de plataforma AWS enfocado en Infraestructura como Código, CI/CD seguro y visibilidad operacional.",
+    "No es una app de usuario final — muestra cómo definir, revisar, aplicar, observar y automatizar infraestructura con los controles que usan equipos de cloud ops.",
   ],
   overview: [
-    "En entornos cloud reales, el desafío rara vez consiste en crear un único recurso. El verdadero reto es modificar la infraestructura de forma controlada: sin credenciales permanentes en CI, sin accesos SSH improvisados, con visibilidad completa cuando ocurre un problema y con procesos de revisión antes de aplicar cualquier cambio.",
-    "Cloud Operations Lab aborda ese escenario mediante una base sólida sobre AWS que combina Terraform modular, estado remoto, GitHub Actions con autenticación OIDC, IAM de mínimo privilegio, acceso operativo mediante Systems Manager (SSM) y observabilidad con CloudWatch.",
-    "El resultado es un caso de estudio de Ingeniería Cloud / Platform Engineering que demuestra cómo se aprovisiona, protege y opera la infraestructura sobre la que se ejecutan las aplicaciones.",
+    "Crear un recurso es fácil. Cambiar infraestructura con control es más difícil: sin keys permanentes en CI, sin SSH improvisado, con visibilidad cuando algo falla y revisión antes del apply.",
+    "Este lab es una baseline AWS pequeña pero completa: Terraform modular, estado remoto, GitHub Actions con OIDC, IAM de mínimo privilegio, acceso SSM y observabilidad con CloudWatch.",
   ],
   architecture: [
     {
       title: "Plano de Control",
       items: [
-        "GitHub",
         "GitHub Actions",
         "GitHub OIDC",
         "Terraform",
         "Estado remoto en S3",
-        "Bloqueo de estado mediante DynamoDB",
+        "Lock en DynamoDB",
       ],
     },
     {
-      title: "Entorno de Ejecución en AWS",
+      title: "Runtime AWS",
       items: [
         "VPC",
         "EC2 (Amazon Linux 2023)",
-        "IAM instance profile",
         "SSM Session Manager",
         "CloudWatch",
         "SNS",
@@ -37,36 +34,35 @@ export const cloudOperationsLabCaseStudyEs: ProjectCaseStudy = {
   ],
   infrastructureAsCode: {
     intro:
-      "La infraestructura está definida mediante módulos reutilizables de Terraform y organizada por entornos, manteniendo separada la fase de bootstrap de las cargas de trabajo.",
+      "Terraform modular, compuesto por entorno. El bootstrap queda separado del workload.",
     items: [
-      "Módulos reutilizables para VPC, IAM, EC2, CloudWatch, DynamoDB y SSM",
-      "El bootstrap crea el backend del estado remoto, el mecanismo de bloqueo, la confianza OIDC y los roles utilizados por CI/CD",
-      "Los entornos consumen los módulos sin mezclar la configuración del backend con la definición de recursos",
-      "Estado remoto en S3 con bloqueo mediante DynamoDB para permitir colaboración segura y despliegues automatizados",
-      "Organización por entornos para obtener despliegues reproducibles y fáciles de mantener",
+      "Módulos reutilizables: VPC, IAM, EC2, CloudWatch, DynamoDB, SSM",
+      "Bootstrap posee estado remoto, locks, trust OIDC y roles de CI/CD",
+      "Los workloads consumen módulos sin mezclar el wiring del backend en las definiciones",
+      "Estado en S3 + lock en DynamoDB para colaboración segura y applies en CI",
     ],
   },
   securityDecisions: {
     intro:
-      "Las decisiones de seguridad priorizan credenciales temporales, el principio de mínimo privilegio y una superficie de ataque reducida.",
+      "Credenciales temporales, mínimo privilegio, menor superficie de ataque.",
     image: "/projects/cloud-operations-lab-security.png",
     imageAlt: "Diagrama de decisiones de seguridad de Cloud Operations Lab",
     groups: [
       {
         title: "Evitado",
         items: [
-          "Access Keys de AWS en CI",
-          "SSH con el puerto 22 expuesto",
-          "Un único rol IAM con privilegios excesivos",
-          "Estado de Terraform público o sin cifrado",
+          "Access keys de AWS en CI",
+          "SSH con puerto 22 abierto",
+          "Un rol IAM con privilegios excesivos",
+          "Estado de Terraform sin cifrar o público",
         ],
       },
       {
         title: "Implementado",
         items: [
-          "GitHub OIDC con credenciales temporales",
-          "SSM Session Manager para acceso operativo",
-          "Roles IAM independientes para plan y apply",
+          "GitHub OIDC con credenciales de corta duración",
+          "SSM Session Manager para acceso ops",
+          "Roles IAM separados para plan y apply",
           "Estado remoto cifrado y versionado en S3",
         ],
       },
@@ -74,7 +70,7 @@ export const cloudOperationsLabCaseStudyEs: ProjectCaseStudy = {
   },
   cicdWorkflow: {
     intro:
-      "Los cambios en la infraestructura pasan por un proceso de revisión antes de aplicarse en AWS. El código propone el cambio, el pipeline ejecuta una simulación, un revisor aprueba la modificación y solo entonces se ejecuta Terraform Apply.",
+      "El código propone el cambio → CI lo planea → una persona aprueba → entonces corre Terraform apply.",
     image: "/projects/cloud-operations-lab-cicd.png",
     imageAlt: "Diagrama del flujo CI/CD de Cloud Operations Lab",
     flow: [
@@ -86,66 +82,29 @@ export const cloudOperationsLabCaseStudyEs: ProjectCaseStudy = {
       "Terraform Apply",
     ],
     items: [
-      "Los Pull Requests ejecutan fmt, validate y plan utilizando un rol OIDC de solo lectura",
-      "Los cambios en la rama principal requieren aprobación mediante GitHub Environments antes del despliegue",
-      "Terraform Apply utiliza un rol OIDC con permisos de escritura específicamente acotados para el despliegue controlado de infraestructura",
+      "Los PRs ejecutan fmt, validate y plan con un rol OIDC de lectura",
+      "Merge a main requiere aprobación de GitHub Environment antes del apply",
+      "Apply usa un rol OIDC con permisos de escritura acotados",
     ],
   },
   operationsObservability: {
     intro:
-      "El entorno no se limita a crear infraestructura; también proporciona monitoreo, métricas, alertas y automatización operacional.",
+      "No es create-and-forget: logs, métricas, alarmas y eventos operacionales.",
     image: "/projects/cloud-operations-lab-operations.png",
     imageAlt:
       "Diagrama de operaciones y observabilidad de Cloud Operations Lab",
     items: [
-      "CloudWatch Agent para registros y métricas de CPU de la instancia EC2",
-      "Alarmas de CloudWatch con notificaciones por SNS",
-      "Automatización mediante SSM Run Command para verificaciones de estado y tareas operacionales",
-      "Registro de eventos operacionales en DynamoDB (ops-logs)",
+      "CloudWatch Agent: logs y CPU en el host EC2",
+      "Alarma CloudWatch → email SNS",
+      "SSM Run Command para health checks y scripts ops",
+      "DynamoDB ops-logs para eventos operacionales registrados",
     ],
   },
-  featuresTitle: "Características Principales",
-  features: [
-    {
-      title: "Infraestructura como Código",
-      items: [
-        "Terraform modular con composición por entornos",
-        "Separación entre bootstrap y cargas de trabajo",
-        "Estado remoto y mecanismo de bloqueo",
-      ],
-    },
-    {
-      title: "Acceso seguro",
-      items: [
-        "SSM Session Manager sin necesidad de SSH",
-        "GitHub OIDC en reemplazo de Access Keys estáticas",
-        "IAM basado en el principio de mínimo privilegio para instancias y pipelines",
-      ],
-    },
-    {
-      title: "CI/CD para infraestructura",
-      items: [
-        "Validaciones automáticas mediante Terraform Plan",
-        "Aprobación manual antes de aplicar cambios",
-        "Roles independientes para planificación y despliegue",
-      ],
-    },
-    {
-      title: "Operaciones",
-      items: [
-        "Registros, métricas y alarmas mediante CloudWatch",
-        "Notificaciones con SNS",
-        "Automatización mediante SSM y registro de eventos en DynamoDB",
-      ],
-    },
-  ],
   engineeringHighlights: [
-    "Separación clara entre el plano de control y la infraestructura desplegada en AWS",
-    "Terraform modular basado en componentes reutilizables",
-    "GitHub Actions autenticado mediante OIDC con separación de roles para Plan y Apply",
-    "Operación remota mediante Systems Manager sin necesidad de SSH ni puertos de administración abiertos",
-    "Observabilidad mediante CloudWatch, SNS y registro de eventos operacionales",
-    "Arquitectura optimizada en costos, evitando servicios administrados innecesarios",
+    "Plano de control vs workload AWS claramente separados",
+    "Separación de roles OIDC plan/apply — sin keys estáticas en CI",
+    "Operaciones con SSM sin SSH ni puertos de administración abiertos",
+    "Observabilidad con CloudWatch, SNS y logging de eventos ops",
   ],
   techStack: [
     {
@@ -153,24 +112,44 @@ export const cloudOperationsLabCaseStudyEs: ProjectCaseStudy = {
       items: ["AWS", "VPC", "EC2", "IAM", "S3", "DynamoDB"],
     },
     {
-      title: "Infraestructura como Código",
-      items: ["Terraform", "Módulos de Terraform", "Estado Remoto"],
+      title: "IaC",
+      items: ["Terraform", "Módulos", "Estado Remoto"],
     },
     {
       title: "CI/CD e Identidad",
-      items: ["GitHub Actions", "GitHub OIDC", "GitHub Environments"],
+      items: ["GitHub Actions", "OIDC", "Environments"],
     },
     {
       title: "Operaciones",
-      items: ["SSM", "CloudWatch", "SNS", "Automatización con Bash"],
+      items: ["SSM", "CloudWatch", "SNS", "Bash"],
+    },
+  ],
+  challengeGroups: [
+    {
+      title: "CI sin keys de larga duración",
+      items: [
+        "Trust OIDC y roles plan/apply separados en lugar de credenciales AWS estáticas",
+      ],
+    },
+    {
+      title: "Acceso sin SSH",
+      items: [
+        "SSM Session Manager para que ops no abra el puerto 22",
+      ],
+    },
+    {
+      title: "Cambio de infraestructura seguro",
+      items: [
+        "Plan en PR, aprobación humana en main, luego apply — con estado remoto bloqueado",
+      ],
     },
   ],
   futureImprovements: [
-    "Integrar análisis de seguridad dentro del pipeline CI/CD",
-    "Dashboards y políticas de alertas más completas",
-    "Arquitectura AWS multi-cuenta",
-    "Nuevos módulos reutilizables de Terraform",
+    "Security scanning en CI",
+    "Alertas y dashboards más ricos",
+    "Diseño multi-cuenta",
+    "Más módulos Terraform reutilizables",
   ],
   projectImpact:
-    "Cloud Operations Lab complementa los proyectos centrados en desarrollo de aplicaciones al demostrar la capacidad de diseñar, proteger, desplegar y operar la infraestructura sobre la que dichas aplicaciones se ejecutan.",
+    "Demuestra ownership de plataforma: diseñar, asegurar, desplegar y operar la infraestructura sobre la que correrían las aplicaciones.",
 };
