@@ -2,117 +2,137 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const ecgAiServerlessCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "End-to-end ECG classification: signal preprocessing and model training through serverless inference and a React client.",
-    "The hard part was turning a biomedical ML workflow into deployable software — feature extraction and Random Forest inference behind an API on AWS Lambda, with Terraform-managed infrastructure.",
+    "I built an end-to-end ECG arrhythmia classifier that runs inference on AWS Lambda and presents results in a React SPA. A Random Forest model scores short single-lead fragments into six rhythm classes, using 22 statistical, HRV, and frequency-domain features extracted at request time.",
+    "This is a portfolio project, not a clinical product. The goal was to ship a complete ML path (training, packaging, HTTP inference, UI, infrastructure) under real serverless constraints, then keep the AWS side cheap enough to create and destroy between demos.",
   ],
   overview: [
-    "Many ML projects stop at notebooks. Production needs an API, cost control, and a clean split between training-time work and runtime inference.",
-    "PhysioNet ECG data feeds a supervised pipeline (~75.5% balanced accuracy, ~76.4% accuracy). Inference is served through API Gateway and Lambda so compute runs only on demand.",
+    "I wanted to answer a practical question: can a scientific Python inference stack (NumPy, SciPy, scikit-learn) run as a ZIP-deployed Lambda without containers, without always-on compute, and without drifting into a billable demo environment?",
+    "Using the PhysioNet ECG Fragment Database for Dangerous Arrhythmia (2022), I trained a multiclass Random Forest on 1,016 labeled fragments and needed a way to expose it through a browser upload flow.",
+    "An earlier iteration served the SPA from S3 behind CloudFront. I later moved the frontend to Vercel and left AWS responsible only for inference. That simplification is the current architecture.",
   ],
   architectureFlow: [
-    "React Client",
-    "API Gateway",
-    "AWS Lambda",
-    "ML Inference",
-    "ECG Model",
+    "Browser",
+    "Vercel React SPA",
+    "Lambda Function URL",
+    "Feature extraction",
+    "Random Forest",
   ],
   architecture: [
     {
       title: "Frontend",
-      items: ["React", "TypeScript", "Vite"],
+      items: ["React 19", "TypeScript", "Vite", "Vercel", "TanStack Query", "Zod"],
     },
     {
-      title: "API",
-      items: ["REST", "Request validation", "Inference handoff"],
+      title: "Backend",
+      items: [
+        "Lambda Function URL",
+        "Python 3.11",
+        "/health · /metrics · /predict",
+        "S3 model cache on cold start",
+      ],
     },
     {
       title: "ML",
       items: [
-        "ECG preprocessing",
-        "Feature extraction",
+        "22 statistical / HRV / frequency features",
+        "Pan-Tompkins-style R-peak detection",
         "Random Forest inference",
       ],
     },
     {
-      title: "Cloud",
-      items: ["Lambda", "API Gateway", "S3", "Terraform"],
+      title: "Infrastructure",
+      items: ["Terraform", "Artifacts S3", "IAM", "CloudWatch Logs"],
     },
   ],
   mlPipeline: {
     groups: [
       {
         title: "Dataset",
-        items: ["PhysioNet ECG Fragment Database"],
+        items: [
+          "PhysioNet ECG Fragment Database for Dangerous Arrhythmia (2022)",
+          "1,016 labeled fragments",
+          "6 rhythm classes",
+        ],
       },
       {
         title: "Pipeline",
         items: [
-          "Signal preprocessing",
-          "Feature extraction",
-          "Supervised training",
-          "Evaluation",
+          "Feature extraction at request time",
+          "Supervised Random Forest training",
+          "joblib model object in S3",
         ],
       },
       {
         title: "Model",
-        items: ["Random Forest"],
+        items: ["Random Forest", "22 features"],
       },
       {
         title: "Results",
-        items: ["Balanced Accuracy ~75.5%", "Accuracy ~76.4%"],
+        items: ["Accuracy 76.96%", "Balanced accuracy 75.6%"],
       },
     ],
-    note: "Balanced accuracy was prioritized so performance is judged fairly across cardiac classes.",
+    note: "Per-class precision/recall/F1 and the confusion matrix are null in the committed metadata until training is re-run with the raw ECG_DB/ dataset (gitignored, not bundled).",
   },
   engineeringHighlights: [
-    "Notebook-to-service path: signal processing packaged for Lambda inference",
-    "Frontend, API, and ML concerns kept separate",
-    "Terraform for reproducible Lambda, API Gateway, and S3 setup",
-    "Pay-per-use inference — no always-on training or serving boxes",
+    "ZIP Lambda instead of a container image — stay under the 250 MB unzipped limit without ECR cost",
+    "Dropped wfdb and neurokit2; custom numpy WFDB reader + scipy.signal detector brought the package to ~183 MB unzipped / ~57 MB zipped",
+    "Lambda Function URL instead of API Gateway for a free-tier-friendly HTTPS surface",
+    "Vercel for the SPA, AWS for inference — Terraform owns only the backend",
+    "S3 staging for lambda.zip because it exceeds the ~50 MB direct CreateFunction upload limit",
+    "Minimal IAM: CloudWatch logging plus s3:GetObject on the single model key",
   ],
+  cloudArchitectureTitle: "Cloud Architecture",
   cloudArchitecture: {
-    services: ["AWS Lambda", "Amazon API Gateway", "Amazon S3", "Terraform"],
+    services: [
+      "AWS Lambda",
+      "Lambda Function URL",
+      "Amazon S3",
+      "CloudWatch Logs",
+      "Terraform",
+      "Vercel",
+    ],
     description:
-      "API Gateway fronts Lambda. Inference runs only when requested, so cost tracks usage instead of idle capacity.",
+      "Browser → Vercel React SPA → Lambda Function URL → feature extraction → Random Forest. The model downloads from S3 into /tmp on cold start. CORS is configured on the Function URL itself. scripts/deploy.* builds the ZIP, ensures the model object exists, applies Terraform, and health-checks the Function URL. destroy tears down AWS without touching the Vercel UI.",
   },
   techStack: [
     {
       title: "Machine Learning",
-      items: ["Python", "Scikit-learn", "NumPy", "Pandas", "Random Forest"],
+      items: ["Python", "Scikit-learn", "NumPy", "SciPy", "Random Forest"],
     },
     {
       title: "Frontend",
-      items: ["React", "TypeScript", "Vite"],
+      items: ["React", "TypeScript", "Vite", "Vercel"],
     },
     {
       title: "Cloud",
-      items: ["AWS Lambda", "API Gateway", "S3", "Terraform"],
+      items: ["AWS Lambda", "Function URL", "S3", "Terraform"],
     },
   ],
   challengeGroups: [
     {
-      title: "ML under Lambda constraints",
+      title: "Fitting the scientific stack into Lambda ZIP limits",
       items: [
-        "Packaging feature extraction and Random Forest inference for a serverless runtime",
+        "Install manylinux x86_64 / cp311 wheels even when packaging from Windows, flatten imports, strip boto3/botocore, and zip with forward-slash paths. PowerShell Compress-Archive writes backslashes that Lambda treats as literal names.",
       ],
     },
     {
-      title: "Biomedical signal → software pipeline",
+      title: "Function URL CORS and public invoke permissions",
       items: [
-        "Moving ECG preprocessing out of ad-hoc notebooks into a repeatable service path",
+        "OPTIONS cannot be listed in allow_methods (AWS validation). Preflight belongs to the Function URL CORS layer. AuthType NONE needs both lambda:InvokeFunctionUrl and lambda:InvokeFunction with InvokedViaFunctionUrl — missing the second produced HTTP 403 with no CloudWatch logs.",
       ],
     },
     {
-      title: "Scale without always-on servers",
+      title: "Local vs production model resolution",
       items: [
-        "API Gateway + Lambda so idle time does not mean paying for compute",
+        "Locally, MODEL_LOCAL_PATH points at the joblib file. In AWS, the same loader downloads from S3 into a temp-dir cache. test_lambda.py synthesizes Function URL events for offline exercise of /health, /metrics, and /predict.",
       ],
     },
   ],
   futureImprovements: [
-    "Deep learning on raw waveforms",
-    "Explainability (SHAP / LIME)",
-    "Real-time ECG streaming",
-    "Broader datasets",
+    "Re-run training with ECG_DB/ present so /metrics can serve per-class scores and a confusion matrix",
+    "Add CI for Lambda package builds and terraform plan checks",
+    "Refresh frontend architecture copy that still describes the older CloudFront + S3 path",
   ],
+  projectImpact:
+    "Working browser → Vercel → Lambda → model path for classify-and-visualize demos; ~183 MB / ~57 MB Lambda package; one-command AWS backend deploy/destroy. Serverless ML packaging is mostly dependency economics — what you import decides whether ZIP deploy is viable.",
 };

@@ -2,18 +2,20 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "A cloud-native RAG platform that turns documents into queryable knowledge: upload, chunk, embed, retrieve, and answer with grounded context.",
-    "Built as a modular AI pipeline — not a thin chatbot wrapper — with serverless AWS deployment. Portfolio Assistant is a product extension of the same system on this site.",
+    "Document Knowledge Agent is a Retrieval-Augmented Generation (RAG) system for PDF knowledge bases. Users upload a document, ask questions in natural language, and receive answers grounded in retrieved chunks, with source metadata pointing back to the documents that supported the response.",
+    "The same backend also powers a second surface: an “Ask me anything” portfolio assistant that queries an isolated corpus (profile, experience, projects) instead of user-uploaded papers.",
   ],
   overview: [
-    "Keyword search falls short when people need meaning-based answers from PDFs and technical docs.",
-    "The pipeline is ingest → chunk → embed → retrieve → generate. Search stays synchronous; ingestion runs asynchronously so long-running work does not block the API.",
+    "I built this project to learn how a full RAG pipeline works in practice, not only as a notebook experiment. The starting point was an ArXiv-oriented agent: search papers, ingest PDFs, embed them locally with Ollama and Chroma, and answer questions over that corpus.",
+    "As the system matured, the interesting problem shifted. I wanted a document Q&A product that could run fully offline for development, then deploy to AWS without rewriting the application for each environment. Keyword search is a poor fit for long technical PDFs; semantic retrieval plus grounded generation is a better match, but only if the architecture can survive real cloud constraints (timeouts, secrets, cold starts, cost).",
+    "The portfolio assistant came later as a productization test: reuse the same search API against a curated knowledge base, keep the demo corpus isolated, and expose the result as a chat experience visitors can try.",
   ],
   productExtension: {
     title: "Portfolio Assistant Extension",
     paragraphs: [
-      "Same RAG search path, different corpus: a curated knowledge base of CV, experience, and project docs.",
-      "Exposed here as a Messenger-style chat widget — the production pipeline turned into a visitor-facing product surface.",
+      "Rather than standing up a second backend, the portfolio frontend only calls POST /api/search with X-RAG-Collection: portfolio.",
+      "Query expansion rewrites deictic “you/your” questions for embedding only, while the original question still goes to the LLM. That keeps retrieval useful for first-person portfolio chat without changing the demo path.",
+      "Demo uploads and portfolio documents share infrastructure but not indexes — collection-aware tables, S3 prefixes, and header validation keep the two surfaces isolated.",
     ],
     image: "/projects/document-knowledge-agent-portfolio-assistant.png",
     imageAlt:
@@ -24,11 +26,11 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       "Portfolio Assistant standalone demo interface with suggested prompts",
   },
   architectureFlow: [
-    "React Client",
-    "API Gateway / Express",
+    "React / Vite Client",
+    "Express API Gateway",
     "FastAPI RAG Core",
     "Vector Store",
-    "LLM (Ollama / Bedrock)",
+    "LLM Provider",
   ],
   architecture: [
     {
@@ -37,27 +39,47 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
     },
     {
       title: "API Gateway",
-      items: ["Node.js", "Express", "TypeScript"],
+      items: [
+        "Node.js",
+        "Express",
+        "TypeScript",
+        "Zod validation",
+        "Multipart upload",
+      ],
     },
     {
       title: "RAG Core",
-      items: ["Python", "FastAPI", "LangChain", "Embeddings", "Retrieval"],
+      items: [
+        "Python",
+        "FastAPI",
+        "LangChain",
+        "PyMuPDF",
+        "Chunk → embed → retrieve → generate",
+      ],
     },
     {
-      title: "Vector Store",
-      items: ["ChromaDB", "Semantic similarity search"],
+      title: "Local stack",
+      items: ["Ollama", "Chroma", "Filesystem storage", "Docker Compose"],
     },
     {
-      title: "Models",
-      items: ["Ollama (local)", "AWS Bedrock (cloud)"],
+      title: "Production",
+      items: [
+        "OpenAI",
+        "Aurora pgvector (Data API)",
+        "S3",
+        "Lambda + Web Adapter",
+        "CloudFront",
+      ],
     },
   ],
   engineeringHighlights: [
-    "Provider abstraction: Ollama locally, Bedrock in cloud",
-    "Async ingestion vs sync search — long jobs stay off the request path",
-    "Serverless path: Lambda, API Gateway, S3, CloudFront, ECR",
-    "Terraform for reproducible environments",
-    "Portfolio Assistant: same search API, isolated corpus, floating chat widget",
+    "Thin Node gateway, Python RAG core — HTTP at the edge, pipeline ownership in FastAPI",
+    "Provider facades (LLM, embedding, vector DB, storage) so local and production swap by configuration",
+    "OpenAI in production after an earlier Bedrock path; API key in SSM SecureString",
+    "Async ingest only where API Gateway’s timeout forces it; search stays synchronous",
+    "IAM on the rag-core Function URL with SigV4 from the gateway",
+    "Aurora Serverless v2 + RDS Data API so Lambdas stay out of the VPC",
+    "Isolated portfolio corpus on the same API via X-RAG-Collection",
   ],
   cloudArchitecture: {
     services: [
@@ -66,10 +88,12 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
       "Amazon S3",
       "Amazon CloudFront",
       "Amazon ECR",
+      "Aurora PostgreSQL (pgvector)",
+      "AWS SSM",
       "Terraform",
     ],
     description:
-      "CloudFront fronts the SPA on S3; /api/* goes through API Gateway to Lambda. FastAPI handles sync search and async ingestion, with Bedrock for generation and the vector store for retrieval.",
+      "CloudFront serves the SPA from S3 and can forward /api/* to the HTTP API. Both Lambdas run container images with AWS Lambda Web Adapter. The gateway validates and proxies; rag-core owns parse → chunk → embed → store and retrieve → generate. Production uses OpenAI, Aurora pgvector via the Data API, and S3 — with IAM between services rather than a public rag-core endpoint.",
   },
   techStack: [
     {
@@ -82,38 +106,60 @@ export const documentKnowledgeAgentCaseStudy: ProjectCaseStudy = {
     },
     {
       title: "AI / RAG",
-      items: ["LangChain", "Embeddings", "ChromaDB", "Ollama", "AWS Bedrock"],
+      items: [
+        "LangChain",
+        "OpenAI",
+        "Ollama",
+        "Chroma",
+        "Aurora pgvector",
+        "PyMuPDF",
+      ],
     },
     {
       title: "Cloud",
-      items: ["Lambda", "API Gateway", "S3", "CloudFront", "ECR", "Terraform"],
+      items: [
+        "Lambda",
+        "API Gateway",
+        "S3",
+        "CloudFront",
+        "ECR",
+        "SSM",
+        "Terraform",
+      ],
     },
   ],
   challengeGroups: [
     {
-      title: "Keep the API responsive under ingestion load",
+      title: "API Gateway hard timeout vs long PDF ingest",
       items: [
-        "Split async document processing from synchronous search so uploads do not stall queries",
+        "Parse, chunk, embed, and store can exceed ~29 seconds. The fix was decoupling acknowledgment from work: 202 + Event invoke, status markers in storage, and UI polling — including a processing fallback when the marker has not appeared yet.",
       ],
     },
     {
-      title: "Local vs cloud model providers",
+      title: "Production reliability under serverless cost constraints",
       items: [
-        "Abstract the LLM layer so Ollama and Bedrock can swap without rewriting the RAG core",
+        "Aurora at min capacity 0 means resume latency on cold clusters. Embedding calls needed separate retry policies for query vs ingestion. Lambda images required docker buildx flags because Lambda rejects some BuildKit OCI manifests.",
       ],
     },
     {
-      title: "Productize the same pipeline",
+      title: "Local and production vector spaces are not interchangeable",
       items: [
-        "Reuse the search API against a portfolio-only corpus and surface it as an in-site chat widget",
+        "Local embeddings are 768-dimensional (nomic-embed-text); production uses 1536 (text-embedding-3-small). Tables and bootstrap scripts take EMBEDDING_DIMENSIONS explicitly.",
+      ],
+    },
+    {
+      title: "Keeping two product surfaces from contaminating each other",
+      items: [
+        "Demo uploads and portfolio documents share infrastructure but not indexes. Collection-aware table names, S3 key prefixes, and header validation keep corpora isolated.",
       ],
     },
   ],
   futureImprovements: [
-    "Auth and multi-user document spaces",
-    "Document permissions",
-    "RAG evaluation pipelines",
-    "Hybrid search",
-    "Deeper monitoring",
+    "End-user authentication and per-user document spaces",
+    "A real evaluation harness for retrieval and answer quality",
+    "Wire or remove packages/rag-ui-shared; both frontends are currently self-contained",
+    "Decide the fate of leftover ArXiv routes on rag-core not exposed through the public gateway",
   ],
+  projectImpact:
+    "End-to-end local Compose stack, Terraform-defined AWS path (ECR, two container Lambdas, HTTP API, CloudFront, S3, Aurora pgvector, SSM, budget alert), live demo on Vercel, gateway tests with Vitest + Supertest, and a portfolio assistant that reuses the same search contract. Cloud timeouts shaped the API more than model choice; provider abstractions only paid off when local and production stayed honest about their differences.",
 };

@@ -2,57 +2,74 @@ import type { ProjectCaseStudy } from "@/types/project";
 
 export const skillTrackerCaseStudy: ProjectCaseStudy = {
   introduction: [
-    "A full-stack app for tracking skills, practice sessions, and progress over time.",
-    "React on Vercel, a Go REST API on Render, Neon PostgreSQL in production, and Docker Compose for local development.",
+    "Skill Tracker is a full-stack app for managing skills, logging practice sessions, and viewing progress over time. Users create a profile, maintain a skill list, record sessions, and see KPIs, charts, and a simple ranking on a React dashboard backed by a Go REST API and PostgreSQL.",
+    "It runs locally with Docker Compose and in production as a split deploy: React on Vercel, the Go API as a Docker service on Render, and Neon PostgreSQL.",
   ],
   overview: [
-    "Learning progress usually lives in scattered notes. Skill Tracker puts skills, session history, and metrics behind one API and dashboard.",
-    "The core design choice was a layered Go backend — HTTP → controllers → services → repositories → database — so business logic stays testable and independent of transport and persistence.",
+    "I built this for two reasons that pulled in the same direction. First, I wanted a single place for learning progress — pick a user, manage skills, log sessions, and see whether progress is actually moving.",
+    "Second, I wanted to practice a full-stack path that ends in a real multi-service cloud deploy, not only a local demo: keep a Go API, a React SPA, and Postgres working the same way on a laptop (Compose) and on free-tier friendly cloud hosts (Vercel + Render + Neon), with configuration as the only bridge.",
+    "There was no external client and no invented business requirement. The useful outcome is owning the full loop: relational model, layered backend, SPA, containers, and a split production topology.",
   ],
   architectureFlow: [
-    "User",
-    "Vercel (React)",
-    "Render (Go API)",
-    "Neon PostgreSQL",
+    "Browser",
+    "Vercel / Nginx",
+    "Go API",
+    "PostgreSQL",
   ],
   architecture: [
     {
       title: "Frontend",
-      items: ["React", "Vite", "Vercel"],
+      items: ["React 19", "Vite", "JSX", "Recharts", "Vercel"],
     },
     {
       title: "Backend",
-      items: ["Go REST API", "Docker", "Render"],
+      items: ["Go", "net/http", "Handlers → repositories", "Docker", "Render"],
     },
     {
       title: "Data",
-      items: ["Neon PostgreSQL", "Users · Skills · Sessions"],
+      items: ["PostgreSQL 16", "users · skills · sesiones_practica", "Neon"],
     },
     {
       title: "Local",
-      items: ["Docker Compose"],
+      items: ["Docker Compose", "Nginx SPA + API proxy"],
     },
   ],
   backendEngineering: {
     layers: [
-      "HTTP Layer",
-      "Controllers",
-      "Services",
+      "HTTP (net/http)",
+      "Handlers",
       "Repositories",
-      "Database",
+      "PostgreSQL",
     ],
     responsibilities: [
-      "Controllers handle HTTP",
-      "Services own business logic",
-      "Repositories abstract SQL",
-      "Models represent domain entities",
+      "Handlers validate requests and call repositories",
+      "Repositories own SQL through database/sql and lib/pq",
+      "Models are plain structs",
+      "internal/services is an empty package placeholder — business rules live in handlers and repositories today",
     ],
-    note: "Layering keeps the UI from knowing about SQL, and keeps persistence out of request handlers.",
+    note: "Creating a session inserts a row and then updates the skill’s progreso (additive, clamped 0–100) and ultima_practica. A thicker domain would justify a real services package.",
+  },
+  databaseDesign: [
+    "Three tables: users, skills, sesiones_practica, with FK indexes",
+    "Production prefers DATABASE_URL; local Compose uses DB_* with sslmode=disable",
+    "Same binary, startup retries, and a small pool (max 10 open) aimed at Neon free connection limits",
+  ],
+  frontendDevelopment: {
+    intro:
+      "React 19 + Vite SPA. Pages cover welcome, dashboard, skills, ranking, and settings.",
+    items: [
+      "Active user lives in localStorage (no HTTP auth)",
+      "Recharts powers dashboard charts",
+      "API covers users, skills, sessions, stats, ranking, and /health",
+      "Local relative URLs via Nginx/Vite proxy; production builds bake VITE_API_URL",
+    ],
   },
   engineeringHighlights: [
-    "Layered Go API with clear REST contracts between SPA and persistence",
-    "Cloud split: Vercel (frontend), Render (API), Neon (PostgreSQL)",
-    "Dockerized API for Render; Docker Compose for local multi-service parity",
+    "Handlers and repositories with net/http — no router framework stack",
+    "Split cloud deploy on free tiers: Vercel (static), Render (Docker API), Neon (Postgres)",
+    "Dual database configuration so the same binary runs in Compose and on Neon",
+    "Client-side identity for a public demo — acceptable for portfolio, not multi-tenant security",
+    "Docker multi-stage API image: static Go binary on Alpine with CA certificates for Neon TLS",
   ],
   techStack: [
     {
@@ -61,7 +78,7 @@ export const skillTrackerCaseStudy: ProjectCaseStudy = {
     },
     {
       title: "Frontend",
-      items: ["React", "Vite", "TypeScript", "Vercel"],
+      items: ["React", "Vite", "Vercel"],
     },
     {
       title: "Data & Infra",
@@ -70,30 +87,36 @@ export const skillTrackerCaseStudy: ProjectCaseStudy = {
   ],
   challengeGroups: [
     {
-      title: "Maintainable backend structure",
+      title: "TLS from Alpine to Neon",
       items: [
-        "Layered architecture so controllers, business rules, and SQL do not collapse into one place",
+        "An early production image could open a socket but fail certificate verification against managed Postgres. Adding ca-certificates to the final Alpine stage fixed it. Compose never hit this (sslmode=disable on the internal network).",
       ],
     },
     {
-      title: "Split frontend / backend deploy",
+      title: "CORS after the split",
       items: [
-        "SPA on Vercel and API on Render, coupled only through REST",
+        "Different SPA and API hosts mean browsers enforce origins. CORS_ALLOW_ORIGIN is env-driven (default * locally; exact Vercel origin in production). OPTIONS is handled in middleware before handlers.",
       ],
     },
     {
-      title: "Local vs cloud parity",
+      title: "Local vs cloud API wiring",
       items: [
-        "Compose locally; Dockerized API + managed Postgres in production",
+        "Locally, relative URLs work through a proxy. In production an empty VITE_API_URL sends calls to the Vercel origin, which only serves the SPA. Build-time env and deploy order (Neon → Render → Vercel) are part of making that reliable.",
+      ],
+    },
+    {
+      title: "Free-tier constraints",
+      items: [
+        "Render can sleep (slow first request). Neon free limits concurrent connections, so the pool stays small. Not app bugs, but they shape how the live demo feels.",
       ],
     },
   ],
   futureImprovements: [
-    "Authentication and authorization",
-    "Learning goals and milestones",
-    "Richer practice analytics",
-    "CI/CD pipeline",
+    "Real authentication and authorization (replace localStorage identity)",
+    "A transactional create-session + update-progress path",
+    "CI for Go build/tests and frontend build",
+    "Introduce a services layer only when domain rules outgrow handlers",
   ],
   projectImpact:
-    "Shows full-stack ownership: layered API design, relational modeling, and a practical multi-service cloud deploy.",
+    "Working end-to-end product with a reproducible Compose stack and a public demo under free-tier constraints. A “simple” full-stack app gets hard at the boundaries: TLS trust stores, CORS origins, and build-time vs runtime config.",
 };
