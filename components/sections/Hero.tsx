@@ -59,13 +59,13 @@ export function Hero() {
           >
             {/* Left: role label + tagline + focus */}
             <div className="max-w-xl">
-              <p className="font-mono text-[11px] tracking-[0.18em] text-zinc-600 uppercase">
+              <p className="font-mono text-[11px] tracking-[0.18em] text-zinc-300 uppercase">
                 {t("hero.role")}
               </p>
               <p className="mt-5 text-base leading-relaxed text-zinc-400">
                 {t("hero.tagline")}
               </p>
-              <p className="mt-3 text-sm leading-relaxed text-zinc-600">
+              <p className="mt-3 text-sm leading-relaxed text-zinc-500">
                 {t("hero.focus")}
               </p>
             </div>

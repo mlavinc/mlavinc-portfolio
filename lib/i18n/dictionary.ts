@@ -14,12 +14,12 @@ export const uiDictionary = {
       es: "Ingeniero Full-Stack | Cloud e IA",
     },
     tagline: {
-      en: "Engineering cloud-native systems, AI applications and scalable software solutions.",
-      es: "Desarrollando sistemas cloud-native, aplicaciones impulsadas por inteligencia artificial y soluciones de software escalables.",
+      en: "Designing and building scalable systems across software, cloud, and AI.",
+      es: "Diseñando y construyendo sistemas escalables en software, cloud e IA.",
     },
     focus: {
-      en: "Focused on cloud engineering, AWS architecture, AI-powered applications, backend development, and Infrastructure as Code, with full-stack delivery when the product requires it.",
-      es: "Enfocado en ingeniería cloud, arquitectura en AWS, aplicaciones potenciadas por IA, desarrollo backend e Infraestructura como Código (IaC), complementando con desarrollo full-stack cuando el producto lo requiere.",
+      en: "Focused on backend and full-stack development, cloud engineering, systems and solutions architecture, and Infrastructure as Code.",
+      es: "Enfocado en desarrollo backend y full-stack, ingeniería cloud, arquitectura de sistemas y soluciones, e Infraestructura como Código.",
     },
     viewProjects: { en: "View Projects", es: "Ver Proyectos" },
     downloadCv: { en: "Download CV", es: "Descargar CV" },
