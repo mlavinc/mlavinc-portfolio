@@ -6,7 +6,12 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ededed;
-  --section-muted: rgb(255 255 255 / 0.015);
+  --section-muted: rgb(255 255 255 / 0.012);
+
+  /* Motion easing — use these in JS (motion.ts) and CSS */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
   color-scheme: dark;
 }
 
@@ -25,6 +30,13 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Keyboard focus ring — consistent, accessible, design-appropriate */
+:focus-visible {
+  outline: 1.5px solid rgb(255 255 255 / 0.45);
+  outline-offset: 3px;
+  border-radius: 3px;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -62,7 +74,7 @@ body {
   background: linear-gradient(
     90deg,
     transparent,
-    rgb(255 255 255 / 0.06),
+    rgb(255 255 255 / 0.05),
     transparent
   );
   pointer-events: none;
@@ -74,7 +86,7 @@ body {
   inset: -8%;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.08;
+  opacity: 0.11;
 }
 
 .hero-constellation__svg {

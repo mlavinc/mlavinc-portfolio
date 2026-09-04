@@ -36,7 +36,7 @@ const experienceEntries: LocalizedExperience[] = [
       "Python",
       "Microsoft 365",
     ],
-    image: "/experience/nestle/nestle-it-icon.png",
+    image: "/experience/nestle/nestle-thumb.png",
     caseStudyUrl: "/experience/nestle",
     caseStudy: nestleCaseStudy,
   },

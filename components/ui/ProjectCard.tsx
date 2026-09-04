@@ -2,18 +2,21 @@
 
 import Link from "next/link";
 import { TechBadgeList } from "@/components/ui/TechBadge";
+import { ProjectVisual } from "@/components/ui/ProjectVisual";
 import { useLocale } from "@/lib/i18n/locale-context";
 import type { Project } from "@/types/project";
 
 interface ProjectCardProps {
   project: Project;
+  /** 1-based index — displayed as editorial chapter number e.g. "01" */
+  index?: number;
 }
 
 function GitHubIcon() {
   return (
     <svg
-      width="14"
-      height="14"
+      width="13"
+      height="13"
       viewBox="0 0 16 16"
       fill="currentColor"
       aria-hidden="true"
@@ -24,79 +27,114 @@ function GitHubIcon() {
   );
 }
 
-export function ProjectCard({ project }: ProjectCardProps) {
+function ExternalLinkIcon() {
+  return (
+    <svg
+      width="10"
+      height="10"
+      viewBox="0 0 12 12"
+      fill="none"
+      aria-hidden="true"
+      className="shrink-0"
+    >
+      <path
+        d="M3.5 3h5v5M8.5 3l-5 5"
+        stroke="currentColor"
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function ProjectCard({ project, index }: ProjectCardProps) {
   const { t } = useLocale();
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-lg border border-zinc-800 bg-zinc-950/80 shadow-[0_1px_0_rgb(255_255_255_/_0.03)] transition-[border-color,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-zinc-700 hover:shadow-[0_12px_30px_rgb(0_0_0_/_0.25)]">
-      {project.image ? (
-        <div className="aspect-video w-full overflow-hidden bg-zinc-900">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={project.image}
-            alt={`${project.title} preview`}
-            className="h-full w-full object-cover object-top transition-transform duration-300 hover:scale-[1.02]"
-          />
-        </div>
-      ) : (
-        <div className="aspect-video w-full bg-zinc-900" aria-hidden="true" />
-      )}
+    <article className="group/card flex h-full flex-col overflow-hidden rounded-xl border border-zinc-800 bg-zinc-950/80 transition-[transform,border-color,box-shadow] duration-200 hover:-translate-y-0.5 hover:border-zinc-700 hover:shadow-[0_12px_32px_rgb(0_0_0_/_0.3)]">
+      {/* Architecture visual — unique per project */}
+      <ProjectVisual projectId={project.id} />
 
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="text-lg font-semibold tracking-tight text-zinc-50">
+      {/* Content */}
+      <div className="flex flex-1 flex-col px-6 pb-6 pt-5">
+        {/* Metadata row */}
+        <div className="flex items-center gap-3">
+          {index !== undefined && (
+            <span className="font-mono text-[11px] tabular-nums text-zinc-700">
+              {String(index).padStart(2, "0")}
+            </span>
+          )}
+          {project.status === "completed" && (
+            <span className="rounded-full border border-zinc-800/70 px-2 py-0.5 font-mono text-[9px] tracking-wide text-zinc-700">
+              completed
+            </span>
+          )}
+        </div>
+
+        {/* Title */}
+        <h3 className="mt-4 text-lg font-semibold leading-snug tracking-tight text-zinc-50">
           {project.title}
         </h3>
 
+        {/* Subtitle */}
         {project.subtitle ? (
-          <p className="mt-1 text-sm font-medium text-zinc-400">
+          <p className="mt-1 font-mono text-[11px] tracking-wide text-zinc-600">
             {project.subtitle}
           </p>
         ) : null}
 
+        {/* Description */}
         <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-500">
           {project.description}
         </p>
 
+        {/* Tech badges */}
         <TechBadgeList
           items={project.technologies}
           ariaLabel={t("caseStudy.technologies")}
           className="mt-4 flex flex-wrap gap-2"
         />
 
-        <div className="mt-auto flex flex-wrap gap-2 pt-6">
+        {/* Actions */}
+        <div className="mt-auto flex flex-wrap gap-2 pt-5">
+          {/* Case Study — primary action */}
+          {project.caseStudyUrl ? (
+            <Link
+              href={project.caseStudyUrl}
+              className="inline-flex h-9 items-center justify-center rounded-md bg-zinc-50 px-4 text-sm font-medium text-zinc-950 transition-[transform,background-color] duration-150 hover:bg-white active:scale-[0.97]"
+            >
+              {t("projects.caseStudy")}
+            </Link>
+          ) : (
+            <span className="inline-flex h-9 cursor-not-allowed items-center justify-center rounded-md border border-zinc-800/50 px-4 text-sm font-medium text-zinc-700">
+              {t("projects.caseStudy")}
+            </span>
+          )}
+
+          {/* GitHub — secondary */}
           {project.githubUrl ? (
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-md border border-zinc-800 bg-black px-3.5 text-sm font-medium text-white transition-colors duration-200 hover:bg-zinc-900"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-md border border-zinc-800 px-4 text-sm font-medium text-zinc-400 transition-[transform,background-color,border-color,color] duration-150 hover:border-zinc-700 hover:text-zinc-100 active:scale-[0.97]"
             >
               <GitHubIcon />
               {t("projects.github")}
             </a>
           ) : null}
 
-          {project.caseStudyUrl ? (
-            <Link
-              href={project.caseStudyUrl}
-              className="inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-200"
-            >
-              {t("projects.caseStudy")}
-            </Link>
-          ) : (
-            <span className="inline-flex h-9 cursor-not-allowed items-center justify-center rounded-md border border-zinc-800 px-3.5 text-sm font-medium text-zinc-600">
-              {t("projects.caseStudy")}
-            </span>
-          )}
-
+          {/* Live Demo — tertiary */}
           {project.liveUrl ? (
             <a
               href={project.liveUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex h-9 items-center justify-center rounded-md border border-zinc-200 bg-white px-3.5 text-sm font-medium text-zinc-950 transition-colors duration-200 hover:bg-zinc-200"
+              className="inline-flex h-9 items-center justify-center gap-1.5 rounded-md border border-zinc-800 px-4 text-sm font-medium text-zinc-400 transition-[transform,background-color,border-color,color] duration-150 hover:border-zinc-700 hover:text-zinc-100 active:scale-[0.97]"
             >
               {t("projects.liveDemo")}
+              <ExternalLinkIcon />
             </a>
           ) : null}
         </div>

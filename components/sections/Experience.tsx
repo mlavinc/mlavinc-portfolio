@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useReducedMotion } from "framer-motion";
-import { ExperienceCard } from "@/components/ui/ExperienceCard";
+import { ExperienceFeatured } from "@/components/ui/ExperienceFeatured";
 import { getExperience } from "@/data/experience";
 import { useLocale } from "@/lib/i18n/locale-context";
 import {
@@ -20,37 +20,46 @@ export function Experience() {
     <section
       id="experience-section"
       aria-labelledby="experience"
-      className="section-band section-band--muted scroll-mt-24 py-24 sm:py-28"
+      className="section-band scroll-mt-24 py-28 sm:py-32"
     >
       <div className="mx-auto w-full max-w-5xl px-6">
-        <motion.h2
-          id="experience"
-          className="scroll-mt-28 text-2xl font-semibold tracking-tight text-zinc-50 sm:text-3xl"
-          variants={fadeUpVariants}
-          initial={prefersReducedMotion ? false : "hidden"}
-          whileInView="visible"
-          viewport={viewportReveal}
-          transition={fadeUpTransition}
-        >
-          {t("experience.title")}
-        </motion.h2>
-
         <motion.div
-          className="mt-10 grid grid-cols-1 gap-6 md:max-w-xl md:gap-8"
           variants={staggerContainerVariants}
           initial={prefersReducedMotion ? false : "hidden"}
           whileInView="visible"
           viewport={viewportReveal}
         >
-          {items.map((item) => (
-            <motion.div
-              key={item.id}
-              variants={fadeUpVariants}
-              transition={fadeUpTransition}
-            >
-              <ExperienceCard experience={item} />
-            </motion.div>
-          ))}
+          <motion.h2
+            id="experience"
+            className="scroll-mt-28 text-3xl font-bold tracking-tight text-zinc-50 sm:text-4xl"
+            variants={fadeUpVariants}
+            transition={fadeUpTransition}
+          >
+            {t("experience.title")}
+          </motion.h2>
+
+          {/* Thin rule under heading */}
+          <motion.div
+            className="mt-5 h-px bg-zinc-800"
+            variants={fadeUpVariants}
+            transition={fadeUpTransition}
+          />
+
+          {/* ── Featured experience cards ──────────────────────── */}
+          <div className="mt-10 flex flex-col gap-6">
+            {items.map((item, idx) => (
+              <motion.div
+                key={item.id}
+                variants={fadeUpVariants}
+                transition={fadeUpTransition}
+              >
+                <ExperienceFeatured
+                  experience={item}
+                  imageRight={idx % 2 === 0}
+                />
+              </motion.div>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

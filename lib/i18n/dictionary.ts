@@ -24,10 +24,12 @@ export const uiDictionary = {
     viewProjects: { en: "View Projects", es: "Ver Proyectos" },
     downloadCv: { en: "Download CV", es: "Descargar CV" },
     linkedIn: { en: "LinkedIn", es: "LinkedIn" },
+    github: { en: "GitHub", es: "GitHub" },
   },
   experience: {
     title: { en: "Professional Experience", es: "Experiencia Profesional" },
     caseStudy: { en: "Case Study", es: "Caso de Estudio" },
+    viewExperience: { en: "View Experience", es: "Ver Experiencia" },
   },
   about: {
     title: { en: "About", es: "Sobre mí" },

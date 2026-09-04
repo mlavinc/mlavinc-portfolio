@@ -27,7 +27,7 @@ export function TechBadge({ name, size = "default" }: TechBadgeProps) {
           className={emphasized ? "h-[17px] w-[17px]" : "h-3.5 w-3.5"}
         />
       ) : null}
-      <span>{name}</span>
+      <span className="font-mono">{name}</span>
     </li>
   );
 }
