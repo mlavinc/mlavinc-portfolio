@@ -74,7 +74,11 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
 
       <div className="mt-8">
         {project.liveUrl ? (
-          <LiveDemoEmbed url={project.liveUrl} title={project.title} />
+          <LiveDemoEmbed
+            url={project.liveUrl}
+            title={project.title}
+            warmupOnVisible={project.id === "document-knowledge-agent"}
+          />
         ) : project.image ? (
           <div
             className={

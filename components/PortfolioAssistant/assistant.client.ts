@@ -28,6 +28,21 @@ function getGatewayUrl(): string {
   return (fromEnv || DEFAULT_GATEWAY).replace(/\/$/, "");
 }
 
+let warmupStarted = false;
+
+export function warmupDagApi(): void {
+  if (warmupStarted) {
+    return;
+  }
+
+  warmupStarted = true;
+  void fetch(`${getGatewayUrl()}/api/warmup`, {
+    method: "POST",
+  }).catch(() => {
+    // Warmup is best-effort and must not affect the portfolio.
+  });
+}
+
 export async function askPortfolioAssistant(
   question: string,
 ): Promise<SearchResponseBody> {

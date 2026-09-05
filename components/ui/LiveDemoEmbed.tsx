@@ -1,11 +1,13 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { warmupDagApi } from "@/components/PortfolioAssistant/assistant.client";
 import { DemoColdStartNotice } from "@/components/ui/DemoColdStartNotice";
 
 interface LiveDemoEmbedProps {
   url: string;
   title: string;
+  warmupOnVisible?: boolean;
 }
 
 function isFramingBlocked(headers: Headers): boolean {
@@ -47,8 +49,30 @@ function isFramingBlocked(headers: Headers): boolean {
   return true;
 }
 
-export function LiveDemoEmbed({ url, title }: LiveDemoEmbedProps) {
+export function LiveDemoEmbed({
+  url,
+  title,
+  warmupOnVisible = false,
+}: LiveDemoEmbedProps) {
   const [blocked, setBlocked] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!warmupOnVisible || !container || !("IntersectionObserver" in window)) {
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) {
+        observer.disconnect();
+        warmupDagApi();
+      }
+    });
+
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, [warmupOnVisible]);
 
   useEffect(() => {
     let cancelled = false;
@@ -79,7 +103,7 @@ export function LiveDemoEmbed({ url, title }: LiveDemoEmbedProps) {
     "relative h-[min(80vh,52rem)] min-h-[40rem] w-full overflow-hidden rounded-lg border border-dashed border-zinc-300 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50";
 
   return (
-    <div>
+    <div ref={containerRef}>
       <DemoColdStartNotice />
       {blocked ? (
         <div className={containerClassName}>
