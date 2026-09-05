@@ -18,7 +18,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Martin Lavin Carvajal | Cloud, AI & Software Engineer",
+  title: "Martin Lavin | Cloud & Software Engineer",
   description:
     "Portfolio of Martin Lavin Carvajal: Computer Engineering student specializing in cloud engineering, AWS architecture, AI-powered applications, backend development, and Infrastructure as Code.",
   icons: {
