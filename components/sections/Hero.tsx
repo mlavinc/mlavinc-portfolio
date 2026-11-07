@@ -62,6 +62,13 @@ export function Hero() {
               <p className="font-mono text-[11px] tracking-[0.18em] text-zinc-300 uppercase">
                 {t("hero.role")}
               </p>
+              <div className="mt-4 inline-flex items-center gap-2 rounded-full border border-amber-500/30 bg-amber-500/[0.08] px-3 py-1.5 text-xs font-medium text-amber-100">
+                <span
+                  className="h-1.5 w-1.5 rounded-full bg-amber-400"
+                  aria-hidden="true"
+                />
+                {t("hero.certification")}
+              </div>
               <p className="mt-5 text-base leading-relaxed text-zinc-400">
                 {t("hero.tagline")}
               </p>

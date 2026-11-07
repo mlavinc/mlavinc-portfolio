@@ -131,7 +131,6 @@ export const ecgAiServerlessCaseStudyEs: ProjectCaseStudy = {
   futureImprovements: [
     "Reentrenar con ECG_DB/ presente para que /metrics sirva scores por clase y matriz de confusión",
     "Añadir CI para builds del paquete Lambda y chequeos de terraform plan",
-    "Actualizar el copy de arquitectura del frontend que todavía describe CloudFront + S3",
   ],
   projectImpact:
     "Camino operativo browser → Vercel → Lambda → modelo; paquete Lambda ~183 MB / ~57 MB; deploy/destroy del backend AWS en un comando. Empaquetar ML en serverless es, en buena parte, economía de dependencias: lo que importas decide si el deploy por ZIP es viable.",

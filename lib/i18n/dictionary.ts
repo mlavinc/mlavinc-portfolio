@@ -10,8 +10,12 @@ export const uiDictionary = {
   },
   hero: {
     role: {
-      en: "Full-Stack Engineer | Cloud & AI",
-      es: "Ingeniero Full-Stack | Cloud e IA",
+      en: "Software & Cloud Engineering",
+      es: "Software & Cloud Engineering",
+    },
+    certification: {
+      en: "AWS Certified Solutions Architect – Associate",
+      es: "AWS Certified Solutions Architect – Associate",
     },
     tagline: {
       en: "Designing and building scalable systems across software, cloud, and AI.",
@@ -34,8 +38,8 @@ export const uiDictionary = {
   about: {
     title: { en: "About", es: "Sobre mí" },
     intro: {
-      en: "I'm a Computer Engineering student focused on building full-stack applications, cloud solutions, and AI-powered systems. I enjoy designing scalable backends, exploring cloud architectures, and turning ideas into functional products.",
-      es: "Soy estudiante de Ingeniería Civil en Computación e Informática, con interés en el desarrollo de aplicaciones full-stack, soluciones cloud y sistemas impulsados por inteligencia artificial. Disfruto diseñando backends escalables, explorando arquitecturas cloud y transformando ideas en productos funcionales.",
+      en: "I'm a Computer Engineering student and AWS Certified Solutions Architect – Associate focused on building full-stack applications, cloud solutions, and AI-powered systems. I enjoy designing scalable backends, exploring cloud architectures, and turning ideas into functional products.",
+      es: "Soy estudiante de Ingeniería Civil en Computación e Informática y AWS Certified Solutions Architect – Associate, con interés en el desarrollo de aplicaciones full-stack, soluciones cloud y sistemas impulsados por inteligencia artificial. Disfruto diseñando backends escalables, explorando arquitecturas cloud y transformando ideas en productos funcionales.",
     },
   },
   projects: {

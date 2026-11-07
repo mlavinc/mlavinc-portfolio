@@ -56,7 +56,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-800/80 bg-zinc-950/90 backdrop-blur-sm">
       <nav
-        aria-label="Main navigation"
+        aria-label={locale === "es" ? "Navegación principal" : "Main navigation"}
         className="mx-auto flex w-full max-w-5xl items-center justify-between gap-4 px-6 py-4"
       >
         {/* Logo */}
@@ -111,7 +111,11 @@ export function Navbar() {
             className="inline-flex h-9 w-9 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-[background-color,border-color,color] duration-200 hover:border-zinc-700 hover:text-zinc-50 active:scale-[0.97]"
             aria-expanded={isOpen}
             aria-controls="mobile-nav"
-            aria-label={isOpen ? "Close menu" : "Open menu"}
+            aria-label={
+              isOpen
+                ? locale === "es" ? "Cerrar menú" : "Close menu"
+                : locale === "es" ? "Abrir menú" : "Open menu"
+            }
             onClick={() => setIsOpen((open) => !open)}
           >
             {isOpen ? (

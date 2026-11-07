@@ -109,8 +109,8 @@ const localizedProjects: LocalizedProject[] = [
       es: "Plataforma Serverless para Análisis de ECG con Machine Learning",
     },
     description: {
-      en: "End-to-end ECG classification (~75.5% balanced accuracy) with serverless inference on AWS Lambda, API Gateway, and Terraform: from signal processing to deployable ML software.",
-      es: "Clasificación de señales ECG de extremo a extremo (~75,5 % de balanced accuracy) mediante inferencia serverless en AWS Lambda, API Gateway y Terraform, abarcando desde el procesamiento de señales hasta el despliegue de un modelo de Machine Learning en producción.",
+      en: "End-to-end ECG classification (75.6% balanced accuracy) with serverless inference through an AWS Lambda Function URL and Terraform: from signal processing to deployable ML software.",
+      es: "Clasificación de señales ECG de extremo a extremo (75,6 % de balanced accuracy) mediante una AWS Lambda Function URL y Terraform, desde el procesamiento de señales hasta software de Machine Learning desplegable.",
     },
     technologies: [
       "Python",
