@@ -46,14 +46,28 @@ export function warmupDagApi(): void {
 export async function askPortfolioAssistant(
   question: string,
 ): Promise<SearchResponseBody> {
-  const response = await fetch(`${getGatewayUrl()}/api/search`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "X-RAG-Collection": "portfolio",
-    },
-    body: JSON.stringify({ question }),
-  });
+  const controller = new AbortController();
+  const timeout = window.setTimeout(() => controller.abort(), 90_000);
+  let response: Response;
+
+  try {
+    response = await fetch(`${getGatewayUrl()}/api/search`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-RAG-Collection": "portfolio",
+      },
+      body: JSON.stringify({ question }),
+      signal: controller.signal,
+    });
+  } catch (error) {
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error("The assistant took too long to respond. Please try again.");
+    }
+    throw error;
+  } finally {
+    window.clearTimeout(timeout);
+  }
 
   if (!response.ok) {
     let message = "The assistant is unavailable right now.";

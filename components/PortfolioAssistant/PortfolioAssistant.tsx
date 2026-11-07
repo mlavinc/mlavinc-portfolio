@@ -2,27 +2,42 @@
 
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useCallback, useState } from "react";
+import { useLocale } from "@/lib/i18n/locale-context";
+import type { Locale } from "@/types/i18n";
 import {
   askPortfolioAssistant,
   createMessageId,
+  warmupDagApi,
   type ChatMessageData,
 } from "./assistant.client";
 import { ChatWindow } from "./ChatWindow";
 
-const WELCOME_MESSAGE: ChatMessageData = {
-  id: "welcome",
-  role: "assistant",
-  content:
-    "Hi! I'm Martín's portfolio assistant. Ask me anything about my experience, projects, and technical skills.",
-  createdAt: new Date(0).toISOString(),
-};
+function createWelcomeMessage(locale: Locale): ChatMessageData {
+  return {
+    id: "welcome",
+    role: "assistant",
+    content:
+      locale === "es"
+        ? "¡Hola! Soy el asistente del portafolio de Martín. Pregúntame sobre su experiencia, proyectos y habilidades técnicas."
+        : "Hi! I'm Martín's portfolio assistant. Ask me anything about his experience, projects, and technical skills.",
+    createdAt: new Date(0).toISOString(),
+  };
+}
 
 export function PortfolioAssistant() {
+  const { locale } = useLocale();
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<ChatMessageData[]>([WELCOME_MESSAGE]);
+  const [messages, setMessages] = useState<ChatMessageData[]>(() => [
+    createWelcomeMessage(locale),
+  ]);
   const [isAsking, setIsAsking] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const prefersReducedMotion = useReducedMotion();
+
+  const displayMessages =
+    messages.length === 1 && messages[0]?.id === "welcome"
+      ? [createWelcomeMessage(locale)]
+      : messages;
 
   const sendQuestion = useCallback(async (question: string) => {
     const trimmed = question.trim();
@@ -37,7 +52,12 @@ export function PortfolioAssistant() {
       createdAt: new Date().toISOString(),
     };
 
-    setMessages((previous) => [...previous, userMessage]);
+    setMessages((previous) => [
+      ...(previous.length === 1 && previous[0]?.id === "welcome"
+        ? [createWelcomeMessage(locale)]
+        : previous),
+      userMessage,
+    ]);
     setIsAsking(true);
     setError(null);
 
@@ -55,12 +75,14 @@ export function PortfolioAssistant() {
       const message =
         askError instanceof Error
           ? askError.message
-          : "The assistant is unavailable right now.";
+          : locale === "es"
+            ? "El asistente no está disponible en este momento."
+            : "The assistant is unavailable right now.";
       setError(message);
     } finally {
       setIsAsking(false);
     }
-  }, []);
+  }, [locale]);
 
   return (
     <div className="pointer-events-none fixed inset-x-0 bottom-0 z-[60] flex justify-end p-4 sm:p-5">
@@ -89,7 +111,7 @@ export function PortfolioAssistant() {
               transition={{ duration: 0.22, ease: [0.25, 0.1, 0.25, 1] }}
             >
               <ChatWindow
-                messages={messages}
+                messages={displayMessages}
                 isAsking={isAsking}
                 error={error}
                 onAsk={sendQuestion}
@@ -101,7 +123,15 @@ export function PortfolioAssistant() {
 
         <button
           type="button"
-          onClick={() => setIsOpen((open) => !open)}
+          onClick={() => {
+            setIsOpen((open) => {
+              const nextOpen = !open;
+              if (nextOpen) {
+                warmupDagApi();
+              }
+              return nextOpen;
+            });
+          }}
           aria-expanded={isOpen}
           aria-controls="portfolio-assistant-panel"
           aria-label={isOpen ? "Close portfolio assistant" : "Open portfolio assistant"}

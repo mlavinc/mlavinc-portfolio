@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { useLocale } from "@/lib/i18n/locale-context";
 import type { ChatMessageData } from "./assistant.client";
 import { ChatMessage } from "./ChatMessage";
 
@@ -28,6 +29,26 @@ export function ChatWindow({
   onAsk,
   onClose,
 }: ChatWindowProps) {
+  const { locale } = useLocale();
+  const copy = locale === "es"
+    ? {
+        title: "Asistente del portafolio",
+        subtitle: "Pregunta sobre el trabajo de Martín",
+        close: "Cerrar chat",
+        question: "Tu pregunta",
+        placeholder: "Escribe una pregunta...",
+        send: "Enviar",
+        typing: "El asistente está escribiendo",
+      }
+    : {
+        title: "Portfolio Assistant",
+        subtitle: "Ask about Martín's work",
+        close: "Close chat",
+        question: "Your question",
+        placeholder: "Ask a question...",
+        send: "Send",
+        typing: "Assistant is typing",
+      };
   const [input, setInput] = useState("");
   const scrollAnchorRef = useRef<HTMLDivElement>(null);
   const hasUserMessages = messages.some((message) => message.role === "user");
@@ -51,15 +72,15 @@ export function ChatWindow({
       <header className="flex shrink-0 items-center justify-between border-b border-zinc-800 px-4 py-3">
         <div>
           <p className="text-sm font-semibold tracking-tight text-zinc-50">
-            Portfolio Assistant
+            {copy.title}
           </p>
-          <p className="text-xs text-zinc-500">Ask about Martín&apos;s work</p>
+          <p className="text-xs text-zinc-500">{copy.subtitle}</p>
         </div>
         <button
           type="button"
           onClick={onClose}
           className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-zinc-800 text-zinc-400 transition-colors duration-200 hover:bg-zinc-900 hover:text-zinc-50"
-          aria-label="Close chat"
+          aria-label={copy.close}
         >
           <svg
             width="14"
@@ -112,7 +133,7 @@ export function ChatWindow({
                 className="h-1.5 w-1.5 animate-pulse rounded-full bg-zinc-400"
                 style={{ animationDelay: "0.3s" }}
               />
-              <span className="sr-only">Assistant is typing</span>
+              <span className="sr-only">{copy.typing}</span>
             </div>
           </div>
         )}
@@ -134,14 +155,14 @@ export function ChatWindow({
         className="flex shrink-0 gap-2 border-t border-zinc-800 p-3"
       >
         <label className="sr-only" htmlFor="portfolio-assistant-question">
-          Your question
+          {copy.question}
         </label>
         <input
           id="portfolio-assistant-question"
           type="text"
           value={input}
           onChange={(event) => setInput(event.target.value)}
-          placeholder="Ask a question..."
+          placeholder={copy.placeholder}
           autoComplete="off"
           disabled={isAsking}
           className="min-w-0 flex-1 rounded-xl border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-sm text-zinc-50 outline-none placeholder:text-zinc-600 focus:border-zinc-500 disabled:opacity-60"
@@ -151,7 +172,7 @@ export function ChatWindow({
           disabled={isAsking || !input.trim()}
           className="shrink-0 rounded-xl bg-zinc-100 px-4 py-2.5 text-sm font-semibold text-zinc-950 transition-colors duration-200 hover:bg-white disabled:cursor-not-allowed disabled:bg-zinc-800 disabled:text-zinc-500"
         >
-          Send
+          {copy.send}
         </button>
       </form>
     </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { TechBadgeList } from "@/components/ui/TechBadge";
 import { useLocale } from "@/lib/i18n/locale-context";
@@ -133,13 +134,14 @@ export function ProjectFeatured({
   );
 
   const imageBlock = (
-    <div className="relative aspect-video overflow-hidden bg-zinc-900/40 lg:aspect-auto lg:h-full">
+    <div className="relative aspect-video overflow-hidden bg-zinc-950 lg:aspect-auto lg:h-full">
       {project.image ? (
-        // eslint-disable-next-line @next/next/no-img-element
-        <img
+        <Image
           src={project.image}
           alt=""
-          className="absolute inset-0 h-full w-full object-cover object-center opacity-80 transition-opacity duration-500 group-hover/featured:opacity-95"
+          fill
+          sizes="(max-width: 1024px) 100vw, 52vw"
+          className="object-contain object-center opacity-90 transition-opacity duration-500 group-hover/featured:opacity-100"
         />
       ) : null}
     </div>
