@@ -15,6 +15,10 @@ const githubUrl = "https://github.com/mlavinc";
 export function Hero() {
   const prefersReducedMotion = useReducedMotion();
   const { locale, t } = useLocale();
+  const cvFilename =
+    locale === "es"
+      ? "CV Martin Lavin ES.pdf"
+      : "CV Martin Lavin EN.pdf";
   const cvHref =
     locale === "es"
       ? "/cv/martin-lavin-cv-es.pdf"
@@ -87,7 +91,7 @@ export function Hero() {
               </a>
               <a
                 href={cvHref}
-                download
+                download={cvFilename}
                 className="inline-flex h-10 items-center justify-center rounded-md border border-zinc-800 px-5 text-sm font-medium text-zinc-100 transition-[transform,background-color,border-color] duration-150 hover:border-zinc-700 hover:bg-zinc-900/50 active:scale-[0.97]"
               >
                 {t("hero.downloadCv")}
