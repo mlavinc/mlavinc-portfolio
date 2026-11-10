@@ -21,8 +21,8 @@ export function Hero() {
       : "CV Martin Lavin EN.pdf";
   const cvHref =
     locale === "es"
-      ? "/cv/martin-lavin-cv-es.pdf"
-      : "/cv/martin-lavin-cv-en.pdf";
+      ? "/cv/CV%20Martin%20Lavin%20ES.pdf"
+      : "/cv/CV%20Martin%20Lavin%20EN.pdf";
 
   return (
     <section
